@@ -1,20 +1,21 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import {logout, reset} from '../../features/auth/authSlice'
+  
 import Logo from "../../assets/logoipsum-258.svg";
 import missingImg from "../../assets/missing-profile.png";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import SportsGymnasticsIcon from "@mui/icons-material/SportsGymnastics";
 import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from '@mui/icons-material/Search';
-import TodayIcon from '@mui/icons-material/Today';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import LogoutIcon from '@mui/icons-material/Logout';
-import TimelineIcon from '@mui/icons-material/Timeline';
+import SearchIcon from "@mui/icons-material/Search";
+import TodayIcon from "@mui/icons-material/Today";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import LogoutIcon from "@mui/icons-material/Logout";
+import TimelineIcon from "@mui/icons-material/Timeline";
 
 // TODO: Add a logo to the navbar
-// TODO: unfold workouts tab
-// TODO: unfold Profile tab (view profile, logout, edit profile, track progress)
 
 const Navbar = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -29,10 +30,14 @@ const Navbar = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  const iconClickHandler = (e) => {
-    e.stopPropagation();
-    console.log("icon clicked");
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+const logoutHandler = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/login");
+}
 
   const toggleMenu = () => {
     setIsClicked(!isClicked);
@@ -98,17 +103,17 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link to="/profile/edit" className="">
-                    <ManageAccountsIcon />  Update Profile
+                      <ManageAccountsIcon /> Update Profile
                     </Link>
                   </li>
                   <li>
                     <Link to="/track" className="">
-                     <TimelineIcon /> Weight tracker
+                      <TimelineIcon /> Weight tracker
                     </Link>
                   </li>
                   <li>
-                    <Link to="/login" className="">
-                     <LogoutIcon /> Logout
+                    <Link to={'/'} className="" onClick={logoutHandler}>
+                      <LogoutIcon /> Logout
                     </Link>
                   </li>
                 </ul>
@@ -146,7 +151,7 @@ const Navbar = () => {
                 <ul onClick={toggleWorkoutsDropdown} className="dropdown-items">
                   <li>
                     <Link to="/workouts" className="">
-                     < SearchIcon  /> Browse
+                      <SearchIcon /> Browse
                     </Link>
                   </li>
                   <li>
@@ -156,7 +161,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link to="/workouts/today" className="">
-                     <TodayIcon /> Today's
+                      <TodayIcon /> Today's
                     </Link>
                   </li>
                 </ul>
