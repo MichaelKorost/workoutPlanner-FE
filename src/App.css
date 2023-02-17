@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 .app {
   margin: 64px 0 0;
 }
