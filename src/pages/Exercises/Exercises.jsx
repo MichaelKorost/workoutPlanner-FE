@@ -58,18 +58,19 @@ function Exercises() {
 
   useEffect(() => {
     dispatch(getFilteredExercises(searchFilters));
-  }, [dispatch,searchFilters]);
-
+  }, [dispatch, searchFilters]);
 
   const handleCheckboxChange = (e) => {
     const { name, value, checked } = e.target;
-    const selectedFilters = {...searchFilters}
-    if(checked) {
-        selectedFilters[name].push(value)
-    }else {
-        selectedFilters[name] = selectedFilters[name].filter((val) => val !== value)
+    const selectedFilters = { ...searchFilters };
+    if (checked) {
+      selectedFilters[name].push(value);
+    } else {
+      selectedFilters[name] = selectedFilters[name].filter(
+        (val) => val !== value
+      );
     }
-    setSearchFilters(selectedFilters)
+    setSearchFilters(selectedFilters);
   };
 
   const handleMuscleGroupClick = () => {
@@ -81,7 +82,6 @@ function Exercises() {
   const handleDiffClick = () => {
     setOpenDiff(!openDiff);
   };
-
 
   const exerciseClickHandler = (id) => {
     console.log(`card with id of ${id}`);
@@ -135,7 +135,7 @@ function Exercises() {
             }
           >
             <ListItemButton onClick={handleMuscleGroupClick}>
-              <ListItemText primary="Muscle Group" />
+              <ListItemText primary="Muscle Group" secondary={searchFilters.group?.length ? searchFilters.group?.length + " selected" : "none selected" } />
               {openMuscleGroup ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -161,7 +161,7 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
+                          name="group"
                           value={"traps"}
                           //   checked={isChecked}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -178,8 +178,8 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"shoulders"}
+                          name="group"
+                          value={"shoulders"}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
                           onChange={(e) => {
                             handleCheckboxChange(e);
@@ -194,9 +194,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"biceps"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"biceps"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -209,9 +209,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"forearms"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"forearms"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -224,9 +224,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"obliques"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"obliques"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -239,9 +239,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"abdominals"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"abdominals"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -254,9 +254,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"quads"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"quads"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -269,9 +269,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"calves"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"calves"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -284,9 +284,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"traps (mid-back)"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"traps (mid-back)"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -299,9 +299,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"lower back"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"lower back"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -314,9 +314,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"glutes"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"glutes"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -329,9 +329,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="group"
-                        value={"hamstrings"}
-                        onChange={(e) => {
+                          name="group"
+                          value={"hamstrings"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -345,7 +345,7 @@ function Exercises() {
             </Collapse>
 
             <ListItemButton onClick={handleEquipmentClick}>
-              <ListItemText primary="Equipment" />
+              <ListItemText primary="Equipment" secondary={searchFilters.tags?.length ? searchFilters.tags?.length + " selected" : "none selected" } />
               {openEquipment ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -356,8 +356,8 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"bodyweight"}
+                          name="tags"
+                          value={"bodyweight"}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
                           onChange={(e) => {
                             handleCheckboxChange(e);
@@ -371,13 +371,12 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"dumbbells"}
-                        onChange={(e) => {
+                          name="tags"
+                          value={"dumbbells"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
-                          
                         />
                       }
                       label="Dumbbells"
@@ -387,9 +386,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"barbell"}
-                        onChange={(e) => {
+                          name="tags"
+                          value={"barbell"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -402,9 +401,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"kettlebell"}
-                        onChange={(e) => {
+                          name="tags"
+                          value={"kettlebell"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -417,9 +416,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"band"}
-                        onChange={(e) => {
+                          name="tags"
+                          value={"band"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -432,9 +431,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"cable"}
-                        onChange={(e) => {
+                          name="tags"
+                          value={"cable"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -447,9 +446,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="tags"
-                        value={"stretches"}
-                        onChange={(e) => {
+                          name="tags"
+                          value={"stretches"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -462,7 +461,14 @@ function Exercises() {
               </List>
             </Collapse>
             <ListItemButton onClick={handleDiffClick}>
-              <ListItemText primary="Difficulty" />
+              <ListItemText
+                primary="Difficulty"
+                secondary={
+                  searchFilters.difficulty?.length
+                    ? searchFilters.difficulty?.length + " selected"
+                    : "none selected"
+                }
+              />
               {openDiff ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -473,9 +479,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="difficulty"
-                        value={"beginner"}
-                        onChange={(e) => {
+                          name="difficulty"
+                          value={"beginner"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -488,9 +494,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="difficulty"
-                        value={"intermediate"}
-                        onChange={(e) => {
+                          name="difficulty"
+                          value={"intermediate"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
@@ -503,9 +509,9 @@ function Exercises() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        name="difficulty"
-                        value={"advanced"}
-                        onChange={(e) => {
+                          name="difficulty"
+                          value={"advanced"}
+                          onChange={(e) => {
                             handleCheckboxChange(e);
                           }}
                           sx={{ width: "20px", height: "20px", mr: "10px" }}
