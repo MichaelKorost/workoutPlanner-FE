@@ -26,8 +26,9 @@ import { useNavigate, useNavigation } from "react-router";
 const baseUrl = "https://workout-planner-be.vercel.app/api/exercises";
 
 function Exercises() {
-  // TODO: favorite an exercise
+  //   TODO: favorite an exercise
   //   TODO: mobile responsive
+  //   TODO: fix traps (mid back) probably in db *pain*
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openMuscleGroup, setOpenMuscleGroup] = useState(false);
@@ -135,7 +136,14 @@ function Exercises() {
             }
           >
             <ListItemButton onClick={handleMuscleGroupClick}>
-              <ListItemText primary="Muscle Group" secondary={searchFilters.group?.length ? searchFilters.group?.length + " selected" : "none selected" } />
+              <ListItemText
+                primary="Muscle Group"
+                secondary={
+                  searchFilters.group?.length
+                    ? searchFilters.group?.length + " selected"
+                    : "none selected"
+                }
+              />
               {openMuscleGroup ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -345,7 +353,14 @@ function Exercises() {
             </Collapse>
 
             <ListItemButton onClick={handleEquipmentClick}>
-              <ListItemText primary="Equipment" secondary={searchFilters.tags?.length ? searchFilters.tags?.length + " selected" : "none selected" } />
+              <ListItemText
+                primary="Equipment"
+                secondary={
+                  searchFilters.tags?.length
+                    ? searchFilters.tags?.length + " selected"
+                    : "none selected"
+                }
+              />
               {openEquipment ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
