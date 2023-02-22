@@ -1,0 +1,10 @@
+.exerciseDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: aquamarine;
+  width: 90%;
+  max-width: 1100px;
+}

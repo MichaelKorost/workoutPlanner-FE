@@ -4,6 +4,7 @@ import exerciseService from "./exerciseService";
 
 const initialState = {
   exercises: [],
+  exercise: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -17,6 +18,18 @@ export const getAllExercises = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await exerciseService.getAllExercises();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+// get exercise
+export const getExercise = createAsyncThunk(
+  "exercises/getOne",
+  async (id, thunkAPI) => {
+    try {
+      return await exerciseService.getExercise(id);
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +87,21 @@ export const exercisesSlice = createSlice({
         state.exercises = action.payload;
       })
       .addCase(getFilteredExercises.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(getExercise.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getExercise.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.exercise = action.payload;
+      })
+      .addCase(getExercise.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

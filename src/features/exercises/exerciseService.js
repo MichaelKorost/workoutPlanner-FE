@@ -11,6 +11,20 @@ const getAllExercises = async () => {
   );
   return response.data;
 };
+const getExercise = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/id/${id}`);
+    if (response.status >= 200 && response.status < 300) {
+      console.log(`got exercise id: ${id}`);
+      console.log(response.data);
+      return response.data;
+    } else {
+      throw new Error(response.statusText);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 const getFilteredExercises = async ({ group, tags, difficulty }) => {
   const response = await axios.get(
@@ -23,6 +37,6 @@ const getFilteredExercises = async ({ group, tags, difficulty }) => {
   return response.data;
 };
 
-const exerciseService = { getAllExercises, getFilteredExercises };
+const exerciseService = { getAllExercises, getFilteredExercises, getExercise };
 
 export default exerciseService;
