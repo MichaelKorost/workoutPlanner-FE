@@ -29,6 +29,8 @@ function Exercises() {
   //   TODO: favorite an exercise
   //   TODO: mobile responsive
   //   TODO: fix traps (mid back) probably in db *pain*
+  //   TODO: make a load more on scroll down
+  //   TODO: ekeleton loading with MUI
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openMuscleGroup, setOpenMuscleGroup] = useState(false);

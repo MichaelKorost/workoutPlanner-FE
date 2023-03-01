@@ -7,6 +7,8 @@ import Exercises from "./pages/Exercises/Exercises";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import WorkoutCreate from "./pages/WorkoutCreate/WorkoutCreate";
+import Workouts from "./pages/Workouts/Workouts";
 
 function App() {
   return (
@@ -15,11 +17,13 @@ function App() {
         <Navbar />
         <Routes>
           {/* <Route path="/exercises" element={<Home />} /> */}
+          <Route path="/" element={<Dashboard />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/exercises" element={<Exercises />} />
           <Route path="/exercises/id/:id" element={<Exercise />} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/workouts/new" element={<WorkoutCreate />} />
         </Routes>
       </Router>
     </div>

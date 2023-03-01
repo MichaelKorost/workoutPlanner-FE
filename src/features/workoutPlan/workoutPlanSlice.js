@@ -22,6 +22,25 @@ export const getAllWorkoutPlans = createAsyncThunk(
   }
 );
 
+// Create new workout plan
+
+export const createWorkoutPlan = createAsyncThunk(
+  "workoutPlans/create",
+  async (workoutPlanData, thunkAPI) => {
+    try {
+      return await workoutPlanService.createWorkoutPlan(workoutPlanData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const workoutPlansSlice = createSlice({
   name: "workoutPlans",
   initialState,
@@ -40,6 +59,21 @@ export const workoutPlansSlice = createSlice({
         state.workoutPlans = action.payload;
       })
       .addCase(getAllWorkoutPlans.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(createWorkoutPlan.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createWorkoutPlan.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.workoutPlans.push(action.payload);
+      })
+      .addCase(createWorkoutPlan.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

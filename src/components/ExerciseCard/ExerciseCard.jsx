@@ -16,7 +16,7 @@ function ExerciseCard({ exercise, onCardClick }) {
       <img className="exercise__img" src={image} alt="exercise image" />
       <div className="exercise-footer">
         <section className="exercise__tags">
-          {Array.isArray(tags) && tags.map((tag) => <p>{tag}</p>)}
+          {Array.isArray(tags) && tags.map((tag, i) => <p key={i}>{tag}</p>)}
         </section>
         <section className="exercise__difficulty">{difficulty}</section>
         <section className="exercise__group">{group}</section>

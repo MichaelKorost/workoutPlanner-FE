@@ -9,6 +9,17 @@ const getAllWorkoutPlans = async () => {
   return response.data;
 };
 
-const workoutPlanService = { getAllWorkoutPlans };
+// create new workoutPlan
+const createWorkoutPlan = async (workoutPlanData) => {
+  const config = { headers: { "Content-Type": "application/json" } };
+  const response = await axios.post(
+    `${API_URL}/create`,
+    JSON.stringify(workoutPlanData),
+    config
+  );
+  return response.data;
+};
+
+const workoutPlanService = { getAllWorkoutPlans, createWorkoutPlan };
 
 export default workoutPlanService;
