@@ -62,10 +62,13 @@ const muscleGroups = [
   },
 ];
 
-function WCSection({ index, onDeleteSection }) {
-  const [isCustomSelected, setIsCustomSelected] = useState(false);
-  const [customText, setCustomText] = useState("");
-  const [selectedGroup, setSelectedGroup] = useState("");
+function WCSection({ section, onDeleteSection, onUpdate }) {
+  const { muscleGroup, id, customName, isCustom, exercises } = section;
+
+  const [isCustomSelected, setIsCustomSelected] = useState(isCustom);
+  const [customText, setCustomText] = useState(customName);
+  const [selectedGroup, setSelectedGroup] = useState(muscleGroup);
+
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}`
   );
@@ -91,6 +94,17 @@ function WCSection({ index, onDeleteSection }) {
   const addExercise = (e) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    onUpdate({
+      id,
+      muscleGroup: selectedGroup,
+      customName: customText,
+      isCustom: isCustomSelected,
+      exercises,
+    })
+  }, [selectedGroup, customText, isCustomSelected, exercises, id])
+
 
   return (
     <section
