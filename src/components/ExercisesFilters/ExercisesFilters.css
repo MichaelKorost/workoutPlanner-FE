@@ -1,0 +1,33 @@
+.exercises__filters {
+  display: flex;
+  width: 200px;
+  position: fixed;
+  bottom: 60px;
+  right: 2.5%;
+  overflow-y: scroll;
+  height: 70vh;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  border-radius: 10px;
+}
+
+.exercises__list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  margin: 150px auto 0 2.5%;
+  row-gap: 20px;
+  width: 70%;
+}
+
+@media (max-width: 768px) {
+  .exercises__content {
+    flex-direction: column-reverse;
+  }
+  .exercises__filters {
+    left: 0;
+    right: auto;
+    top: 64px;
+  }
+}

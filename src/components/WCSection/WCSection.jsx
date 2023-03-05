@@ -70,7 +70,7 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
   const [selectedGroup, setSelectedGroup] = useState(muscleGroup);
 
   const [randomColor, setRandomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}`
+    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
 
   const customTextChangeHandler = (e) => {
@@ -106,7 +106,7 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
   }, [selectedGroup, customText, isCustomSelected, exercises, id])
 
 
-  return (
+  return (<>
     <section
       className="create__section"
       style={{ backgroundColor: randomColor }}
@@ -161,6 +161,8 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
         </button>
       </div>
     </section>
+  
+  </>
   );
 }
 

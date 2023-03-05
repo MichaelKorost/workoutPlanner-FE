@@ -170,6 +170,10 @@ function WorkoutCreate() {
         </div>
         <button type="submit">Submit Form</button>
       </form>
+
+      <div className="select-workout">
+        
+      </div>
     </div>
   );
 }
