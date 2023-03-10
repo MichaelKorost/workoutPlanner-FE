@@ -10,21 +10,7 @@
   border-radius: 10px;
 }
 
-.exercises__list {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  margin: 150px auto 0 2.5%;
-  row-gap: 20px;
-  width: 70%;
-}
-
 @media (max-width: 768px) {
-  .exercises__content {
-    flex-direction: column-reverse;
-  }
   .exercises__filters {
     left: 0;
     right: auto;

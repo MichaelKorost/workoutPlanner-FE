@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import "./ExerciseCard.css";
 
-function ExerciseCard({ exercise, onCardClick }) {
+function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
   const { _id, name, demo, difficulty, group, image, tags } = exercise;
 
 
     const cardClickHandler = () => {
+      if(isSelect){
+        onExerciseSelect(exercise)
+      }else{
         onCardClick()
+      }
     }
 
   return (
