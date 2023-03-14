@@ -9,9 +9,27 @@ const getAllWorkoutPlans = async () => {
   return response.data;
 };
 
+// Get user workoutPlans
+const getUserWorkoutPlans = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(`${API_URL}/my`, config);
+  console.log(response.data);
+  return response.data;
+};
+
 // create new workoutPlan
-const createWorkoutPlan = async (workoutPlanData) => {
-  const config = { headers: { "Content-Type": "application/json" } };
+const createWorkoutPlan = async (workoutPlanData, token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
   const response = await axios.post(
     `${API_URL}/create`,
     JSON.stringify(workoutPlanData),
@@ -20,6 +38,10 @@ const createWorkoutPlan = async (workoutPlanData) => {
   return response.data;
 };
 
-const workoutPlanService = { getAllWorkoutPlans, createWorkoutPlan };
+const workoutPlanService = {
+  getAllWorkoutPlans,
+  createWorkoutPlan,
+  getUserWorkoutPlans,
+};
 
 export default workoutPlanService;

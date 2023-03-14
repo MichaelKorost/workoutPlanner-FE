@@ -22,13 +22,34 @@ export const getAllWorkoutPlans = createAsyncThunk(
   }
 );
 
+// Get user workout plans
+
+export const getUserWorkoutPlans = createAsyncThunk(
+  "workoutPlans/getuser",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await workoutPlanService.getUserWorkoutPlans(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Create new workout plan
 
 export const createWorkoutPlan = createAsyncThunk(
   "workoutPlans/create",
   async (workoutPlanData, thunkAPI) => {
     try {
-      return await workoutPlanService.createWorkoutPlan(workoutPlanData);
+      const token = thunkAPI.getState().auth.user.token;
+      return await workoutPlanService.createWorkoutPlan(workoutPlanData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -74,6 +95,21 @@ export const workoutPlansSlice = createSlice({
         state.workoutPlans.push(action.payload);
       })
       .addCase(createWorkoutPlan.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(getUserWorkoutPlans.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserWorkoutPlans.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.workoutPlans = action.payload;
+      })
+      .addCase(getUserWorkoutPlans.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

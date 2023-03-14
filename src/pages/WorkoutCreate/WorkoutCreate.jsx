@@ -9,7 +9,7 @@ import { TextField } from "@mui/material";
 import WCSection from "../../components/WCSection/WCSection";
 import { useEffect } from "react";
 
-
+// TODO: add validations 
 
 function WorkoutCreate() {
   const [planTitle, setPlanTitle] = useState("");

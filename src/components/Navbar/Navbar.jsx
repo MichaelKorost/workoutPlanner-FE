@@ -14,7 +14,7 @@ import TodayIcon from "@mui/icons-material/Today";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
 import TimelineIcon from "@mui/icons-material/Timeline";
-
+import FolderSharedIcon from '@mui/icons-material/FolderShared';
 // TODO: Add a logo to the navbar
 
 const Navbar = () => {
@@ -157,6 +157,11 @@ const logoutHandler = () => {
                   <li>
                     <Link to="/workouts/new" className="">
                       <AddIcon /> new
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/workouts/my" className="">
+                      <FolderSharedIcon /> Personal
                     </Link>
                   </li>
                   <li>
