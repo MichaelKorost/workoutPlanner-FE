@@ -5,7 +5,8 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction"; // nee
 
 
 const ExternalEvent = memo(({ event }) => {
-  let elementRef = useRef(null);
+
+    let elementRef = useRef(null);
 
   useEffect(() => {
     let draggable = new Draggable(elementRef.current, {

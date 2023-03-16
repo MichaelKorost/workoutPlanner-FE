@@ -4,34 +4,115 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction"; // needed for dayClick
 import ExternalEvent from "../../components/ExternalEvent/ExternalEvent";
+import Spinner from "../../components/Spinner/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getUserWorkoutPlans } from "../../features/workoutPlan/workoutPlanSlice";
+import {
+  calendarSlice,
+  getUserCalendarEvents,
+  resetCalendar,
+  updateCalendarEvents,
+} from "../../features/calendar/calendarSlice";
+import { reset } from "../../features/auth/authSlice";
 
 function Calendar() {
-  const [calendarEvents, setCalendarEvents] = useState([
-    { id: "1234", uid: Math.random() * 10, title: "event", date: "2023-03-01" },
-    {
-      id: "4567",
-      title: "all-day-event",
-      date: "2023-03-14",
-    },
-    {
-      id: "789",
-      title: "Timed event",
-      date: "2023-03-12",
-    },
-  ]);
-  const [externalEvents, setExternalEvents] = useState([
-    { title: "Event 1", id: "1" },
-    { title: "Event 2", id: "2" },
-    { title: "Event 3", id: "3" },
-    { title: "Event 4", id: "4" },
-    { title: "Event 5", id: "5" },
-  ]);
+  const [randomColor, setRandomColor] = useState(
+    `#${Math.floor(Math.random() * 16777215).toString(16)}80`
+  );
+  const [calendarEvents, setCalendarEvents] = useState([]);
+  const [externalEvents, setExternalEvents] = useState([]);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.workoutPlan
+  );
+  const {
+    userCalendarEvents,
+    isCalendarError,
+    isCalendarSuccess,
+    isCalendarLoading,
+    calendarMessage,
+  } = useSelector((state) => state.calendar);
 
   let calendarRef = useRef(null);
+
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+
+    if (isCalendarError) {
+      console.log(message);
+    }
+
+    if (!user) {
+      navigate("/login");
+    } else if (user.token) {
+      dispatch(getUserWorkoutPlans());
+      dispatch(getUserCalendarEvents());
+    }
+
+    return () => {
+      dispatch(reset());
+      dispatch(resetCalendar());
+    };
+  }, [
+    user,
+    navigate,
+    isError,
+    message,
+    dispatch,
+    isCalendarError,
+    calendarMessage,
+  ]);
+
+  useEffect(() => {
+    const eventsWithColor = workoutPlans?.map((workout) => {
+      return { ...workout /*color: randomColor*/ };
+    });
+
+    const userCalendarEventsWithUid = userCalendarEvents?.map((event) => {
+      return { ...event, id: `external-${Math.random() * 10}` };
+    });
+    setCalendarEvents(userCalendarEventsWithUid);
+
+
+    // const calendarEventsWithId = []
+    // for (let i = 0; i < userCalendarEvents.length; i++) {
+    //   const event = userCalendarEvents[i];
+    //   const newEvent = {
+    //     ...event,
+    //     id: `external-${Math.random() * 10}`,
+    //   };
+    //   calendarEventsWithId.push(newEvent)
+    // }
+
+    // setCalendarEvents(calendarEventsWithId)
+    setExternalEvents(eventsWithColor || []);
+    console.log({ userCalendarEvents });
+  }, [workoutPlans, userCalendarEvents]);
 
   // add external events
   const addEvent = () => {
     alert("navigating to workout new");
+  };
+
+  const handleEventClick = (e) => {
+    console.log(e.event.id);
+    if (
+      window.confirm(
+        `are you sure you want to delete this event?  ${e.event.title}`
+      )
+    ) {
+      const filteredEvents = () =>
+        calendarEvents.filter((event) => event.id !== e.event.id);
+
+      dispatch(updateCalendarEvents());
+      setCalendarEvents(filteredEvents);
+    }
   };
 
   const handleClearMonth = () => {
@@ -48,16 +129,18 @@ function Calendar() {
         eventMonth === currentCalendarMonth && eventYear === currentCalendarYear
       );
     });
-
     setCalendarEvents(filteredEvents);
   };
 
   useEffect(() => {
-    console.log(calendarEvents);
+    console.log("calendarEvents changed... updating");
+    console.log({ calendarEvents });
+    console.log("userCalendarEvents", userCalendarEvents);
   }, [calendarEvents]);
 
   // handle event receive
   const handleEventReceive = (eventInfo) => {
+    console.log(eventInfo);
     const newEvent = {
       id: `external-${Math.random() * 10}`,
       title: eventInfo.event.title,
@@ -84,6 +167,18 @@ function Calendar() {
     );
   };
 
+  const saveCalendarChanges = () => {
+    const updatedUserEvents = {
+      events: [...calendarEvents],
+    };
+    console.log(updatedUserEvents);
+    dispatch(updateCalendarEvents(updatedUserEvents));
+  };
+
+  if (isLoading || isCalendarLoading) {
+    return <Spinner />;
+  }
+
   return (
     <section className="calendar-page">
       <div className="calendar__items">
@@ -92,11 +187,15 @@ function Calendar() {
           Clear month
         </button>
         <div id="external-events">
-          {externalEvents.map((event) => (
-            <ExternalEvent key={event.id} event={event} />
+          {externalEvents?.map((event) => (
+            <ExternalEvent key={event._id} event={event} />
           ))}
         </div>
       </div>
+
+      <button onClick={saveCalendarChanges} type={"button"}>
+        Save Changes
+      </button>
 
       <div className="calendar-container">
         <FullCalendar
@@ -115,13 +214,14 @@ function Calendar() {
           droppable={true}
           eventReceive={handleEventReceive}
           // drop={handleDrop}
-          // eventClick={handleEventClick}
+          eventClick={handleEventClick}
           // eventsSet={handleEventsSet}
           height={800}
           eventDrop={handleEventDrop}
           eventDurationEditable={false}
           dragRevertDuration={500}
           ref={calendarRef}
+          eventDisplay="block"
         />
       </div>
     </section>
@@ -130,6 +230,33 @@ function Calendar() {
 
 export default Calendar;
 
+// const loadEvents = () => {
+//   const randomEvents = {
+//     events: [
+//       {
+//         id: "external-4.181749697537551",
+//         title: "Head day",
+//         date: "2023-03-21",
+//       },
+//       {
+//         id: "external-7.637935943145504",
+//         title: "big Toe day",
+//         date: "2023-03-23",
+//       },
+//       {
+//         id: "external-8.01872979635769",
+//         title: "smite me",
+//         date: "2023-03-07",
+//       },
+//       {
+//         id: "external-8.01872979635769",
+//         title: "Sit day",
+//         date: "2023-03-11",
+//       },
+//     ],
+//   };
+//   dispatch(updateCalendarEvents(randomEvents));
+// };
 // when click on event display details
 // const handleDateClick = (e) => {
 //   console.log(e);

@@ -92,7 +92,7 @@ const logoutHandler = () => {
               <div className="dropdown-menu" ref={menuRef}>
                 <ul onClick={toggleProfileDropdown} className="dropdown-items">
                   <li>
-                    <Link to="/profile/me" className="nav-profile">
+                    <Link to="/profile" className="nav-profile">
                       <img
                         src={missingImg}
                         alt="pic"

@@ -217,7 +217,7 @@ function ExercisesFilters({ onChangeFilters }) {
                   control={
                     <Checkbox
                       name="group"
-                      value={"traps (mid-back)"}
+                      value={"traps-mid-back"}
                       onChange={(e) => {
                         handleCheckboxChange(e);
                       }}
@@ -296,6 +296,36 @@ function ExercisesFilters({ onChangeFilters }) {
                   control={
                     <Checkbox
                       name="tags"
+                      value={"weights"}
+                      sx={{ width: "20px", height: "20px", mr: "10px" }}
+                      onChange={(e) => {
+                        handleCheckboxChange(e);
+                      }}
+                    />
+                  }
+                  label="weights"
+                />
+              </FormGroup>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="tags"
+                      value={"machine"}
+                      sx={{ width: "20px", height: "20px", mr: "10px" }}
+                      onChange={(e) => {
+                        handleCheckboxChange(e);
+                      }}
+                    />
+                  }
+                  label="machine"
+                />
+              </FormGroup>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="tags"
                       value={"bodyweight"}
                       sx={{ width: "20px", height: "20px", mr: "10px" }}
                       onChange={(e) => {
@@ -311,7 +341,7 @@ function ExercisesFilters({ onChangeFilters }) {
                   control={
                     <Checkbox
                       name="tags"
-                      value={"dumbbells"}
+                      value={"dumbbell"}
                       onChange={(e) => {
                         handleCheckboxChange(e);
                       }}

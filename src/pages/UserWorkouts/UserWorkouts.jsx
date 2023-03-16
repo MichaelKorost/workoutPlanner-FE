@@ -5,7 +5,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import {
   getAllWorkoutPlans,
   reset,
-  getUserWorkoutPlans
+  getUserWorkoutPlans,
 } from "../../features/workoutPlan/workoutPlanSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Workout from "../Workout/Workout";
@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 function UserWorkouts() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-const {user} = useSelector((state) => state.auth)
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
   const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.workoutPlan
   );
@@ -25,9 +25,9 @@ const {user} = useSelector((state) => state.auth)
     }
 
     if (!user) {
-        navigate('/login')
+      navigate("/login");
     } else if (user.token) {
-        dispatch(getUserWorkoutPlans());
+      dispatch(getUserWorkoutPlans());
     }
 
     return () => {
