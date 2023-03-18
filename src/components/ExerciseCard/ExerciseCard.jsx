@@ -1,5 +1,9 @@
 import { useEffect } from "react";
 import "./ExerciseCard.scss";
+import Tilt from "react-parallax-tilt";
+
+// TODO:test the perspective tilt
+// TODO: reduce text blue
 
 function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
   const { _id, name, demo, difficulty, group, image, tags } = exercise;
@@ -13,57 +17,57 @@ function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
   };
 
   const getTagColor = (tag) => {
-    switch (tag.toLowerCase()) {
+    switch (tag?.toLowerCase()) {
       case "weights":
-        return 'exercise-tag--weights'
+        return "exercise-tag--weights";
       case "chest":
-        return 'exercise-tag--chest'
+        return "exercise-tag--chest";
       case "traps":
-        return 'exercise-tag--traps'
+        return "exercise-tag--traps";
       case "shoulders":
-        return 'exercise-tag--shoulders'
+        return "exercise-tag--shoulders";
       case "biceps":
-        return 'exercise-tag--biceps'
+        return "exercise-tag--biceps";
       case "forearms":
-        return 'exercise-tag--forearms'
+        return "exercise-tag--forearms";
       case "obliques":
-        return 'exercise-tag--obliques'
+        return "exercise-tag--obliques";
       case "abdominals":
-        return 'exercise-tag--abdominals'
+        return "exercise-tag--abdominals";
       case "quads":
-        return 'exercise-tag--quads'
+        return "exercise-tag--quads";
       case "calves":
-        return 'exercise-tag--calves'
+        return "exercise-tag--calves";
       case "traps-mid-back":
-        return 'exercise-tag--traps-mid-back'
+        return "exercise-tag--traps-mid-back";
       case "lower back":
-        return 'exercise-tag--lower-back'
+        return "exercise-tag--lower-back";
       case "glutes":
-        return 'exercise-tag--glutes'
+        return "exercise-tag--glutes";
       case "hamstrings":
-        return 'exercise-tag--hamstrings'
+        return "exercise-tag--hamstrings";
       case "bodyweight":
-        return 'exercise-tag--bodyweight'
+        return "exercise-tag--bodyweight";
       case "dumbbell":
-        return 'exercise-tag--dumbbell'
+        return "exercise-tag--dumbbell";
       case "dumbbells":
-        return 'exercise-tag--dumbbells'
+        return "exercise-tag--dumbbells";
       case "barbell":
-        return 'exercise-tag--barbell'
+        return "exercise-tag--barbell";
       case "kettlebell":
-        return 'exercise-tag--kettlebell'
+        return "exercise-tag--kettlebell";
       case "band":
-        return 'exercise-tag--band'
+        return "exercise-tag--band";
       case "cable":
-        return 'exercise-tag--cables'
+        return "exercise-tag--cables";
       case "stretches":
-        return 'exercise-tag--stretches'
+        return "exercise-tag--stretches";
       case "machine":
-        return 'exercise-tag--machine'
+        return "exercise-tag--machine";
       default:
         break;
     }
-  }
+  };
 
   const getDifficultyColor = (diff) => {
     switch (diff) {
@@ -77,26 +81,38 @@ function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
   };
 
   return (
-    <div className="exercise" data-tilt data-tilt-scale="1" data-tilt-startY="10" data-tilt-max="5" onClick={cardClickHandler}>
-      <img className="exercise__img" src={image} alt="exercise image" />
-      <div className="exercise-information">
-        <div className="exercise__title">
-          <span className="highlighted-text">{name ? name : "missing name"}</span>
+    <Tilt  tiltMaxAngleX={10} scale={1.1} tiltMaxAngleY={10}>
+      <div className="exercise" onClick={cardClickHandler}>
+        <img className="exercise__img" src={image} alt="exercise image" />
+        <div className="exercise-information">
+          <div className="exercise__title">
+            <span className="highlighted-text">
+              {name ? name : "missing name"}
+            </span>
           </div>
-        <div className="exercise-footer">
-          <section className="exercise__tags">
-            <p className={`exercise__tag ${getTagColor(group)}`}>{group}</p>
-            {Array.isArray(tags) &&
-              tags.map((tag, i) => (
-                <p className={`exercise__tag ${getTagColor(tag)}`} key={i}>
-                  {tag}
-                </p>
-              ))}
-          </section>
-          <p className="exercise-difficulty-container"><span className={`exercise__difficulty ${getDifficultyColor(difficulty)}`} >{difficulty}</span> </p>
+          <div className="exercise-footer">
+            <section className="exercise__tags ">
+              <p className={`exercise__tag ${getTagColor(group)}`}>{group}</p>
+              {Array.isArray(tags) &&
+                tags.map((tag, i) => (
+                  <p className={`exercise__tag ${getTagColor(tag)}`} key={i}>
+                    {tag}
+                  </p>
+                ))}
+            </section>
+            <p className="exercise-difficulty-container">
+              <span
+                className={`exercise__difficulty ${getDifficultyColor(
+                  difficulty
+                )}`}
+              >
+                {difficulty}
+              </span>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </Tilt>
   );
 }
 

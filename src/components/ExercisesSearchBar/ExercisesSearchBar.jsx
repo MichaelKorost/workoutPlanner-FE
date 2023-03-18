@@ -1,8 +1,12 @@
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import { useState } from "react";
 import "./ExercisesSearchBar.css";
 
 function ExercisesSearchBar({ onChange, value }) {
+  const [randomColor, setRandomColor] = useState(
+    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
+  );
   const searchBarHandler = (e) => {
     onChange(e.target.value);
   };
@@ -10,12 +14,16 @@ function ExercisesSearchBar({ onChange, value }) {
   return (
     <Box
       component="div"
+
       sx={{
         display: "flex",
         justifyContent: "center",
-        width: "800px",
+        width: "400px",
         maxWidth: "90%",
-        boxShadow: "box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
+        backgroundColor:randomColor,
+        padding: "5px 5px 10px  5px",
+        borderRadius: "8px", 
+        boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
       }}
       noValidate
       autoComplete="off"
@@ -27,7 +35,7 @@ function ExercisesSearchBar({ onChange, value }) {
         id="standard-basic"
         label="Search Exercises"
         variant="standard"
-        placeholder="name, category, muscle group..."
+        placeholder="name, equipment..."
       />
     </Box>
   );

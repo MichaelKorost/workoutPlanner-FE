@@ -1,5 +1,5 @@
 import "./Exercises.css";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 
 // import data and stuff
 import Spinner from "../../components/Spinner/Spinner";
@@ -13,8 +13,22 @@ import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
 import { useNavigate, useNavigation } from "react-router";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExercisesFilters from "../../components/ExercisesFilters/ExercisesFilters";
+import { Box, Skeleton,   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Slide,
+  Button,
+  useMediaQuery, } from "@mui/material";
+import { Rectangle, RectangleRounded } from "@mui/icons-material";
+import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
+import { useTheme } from "@emotion/react";
 
 const baseUrl = "https://workout-planner-be.vercel.app/api/exercises";
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 
 function Exercises() {
   //   TODO: favorite an exercise
@@ -28,12 +42,18 @@ function Exercises() {
     group: [],
     tags: [],
     difficulty: [],
-  })
+  });
   const [searchBar, setSearchBar] = useState("");
-
+  const [randomColor, setRandomColor] = useState(
+    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
+  );
   const { exercises, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.exercise
   );
+
+  const theme = useTheme()
+  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet"))
+  const matchesSm = useMediaQuery(theme.breakpoints.down("sm"))
 
   useEffect(() => {
     if (isError) {
@@ -55,33 +75,107 @@ function Exercises() {
   };
 
   const filterChangehandler = (filters) => {
-    setSearchFilters(filters)
-  }
+    setSearchFilters(filters);
+  };
 
   const exerciseClickHandler = (id) => {
     console.log(`card with id of ${id}`);
     navigate("/exercises/id/" + id);
   };
 
-  //   if (isLoading) {
-  //     return <Spinner />;
-  //   }
-
   return (
     <>
-      <header className="header">
-        <h1 className="header__title">Exercises</h1>
-        <ExercisesSearchBar onChange={searchBarHandler} value={searchBar} />
-      </header>
+      <section className="exercises-search-and-filter">
+        <header className="header">
+          <ExercisesSearchBar
+            className={"exercises-search-bar"}
+            onChange={searchBarHandler}
+            value={searchBar}
+          />
+        </header>
 
-      <section className="exercises__content">
-        <ExercisesFilters
-          onChangeFilters={filterChangehandler}
-        />
+        <ExercisesFilters  onChangeFilters={filterChangehandler} />
+      </section>
 
+      <div
+        className="exercise-list-container"
+        style={{ backgroundColor: randomColor }}
+      >
         <section className="exercises__list">
           {isLoading ? (
-            <Spinner />
+            <>
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
+                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+           
+              
+            </>
+          ) : exercises?.filter((exercise) =>
+              exercise.name
+                .toLowerCase()
+                .includes(searchBar.toLocaleLowerCase())
+            ).length === 0 ? (
+            <ExerciseNotFound />
           ) : (
             exercises
               ?.filter((exercise) =>
@@ -100,9 +194,31 @@ function Exercises() {
               })
           )}
         </section>
-      </section>
+
+      </div>
+
     </>
   );
 }
 
 export default Exercises;
+
+/*
+(
+            exercises
+              ?.filter((exercise) =>
+                exercise.name
+                  .toLowerCase()
+                  .includes(searchBar.toLocaleLowerCase())
+              )
+              .map((exercise) => {
+                return (
+                  <ExerciseCard
+                    key={exercise._id}
+                    exercise={exercise}
+                    onCardClick={() => exerciseClickHandler(exercise._id)}
+                  />
+                );
+              })
+          )
+*/

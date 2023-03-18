@@ -1,19 +1,79 @@
 .exercises__filters {
-  display: flex;
   width: 200px;
   position: fixed;
-  bottom: 60px;
-  right: 2.5%;
+  bottom: calc(15vh - 64px);
+  left: calc(80vw - 60px);
   overflow-y: scroll;
   height: 70vh;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
+}
+
+.filter-button {
+  display: none;
+}
+
+.filter-close-button {
+  display: none;
 }
 
 @media (max-width: 768px) {
   .exercises__filters {
-    left: 0;
-    right: auto;
-    top: 64px;
+    position: fixed;
+    top: 10vh;
+    bottom: 10vh;
+    left: 10vw;
+    right: 10vw;
+    margin: auto;
+    height: min-content;
+    max-height: 70vh;
+    width: 80vw;
+    max-width: 360px;
+    background-color: white !important;
+    visibility: hidden;
+    pointer-events: none;
   }
+
+  .exercises__filters--active {
+    visibility: visible;
+    pointer-events: all;
+    z-index: 14;
+  }
+
+  .filter-button {
+    display: flex;
+    width: 63px;
+    height: 63px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+
+  .filter-close-button {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 14;
+    background-color: aqua;
+  }
+}
+
+.exercises__filters::-webkit-scrollbar {
+  width: 10px;
+}
+
+.exercises__filters::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.exercises__filters::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.exercises__filters::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

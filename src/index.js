@@ -1,18 +1,37 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './index.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "./index.css";
 
-const container = document.getElementById('root');
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createBreakpoints } from "@mui/system";
+
+const container = document.getElementById("root");
 const root = createRoot(container);
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 550,
+      tablet: 768,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+});
+const breakpoints = createBreakpoints({});
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );

@@ -4,53 +4,101 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 14%;
+  top: 12%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 30px 0;
+  padding: 16px 0;
   width: 100%;
   margin: 0 auto;
   /* border-radius: 10px; */
   /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
 }
 
-.exercises__content {
+/* .exercises__content {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  justify-content: center;
+  background-color: aqua;
+  height: auto;
+  overflow: hidden;
+} */
+
+.exercise-list-container {
+  display: flex;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: calc(20vw + 100px);
+  height: 80vh;
+  overflow-y: scroll;
+  background-color: white;
+  border-radius: 16px 0 0 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  overflow-x: hidden;
 }
 
-.exercises__filters {
-  display: flex;
-  width: 200px;
-  position: fixed;
-  bottom: 60px;
-  right: 2.5%;
-  overflow-y: scroll;
-  height: 70vh;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-  border-radius: 10px;
+.exercise-list-container::-webkit-scrollbar {
+  width: 10px;
+}
+.exercise-list-container::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.exercise-list-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* border-radius: 10px; */
+}
+
+.exercise-list-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }
 
 .exercises__list {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;
-  align-items: center;
-  margin: 150px auto 0 2.5%;
+  align-items: flex-start;
+  gap: 20px;
   row-gap: 20px;
-  width: 70%;
+  width: 100%;
+  margin: 20px;
 }
 
 @media (max-width: 768px) {
-  .exercises__content {
-    flex-direction: column-reverse;
+  .exercise-list-container {
+    position: static;
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 500px;
   }
-  .exercises__filters {
-    left: 0;
-    right: auto;
-    top: 64px;
+
+  .exercises-search-and-filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .header {
+    position: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    /* padding: 16px 0; */
+    max-width: 400px;
+    width: 70%;
+    top: 12%;
+    left: 50%;
+    transform: none;
+    margin: 0;
+  }
+
+  .exercises__list {
+    display: flex;
   }
 }
