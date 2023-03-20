@@ -74,11 +74,11 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
     onChangeFilters(searchFilters);
   }, [searchFilters]);
 
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("tablet"));
+  const isTablet = useMediaQuery((theme) => theme.breakpoints.down("tablet"));
 
   return (
     <>
-      {isMobile && <Button
+      {isTablet && <Button
         className="filter-button "
         style={{ backgroundColor: `${randomColor}20` }}
         onMouseEnter={(e) =>e.target.style.backgroundColor = `${randomColor}50` }

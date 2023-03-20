@@ -1,4 +1,4 @@
-import "./Exercise.css";
+import "./Exercise.scss";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getExercise, reset } from "../../features/exercises/exerciseSlice";

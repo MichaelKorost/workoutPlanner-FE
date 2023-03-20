@@ -13,16 +13,22 @@ import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
 import { useNavigate, useNavigation } from "react-router";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExercisesFilters from "../../components/ExercisesFilters/ExercisesFilters";
-import { Box, Skeleton,   Dialog,
+import {
+  Box,
+  Skeleton,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Slide,
   Button,
-  useMediaQuery, } from "@mui/material";
+  useMediaQuery,
+} from "@mui/material";
 import { Rectangle, RectangleRounded } from "@mui/icons-material";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import { useTheme } from "@emotion/react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import {useSearchParams} from 'react-router-dom'
 
 const baseUrl = "https://workout-planner-be.vercel.app/api/exercises";
 
@@ -47,13 +53,15 @@ function Exercises() {
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { exercises, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.exercise
   );
 
-  const theme = useTheme()
-  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet"))
-  const matchesSm = useMediaQuery(theme.breakpoints.down("sm"))
+  const theme = useTheme();
+  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet"));
+  const matchesSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     if (isError) {
@@ -70,11 +78,22 @@ function Exercises() {
     dispatch(getFilteredExercises(searchFilters));
   }, [dispatch, searchFilters]);
 
+  // useEffect(() => {
+    // const params = Object.fromEntries(searchParams);
+    // console.log(params)
+    // setSearchFilters(params);
+  // }, []);
+
+  // const updateSearchParams = (newParams) => {
+  //   setSearchParams({...searchParams, ...newParams})
+  // }  
+
   const searchBarHandler = (value) => {
     setSearchBar(value);
   };
 
   const filterChangehandler = (filters) => {
+    // updateSearchParams({...filters})
     setSearchFilters(filters);
   };
 
@@ -94,7 +113,7 @@ function Exercises() {
           />
         </header>
 
-        <ExercisesFilters  onChangeFilters={filterChangehandler} />
+        <ExercisesFilters onChangeFilters={filterChangehandler} />
       </section>
 
       <div
@@ -107,68 +126,328 @@ function Exercises() {
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
               <Skeleton
                 animation={"wave"}
                 variant={"RectangleRounded"}
-                width={matchesSm ? "calc(90vw - 50px)" : matchesTablet ? "calc(50vw - 50px)" : 210}
-                height={matchesSm? 180 : matchesTablet? 180 : 260}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
                 sx={{ display: "flex", borderRadius: "8px" }}
               />
-           
-              
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
+              <Skeleton
+                animation={"wave"}
+                variant={"RectangleRounded"}
+                width={
+                  matchesSm
+                    ? "calc(90vw - 50px)"
+                    : matchesTablet
+                    ? "calc(50vw - 50px)"
+                    : 210
+                }
+                height={matchesSm ? 180 : matchesTablet ? 180 : 260}
+                sx={{ display: "flex", borderRadius: "8px" }}
+              />
             </>
           ) : exercises?.filter((exercise) =>
               exercise.name
@@ -194,31 +473,9 @@ function Exercises() {
               })
           )}
         </section>
-
       </div>
-
     </>
   );
 }
 
 export default Exercises;
-
-/*
-(
-            exercises
-              ?.filter((exercise) =>
-                exercise.name
-                  .toLowerCase()
-                  .includes(searchBar.toLocaleLowerCase())
-              )
-              .map((exercise) => {
-                return (
-                  <ExerciseCard
-                    key={exercise._id}
-                    exercise={exercise}
-                    onCardClick={() => exerciseClickHandler(exercise._id)}
-                  />
-                );
-              })
-          )
-*/
