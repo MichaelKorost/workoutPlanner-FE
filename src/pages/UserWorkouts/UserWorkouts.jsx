@@ -8,8 +8,9 @@ import {
   getUserWorkoutPlans,
 } from "../../features/workoutPlan/workoutPlanSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Workout from "../Workout/Workout";
+import WorkoutCard from "../WorkoutCard/WorkoutCard";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 
 function UserWorkouts() {
   const dispatch = useDispatch();
@@ -36,13 +37,13 @@ function UserWorkouts() {
   }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {
-    <Spinner />;
+    return <Loader />;
   }
 
   return (
     <div className="workouts-container">
-      {workoutPlans.map((workout) => {
-        return <Workout key={workout._id} workout={workout} />;
+      {Array.isArray(workoutPlans) && workoutPlans.map((workout) => {
+        return <WorkoutCard key={workout._id} workout={workout} />;
       })}
     </div>
   );

@@ -2,7 +2,7 @@ import "./ExerciseNotFound.scss";
 import personalTrainer from "../../assets/undraw_personal_trainer_re_cnua.svg";
 import Tilt from "react-parallax-tilt";
 
-function ExerciseNotFound() {
+function ExerciseNotFound({errorMessage}) {
   return (
     <Tilt
       className="exercise-not-found"
@@ -17,7 +17,7 @@ function ExerciseNotFound() {
         alt="exercise image"
       />
       <div className="exercise-not-found__text">
-        <div>No exercises found. Please try different keywords or filters.</div>
+        <div>{errorMessage}</div>
         <div>😢</div>
       </div>
     </Tilt>

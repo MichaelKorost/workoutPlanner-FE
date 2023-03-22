@@ -5,6 +5,9 @@ import { getExercise, reset } from "../../features/exercises/exerciseSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
 import ExerciseDetails from "../../components/ExerciseDetails/ExerciseDetails";
+import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
+import Loader from "../../components/Loader/Loader";
+
 
 function Exercise() {
   const { id } = useParams();
@@ -28,13 +31,13 @@ function Exercise() {
   return (
     <div>
       {isLoading ? (
-        <Spinner />
+       <Loader />
       ) : (
         <div>
           {exercise && exercise._id ? (
             <ExerciseDetails exercise={exercise} />
           ) : (
-            <div>No Exercise Found</div>
+            <ExerciseNotFound errorMessage={"Exercise page not found"} />
           )}
         </div>
       )}

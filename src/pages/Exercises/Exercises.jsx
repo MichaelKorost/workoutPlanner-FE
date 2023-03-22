@@ -110,6 +110,8 @@ function Exercises() {
             className={"exercises-search-bar"}
             onChange={searchBarHandler}
             value={searchBar}
+            placeholder={"name, equipment..."}
+            searchLabel={"Search Exercises"}
           />
         </header>
 
@@ -454,7 +456,7 @@ function Exercises() {
                 .toLowerCase()
                 .includes(searchBar.toLocaleLowerCase())
             ).length === 0 ? (
-            <ExerciseNotFound />
+            <ExerciseNotFound errorMessage={"No exercises found. Please try different keywords or filters."} />
           ) : (
             exercises
               ?.filter((exercise) =>

@@ -9,6 +9,12 @@ const getAllWorkoutPlans = async () => {
   return response.data;
 };
 
+const getWorkoutPlanById = async (id) => {
+  const response = await axios.get(`${API_URL}/${id}`);
+  console.log(response.data);
+  return response.data;
+};
+
 // Get user workoutPlans
 const getUserWorkoutPlans = async (token) => {
   const config = {
@@ -42,6 +48,7 @@ const workoutPlanService = {
   getAllWorkoutPlans,
   createWorkoutPlan,
   getUserWorkoutPlans,
+  getWorkoutPlanById,
 };
 
 export default workoutPlanService;

@@ -7,11 +7,22 @@ import {
   reset,
 } from "../../features/workoutPlan/workoutPlanSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Workout from "../Workout/Workout";
-import InfiniteScroll from "react-infinite-scroll-component";
+import WorkoutCard from "../WorkoutCard/WorkoutCard";
+import Loader from "../../components/Loader/Loader";
+import { AnimatePresence, motion } from "framer-motion";
+import { Skeleton, useMediaQuery } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
+import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
+
+
 
 function Workouts() {
   const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
+  const [randomColor, setRandomColor] = useState(
+    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
+  );
+  const [searchBar, setSearchBar] = useState("");
 
   const dispatch = useDispatch();
   const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
@@ -32,15 +43,90 @@ function Workouts() {
     setListOfWorkoutPlans(workoutPlans);
   }, [workoutPlans]);
 
-  if (isLoading) {
-    <Spinner />;
-  }
+  const searchBarHandler = (value) => {
+    setSearchBar(value);
+  };
+
+  const theme = useTheme();
+  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet"));
+  const matchesSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <div className="workouts-container">
-      {listOfWorkoutPlans.map((workout) => {
-        return <Workout key={workout._id} workout={workout} />;
-      })}
+    <div className="workouts-page">
+      <ExercisesSearchBar
+        onChange={searchBarHandler}
+        value={searchBar}
+        placeholder={"Push, Pull, Legs, Cardio..."}
+        searchLabel={"Search Workouts"}
+      />
+      <div
+        className="workouts-container"
+        style={{ backgroundColor: randomColor }}
+      >
+        {isLoading ? (
+          <>
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
+              sx={{ display: "flex" }}
+            />
+            
+          </>
+        ) : listOfWorkoutPlans?.filter((workout) =>
+            workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
+          ).length === 0 ? (
+          <ExerciseNotFound
+            errorMessage={"No Workouts found. Please try different keywords."}
+          />
+        ) : (
+          listOfWorkoutPlans
+            ?.filter((workout) =>
+              workout.title
+                .toLowerCase()
+                .includes(searchBar.toLocaleLowerCase())
+            )
+            .map((workout) => {
+              return <WorkoutCard key={workout._id} workout={workout} />;
+            })
+        )}
+      </div>
     </div>
   );
 }
@@ -48,6 +134,93 @@ function Workouts() {
 export default Workouts;
 
 /*
+
+
+
+return (
+    <div className="workouts-page">
+      <ExercisesSearchBar
+        onChange={searchBarHandler}
+        value={searchBar}
+        placeholder={"Push, Pull, Legs, Cardio..."}
+        searchLabel={"Search Workouts"}
+      />
+      <div
+        className="workouts-container"
+        style={{ backgroundColor: randomColor }}
+      >
+        {isLoading ? (
+          <>
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 320 : 320}
+              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
+              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
+              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
+              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
+              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
+              sx={{ display: "flex" }}
+            />
+            <Skeleton
+              animation={"wave"}
+              variant={"rectangular"}
+              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
+              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
+              sx={{ display: "flex" }}
+            />
+          </>
+        ) : (
+          listOfWorkoutPlans.map((workout) => {
+            return <Workout key={workout._id} workout={workout} />;
+          })
+        )}
+      </div>
+    </div>
+  );
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
 infinite scrolling
 
 function Workouts() {

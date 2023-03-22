@@ -1,32 +1,37 @@
+import { useRef, useState } from "react";
 import "./Profile.scss";
-import React from "react";
-import Tilt from "react-parallax-tilt";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
+import { Pagination, Navigation } from "swiper";
 
 function Profile() {
   return (
-    <>
-      <Tilt
-        className="out"
-        perspective={100}
-        tiltMaxAngleX={10}
-        scale={1.1}
-        tiltMaxAngleY={10}
+    <div className="test">
+      <Swiper
+        pagination={{ type: "fraction" }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
       >
-        <img
-          className="exercise__img2"
-          src={
-            "https://res.cloudinary.com/dlvvmlrui/image/upload/v1678989169/pLaRi5jXSHDKu6WRydetBo-970-80.jpg_m20bxf.webp"
-          }
-          alt="exercise image"
-        />
-        <div className="in">
-          <div>React</div>
-          <div>Parallax Tilt</div>
-          <div>👀</div>
-        </div>
-      </Tilt>
-    </>
+        <SwiperSlide>Slide1</SwiperSlide>
+        <SwiperSlide>Slide2</SwiperSlide>
+
+      </Swiper>
+      <h1>different</h1>
+      <Swiper
+        pagination={{ type: "fraction" }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper2"
+      >
+        <SwiperSlide>Slide1</SwiperSlide>
+        <SwiperSlide>Slide2</SwiperSlide>
+      </Swiper>
+    </div>
   );
 }
 

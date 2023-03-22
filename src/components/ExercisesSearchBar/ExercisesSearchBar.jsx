@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import "./ExercisesSearchBar.css";
 
-function ExercisesSearchBar({ onChange, value }) {
+function ExercisesSearchBar({ onChange, value, placeholder, searchLabel }) {
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -33,9 +33,9 @@ function ExercisesSearchBar({ onChange, value }) {
         fullWidth
         onChange={searchBarHandler}
         id="standard-basic"
-        label="Search Exercises"
+        label={searchLabel}
         variant="standard"
-        placeholder="name, equipment..."
+        placeholder={placeholder}
       />
     </Box>
   );

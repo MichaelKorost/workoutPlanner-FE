@@ -17,7 +17,32 @@ export const getAllWorkoutPlans = createAsyncThunk(
     try {
       return await workoutPlanService.getAllWorkoutPlans();
     } catch (error) {
-      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Get workout plan by id
+
+export const getWorkoutPlanById = createAsyncThunk(
+  "workoutPlans/getById",
+  async (id, thunkAPI) => {
+    try {
+      return await workoutPlanService.getWorkoutPlanById(id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -110,6 +135,21 @@ export const workoutPlansSlice = createSlice({
         state.workoutPlans = action.payload;
       })
       .addCase(getUserWorkoutPlans.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(getWorkoutPlanById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getWorkoutPlanById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.workoutPlans = action.payload;
+      })
+      .addCase(getWorkoutPlanById.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

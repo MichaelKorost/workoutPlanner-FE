@@ -1,7 +1,41 @@
+.workouts-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1500px;
+  height: calc(98vh - 64px);
+  margin: 74px auto 0;
+  gap: 10px;
+}
+
 .workouts-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
-  width: 90%;
-  margin: 0 auto;
+  height: 95%;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px;
+  gap: 20px;
+}
+
+.workouts-container::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 30px;
+}
+.workouts-container::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.workouts-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 48px;
+}
+
+.workouts-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

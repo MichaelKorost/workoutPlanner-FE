@@ -10,7 +10,9 @@ import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import UserWorkouts from "./pages/UserWorkouts/UserWorkouts";
+import Workout from "./pages/Workout/Workout";
 import WorkoutCreate from "./pages/WorkoutCreate/WorkoutCreate";
+import WorkoutDetails from "./pages/WorkoutDetails/WorkoutDetails";
 import Workouts from "./pages/Workouts/Workouts";
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
           <Route path="/workouts" element={<Workouts />} />
           <Route path="/workouts/new" element={<WorkoutCreate />} />
           <Route path="/workouts/my" element={<UserWorkouts />} />
+          <Route path="/workouts/id/:id" element={<Workout />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
