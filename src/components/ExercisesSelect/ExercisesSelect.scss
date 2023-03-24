@@ -1,10 +1,171 @@
 .exercises-select {
   z-index: 10;
   position: fixed;
-  top: 10vh;
-  bottom: 5vh;
-  right: 5vw;
-  left: 5vw;
+  top: 64px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  // overflow-y: scroll;
+  background-color: white;
+}
+
+.exercise-select-list-container {
+  display: flex;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 0px;
+  left: 20px;
+  right: calc(20vw + 100px);
+  height: calc(100% - 95px - 64px - 100px);
   overflow-y: scroll;
   background-color: white;
+  // border-radius: 16px 0 0 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  overflow-x: hidden;
+}
+
+.exercise-select-chosen-cards-container {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 155px;
+  // outline: 1px solid black;
+  gap: 10px;
+
+  height: 90px;
+  left: 20px;
+  right: calc(20vw + 100px);
+}
+
+.exercise-select-swiper-slide {
+  display: flex;
+  background: white;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.exercises-select__swiper {
+  
+  width: 100%;
+  border-radius: 8px;
+  padding: 0 5px;
+  // box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  height: 90px;
+  overflow-x: hidden;
+}
+.exercise-select-swiper-card {
+  display: flex;
+  width: 70px;
+  height: 80px;
+  border-radius: 16px;
+  position: relative;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
+.exercise-select-swiper-card__img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  // box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  // box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 16px;
+}
+
+.exercise-select-swiper-card__btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: -10px;
+  top: 0;
+  z-index: 4;
+  border-radius: 50%;
+  width: 29px;
+  height: 29px;
+  border: none;
+  background-color: #c0392b;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.exercise-select-swiper-card__btn:hover {
+  background: #e74c3c;
+}
+
+.exercise-select-dialog-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.exercise-select__terms {
+}
+
+@media (max-width: 768px) {
+  .exercise-select-list-container {
+    position: fixed;
+    display: flex;
+    margin: 0 auto;
+    bottom: 0;
+    min-height: calc(86vh - 64px - 95px);
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 250px;
+  }
+
+  .exercises-select {
+    z-index: 10;
+    position: fixed;
+    top: 64px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    // overflow-y: scroll;
+    background-color: white;
+  }
+
+  .exercise-select-chosen-cards-container {
+    display: flex;
+    position: static;
+
+    margin: 0 auto;
+    width: 95%;
+    height: 90px;
+  }
+
+  .exercise-select-dialog-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .exercuses-select__swiper {
+  }
+
+  .exercise-select-swiper-container {
+  }
+}
+
+@media (max-width: 550px) {
+}
+
+.exercise-select-list-container::-webkit-scrollbar {
+  width: 10px;
+}
+.exercise-select-list-container::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.exercise-select-list-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* border-radius: 10px; */
+}
+
+.exercise-select-list-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

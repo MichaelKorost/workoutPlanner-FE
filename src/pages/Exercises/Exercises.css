@@ -4,12 +4,12 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 12%;
+  top: 105px;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  /* background-color: white; */
   padding: 16px 0;
-  width: 100%;
+  width: fit-content;
   margin: 0 auto;
   /* border-radius: 10px; */
   /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
@@ -27,7 +27,8 @@
   display: flex;
   margin: 0 auto;
   position: fixed;
-  bottom: 20px;
+  top: calc(64px + 95px);
+  bottom: 10px;
   left: 20px;
   right: calc(20vw + 100px);
   height: 80vh;

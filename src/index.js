@@ -16,9 +16,12 @@ const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
+      smallPhone: 381,
+      phone: 420,
       sm: 550,
-      tablet: 768,
-      md: 960,
+      tablet: 769,
+      md: 980,
+      midLarge: 1170,
       lg: 1280,
       xl: 1920,
     },

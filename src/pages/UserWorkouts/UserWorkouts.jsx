@@ -11,8 +11,18 @@ import { useDispatch, useSelector } from "react-redux";
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
+import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
+import { Skeleton, useMediaQuery } from "@mui/material";
+import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
+import { useTheme } from "@emotion/react";
+import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton";
 
 function UserWorkouts() {
+  const [searchBar, setSearchBar] = useState("");
+  const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
+  const [randomColor, setRandomColor] = useState(
+    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -36,17 +46,53 @@ function UserWorkouts() {
     };
   }, [user, navigate, isError, message, dispatch]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  
+  useEffect(() => {
+     setListOfWorkoutPlans(workoutPlans);
+   }, [workoutPlans]);
+
+  const searchBarHandler = (value) => {
+    setSearchBar(value);
+  };
+
+
+
 
   return (
-    <div className="workouts-container">
-      {Array.isArray(workoutPlans) && workoutPlans.map((workout) => {
-        return <WorkoutCard key={workout._id} workout={workout} />;
-      })}
+    <div className="workouts-page">
+    <ExercisesSearchBar
+      onChange={searchBarHandler}
+      value={searchBar}
+      placeholder={"Push, Pull, Legs, Cardio..."}
+      searchLabel={"Search Workouts"}
+    />
+    <div
+      className="workouts-container"
+      style={{ backgroundColor: randomColor }}
+    >
+      {isLoading ? (
+        <WorkoutsSkeleton />
+      ) : listOfWorkoutPlans?.filter((workout) =>
+          workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
+        ).length === 0 ? (
+        <ExerciseNotFound
+          errorMessage={"No Workouts found. Please try different keywords."}
+        />
+      ) : (
+        listOfWorkoutPlans
+          ?.filter((workout) =>
+            workout.title
+              .toLowerCase()
+              .includes(searchBar.toLocaleLowerCase())
+          )
+          .map((workout) => {
+            return <WorkoutCard key={workout._id} workout={workout} />;
+          })
+      )}
     </div>
+  </div>
   );
 }
 
 export default UserWorkouts;
+

@@ -1,22 +1,31 @@
+.workout-create-page {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 64px);
+}
+
 .create {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: auto;
+  gap: 20px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  max-width: 1000px;
-  width: 90%;
+  max-width: 1200px;
+  width: 100%;
+  background-color: white;
+  overflow-y: auto;
+  height: 95%;
 }
 .create__section {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 .create__section-name {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -56,4 +65,59 @@
 .select-backdrop--active {
   visibility: visible;
   opacity: 1;
+}
+
+.workout-create-add-container {
+  position: relative;
+  width: 95%;
+  margin: 0;
+}
+.workout-create__add-btn {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 3 !important;
+  background-color: #2ecc71 !important;
+  padding: 30px !important;
+  border-radius: 16px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px !important;
+}
+
+.workout-create__add-btn:hover {
+  background-color: #27ae60 !important;
+}
+
+.workout-create__create-btn {
+  margin: 0 auto 20px auto !important;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
+  width: 90% !important;
+  max-width: 230px !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 16px !important;
+  background-color: #2ecc71 !important;
+}
+
+.workout-create__create-btn:hover {
+  background-color: #27ae60 !important;
+}
+
+.create::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 30px;
+}
+.create::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.create::-webkit-scrollbar-thumb {
+  background-color: #888;
+
+  border-radius: 48px;
+}
+
+.create::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

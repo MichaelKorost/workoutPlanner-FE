@@ -2,15 +2,20 @@ import "./WCSection.css";
 import { useState } from "react";
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   MenuItem,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from "react";
 import ExercisesSelect from "../ExercisesSelect/ExercisesSelect";
+import { useTheme } from "@emotion/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Pagination } from "swiper";
 
 const muscleGroups = [
   {
@@ -65,7 +70,7 @@ const muscleGroups = [
 
 // TODO: from each section, will receive an object
 
-function WCSection({ section, onDeleteSection, onUpdate }) {
+function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake }) {
   const { muscleGroup, id, customName, isCustom, exercises } = section;
 
   const [isCustomSelected, setIsCustomSelected] = useState(isCustom);
@@ -112,6 +117,7 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
 
   const handleAddedExercises = (addedExercises) => {
     console.log("handleAddedExercises func");
+    console.log({ addedExercises });
     setAddedExercises(addedExercises);
   };
 
@@ -125,61 +131,156 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
     });
   }, [selectedGroup, customText, isCustomSelected, addedExercises, id]);
 
+  const theme = useTheme();
+  const matchesSmallPhone = useMediaQuery(theme.breakpoints.down("smallPhone")); //370
+  const matchesPhone = useMediaQuery(theme.breakpoints.down("phone")); //420
+  const matchesSm = useMediaQuery(theme.breakpoints.down("sm")); //550
+  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet")); //768
+  const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
+  const matchesmidLarge = useMediaQuery(theme.breakpoints.down("midLarge")); //1280
+  const matchesLg = useMediaQuery(theme.breakpoints.down("lg")); //1280
+
   return (
     <>
       <section
-        className="create__section"
-        style={{ backgroundColor: randomColor }}
+        className={`create__section ${isFake && "fake-section"}`}
+        style={{ backgroundColor: isFake ? "#7f8c8d" : randomColor }}
+        onMouseEnter={ (e) => e.target.classList.remove("warning")}
       >
         <div className="create__section-name">
-          {isCustomSelected ? (
-            <TextField
-              value={customText}
-              onChange={customTextChangeHandler}
-              sx={{ width: "200px", height: "80px" }}
-              id="standard-basic"
-              label="Custom Text"
-              variant="standard"
-            />
-          ) : (
-            <TextField
-              id="standard-select-muscle-group"
-              value={selectedGroup}
-              onChange={selectedGroupHandler}
-              select
-              label="Muscle group"
-              defaultValue=""
-              helperText="Please select a muscle group"
-              variant="standard"
-              sx={{ width: "200px", height: "80px" }}
-            >
-              {muscleGroups.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          )}
+          <Box
+            sx={{
+              backgroundColor: isFake ? "#95a5a6" : "white",
+              borderRadius: "8px",
+              padding: "5px",
+              borderRadius: "8px",
+              boxShadow:
+                "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
+              width: matchesSmallPhone ? "100%" : "230px",
+            }}
+          >
+            {isCustomSelected ? (
+              <TextField
+                value={customText}
+                onChange={customTextChangeHandler}
+                sx={{
+                  width: matchesSmallPhone ? "100%" : "200px",
+                  height: "50px",
+                }}
+                id="standard-basic"
+                label="Custom Text"
+                variant="standard"
+              />
+            ) : (
+              <TextField
+                id="standard-select-muscle-group"
+                value={selectedGroup}
+                onChange={selectedGroupHandler}
+                select
+                label="Muscle group"
+                defaultValue=""
+                // helperText="Please select a muscle group"
+                variant="standard"
+                sx={{
+                  width: matchesSmallPhone ? "100%" : "200px",
+                  height: "50px",
+                }}
+              >
+                {muscleGroups.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          </Box>
 
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Custom name"
-            labelPlacement="end"
-            onChange={toggleCustomText}
-          />
-          <button
+          <Box
+            sx={{
+              background: isFake ? "#95a5a6" :  "white",
+              boxShadow:
+                "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
+              padding: "5px",
+              borderRadius: "8px",
+              height: "60px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            className={"create__checkbox"}
+          >
+            <FormControlLabel
+              control={<Checkbox />}
+              label={matchesSmallPhone ? "Custom text" : "Custom"}
+              labelPlacement="end"
+              onChange={toggleCustomText}
+            />
+          </Box>
+          <Button
+            variant="contained"
+            type="button"
+            style={{
+              backgroundColor: isFake ? "#95a5a6" :  "white",
+              minWidth: "42px",
+              height: "42px",
+              padding: "0",
+              margin: "0 0 0 auto",
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c2361690`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `white`)}
             className="create__delete-button"
             onClick={() => deleteSection()}
           >
-            <DeleteIcon /> Delete
-          </button>
+            <DeleteIcon sx={{ color: "black", fontSize: "28px", pointerEvents:"none" }} />
+          </Button>
         </div>
 
         <div className="create__exercises-container">
-          <button type="button" onClick={addExercise} className="create__add">
-            <AddIcon sx={{ width: "120px", height: "120px" }} />
-          </button>
-          {exercises?.map((exercise) => <img key={exercise.exercise._id} src={exercise.exercise.image} alt="exercise img" width={"182"} height={"187"} /> )}
+          <Swiper
+            slidesPerView={
+              matchesPhone
+                ? 2
+                : matchesSm
+                ? 2
+                : matchesTablet
+                ? 3
+                : matchesMd
+                ? 4
+                : matchesmidLarge
+                ? 5
+                : 6
+            }
+            freeMode={true}
+            pagination={{ type: "fracion" }}
+            modules={[Pagination]}
+            className="create-swiper"
+          >
+            <SwiperSlide className="create-swiper__slide">
+              <Button
+                sx={{ padding: "30px", borderRadius: "8px"}}
+                type="Button"
+                onClick={addExercise}
+                className={`create__add ${isFake && "fake"}`}
+              >
+                <AddIcon
+                  sx={{ width: "120px", height: "120px", color: "black" }}
+                />
+              </Button>
+            </SwiperSlide>
+
+            {exercises?.map((exercise) => (
+              <SwiperSlide
+                key={`${exercise.exercise._id}-${Math.random() * 99}`}
+                className="create-swiper__slide"
+              >
+                <img
+                  className="create__img"
+                  src={exercise.exercise.image}
+                  alt="exercise img"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
 
@@ -190,6 +291,7 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
             muscleGroup={muscleGroup}
             customName={customName}
             onAddedExercises={handleAddedExercises}
+            onToggleSelect={toggleIsAdd}
           />
 
           <div
@@ -205,3 +307,25 @@ function WCSection({ section, onDeleteSection, onUpdate }) {
 }
 
 export default WCSection;
+
+/*
+ <div className="create__exercises-container">
+          <Button
+            sx={{ padding: "30px", borderRadius: "8px" }}
+            type="Button"
+            onClick={addExercise}
+            className="create__add"
+          >
+            <AddIcon sx={{ width: "120px", height: "120px", color: "black" }} />
+          </Button>
+          {exercises?.map((exercise) => (
+            <img
+              className="create__img"
+              key={`${exercise.exercise._id}-${Math.random()*99}`}
+              src={exercise.exercise.image}
+              alt="exercise img"
+             
+            />
+          ))}
+        </div>
+*/

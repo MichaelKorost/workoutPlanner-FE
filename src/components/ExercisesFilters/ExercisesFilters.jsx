@@ -74,7 +74,7 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
     onChangeFilters(searchFilters);
   }, [searchFilters]);
 
-  const isTablet = useMediaQuery((theme) => theme.breakpoints.down("tablet"));
+  const isTablet = useMediaQuery((theme) => theme.breakpoints.between("xs","tablet"));
 
   return (
     <>

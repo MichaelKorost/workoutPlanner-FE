@@ -24,17 +24,20 @@ function Workout({ workout }) {
 
   return (
     <div className="workout">
+      <button className="workout-title-button" onClick={handleOpenWorkout}>
       <Tilt
         className="workout__title"
         perspective={1000}
         tiltMaxAngleX={10}
         scale={1.05}
         tiltMaxAngleY={10}
+        onClick={handleOpenWorkout}
       >
         <h1 onClick={handleOpenWorkout} className="workout-title-inner">
           {title}
         </h1>
       </Tilt>
+      </button>
       {plan.length > 2 ? (
         <>
           {plan.slice(0, 2).map(({ muscleGroup, exercises }) => (
@@ -64,8 +67,9 @@ function Workout({ workout }) {
               </Swiper>
             </div>
           ))}
+          <h3 className="workout-card__extra">{remainingExercisesCount} more...</h3>
           <Button onClick={handleOpenWorkout} className="workout-open-button">
-            {remainingExercisesCount} more... <OpenInNewIcon />{" "}
+             Open<OpenInNewIcon />
           </Button>
         </>
       ) : (
@@ -98,7 +102,7 @@ function Workout({ workout }) {
             </div>
           ))}
           <Button onClick={handleOpenWorkout} className="workout-open-button">
-            Open <OpenInNewIcon />{" "}
+            Open <OpenInNewIcon />
           </Button>
         </>
       )}
@@ -108,33 +112,3 @@ function Workout({ workout }) {
 
 export default Workout;
 
-/*
-   <h1>{plan.length > 2 ? ("more than 2") : ("no")}</h1>
-  <ExpandMoreIcon onClick={handleScrollDown} /> 
-<div className="workout">
-      <Tilt
-        className="workout__title"
-        perspective={1000}
-        tiltMaxAngleX={10}
-        scale={1.05}
-        tiltMaxAngleY={10}
-      >
-        <h1 className="title-inner">{title}</h1>
-      </Tilt>
-      {plan.map(({ muscleGroup, exercises }) => (
-        <div
-          key={`${muscleGroup}-${exercises[0].exercise._id}`}
-          className="workout-img-container"
-        >
-          {exercises.map(({ exercise }) => (
-            <img
-              key={exercise._id}
-              src={exercise.image}
-              alt="exercise"
-              className="workout__img"
-            />
-          ))}
-        </div>
-      ))}
-    </div>
-*/

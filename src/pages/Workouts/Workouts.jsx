@@ -14,6 +14,7 @@ import { Skeleton, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
+import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton";
 
 
 
@@ -47,9 +48,8 @@ function Workouts() {
     setSearchBar(value);
   };
 
-  const theme = useTheme();
-  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet"));
-  const matchesSm = useMediaQuery(theme.breakpoints.down("sm"));
+ 
+ 
 
   return (
     <div className="workouts-page">
@@ -64,51 +64,7 @@ function Workouts() {
         style={{ backgroundColor: randomColor }}
       >
         {isLoading ? (
-          <>
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
-              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
-              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
-              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
-              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
-              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
-              height={matchesSm ? 500 : matchesTablet ? 500 : 500}
-              sx={{ display: "flex" }}
-            />
-            
-          </>
+         <WorkoutsSkeleton />
         ) : listOfWorkoutPlans?.filter((workout) =>
             workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
           ).length === 0 ? (
