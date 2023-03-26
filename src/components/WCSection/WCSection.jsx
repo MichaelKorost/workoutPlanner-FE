@@ -137,7 +137,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
   const matchesSm = useMediaQuery(theme.breakpoints.down("sm")); //550
   const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet")); //768
   const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
-  const matchesmidLarge = useMediaQuery(theme.breakpoints.down("midLarge")); //1280
+  const matchesmidLarge = useMediaQuery(theme.breakpoints.down("midLarge")); //1170
   const matchesLg = useMediaQuery(theme.breakpoints.down("lg")); //1280
 
   return (

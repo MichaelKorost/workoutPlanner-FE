@@ -21,11 +21,11 @@ const ExternalEvent = memo(({ event }) => {
   return (
     <div
       ref={elementRef}
-      className="fc-event fc-h-event mb-1 fc-daygrid-event fc-daygrid-block-event p-2"
+      className="calendar-event"
       title={event.title}
       style={{ cursor: "pointer" }}
     >
-      <div className="fc-event-main">
+      <div className="fc-event-main ">
         <div>
           <strong> {event.title} </strong>
         </div>
@@ -37,3 +37,5 @@ const ExternalEvent = memo(({ event }) => {
 
 
 export default ExternalEvent
+
+// fc-event fc-h-event mb-1 fc-daygrid-event fc-daygrid-block-event p-2
