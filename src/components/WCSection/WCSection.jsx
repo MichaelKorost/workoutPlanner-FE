@@ -101,7 +101,9 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
   };
 
   const deleteSection = () => {
-    onDeleteSection();
+    if (!isFake) {
+      onDeleteSection();
+    }
   };
 
   const toggleCustomText = () => {
@@ -111,8 +113,10 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
   };
 
   const addExercise = () => {
-    console.log(`adding exercises for id: ${id}`);
-    setIsAdd(true);
+    if (!isFake) {
+      console.log(`adding exercises for id: ${id}`);
+      setIsAdd(true);
+    }
   };
 
   const handleAddedExercises = (addedExercises) => {

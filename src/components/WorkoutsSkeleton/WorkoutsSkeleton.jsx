@@ -66,6 +66,48 @@ function WorkoutsSkeleton() {
       height={matchesSm ? 550 : matchesTablet ? 550 : 550}
       sx={{ display: "flex" }}
     />
+    <Skeleton
+      animation={"wave"}
+      variant={"rectangular"}
+      width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+      height={matchesSm ? 550 : matchesTablet ? 550 : 550}
+      sx={{ display: "flex" }}
+    />
+    <Skeleton
+      animation={"wave"}
+      variant={"rectangular"}
+      width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+      height={matchesSm ? 550 : matchesTablet ? 550 : 550}
+      sx={{ display: "flex" }}
+    />
+    <Skeleton
+      animation={"wave"}
+      variant={"rectangular"}
+      width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+      height={matchesSm ? 550 : matchesTablet ? 550 : 550}
+      sx={{ display: "flex" }}
+    />
+    <Skeleton
+      animation={"wave"}
+      variant={"rectangular"}
+      width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+      height={matchesSm ? 550 : matchesTablet ? 550 : 550}
+      sx={{ display: "flex" }}
+    />
+    <Skeleton
+      animation={"wave"}
+      variant={"rectangular"}
+      width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+      height={matchesSm ? 550 : matchesTablet ? 550 : 550}
+      sx={{ display: "flex" }}
+    />
+    <Skeleton
+      animation={"wave"}
+      variant={"rectangular"}
+      width={matchesSm ? "90%" : matchesTablet ? 260 : 320}
+      height={matchesSm ? 550 : matchesTablet ? 550 : 550}
+      sx={{ display: "flex" }}
+    />
     
   </>
   )

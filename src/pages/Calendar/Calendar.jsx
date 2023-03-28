@@ -1,5 +1,5 @@
 import "./Calendar.scss";
-import { useRef, useEffect, useState, memo } from "react";
+import { useRef, useEffect, useState, memo, forwardRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction"; // needed for dayClick
@@ -16,8 +16,28 @@ import {
 } from "../../features/calendar/calendarSlice";
 import { reset } from "../../features/auth/authSlice";
 import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@emotion/react";
-import { useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide,
+  useMediaQuery,
+} from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper";
+import Loader from "../../components/Loader/Loader";
+import CalendarSkeleton from "../../components/CalendarSkeleton/CalendarSkeleton";
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Calendar() {
   const [randomColor, setRandomColor] = useState(
@@ -25,6 +45,8 @@ function Calendar() {
   );
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [externalEvents, setExternalEvents] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [clickedEvent, setClickedEvent] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,18 +95,24 @@ function Calendar() {
   ]);
 
   useEffect(() => {
-    const eventsWithColor = workoutPlans?.map((workout) => {
-      return { ...workout /*color: randomColor*/ };
-    });
+    if (Array.isArray(workoutPlans)) {
+      const eventsWithColor = workoutPlans?.map((workout) => {
+        return { ...workout /*color: randomColor*/ };
+      });
+      setExternalEvents(eventsWithColor || []);
+    }
 
     if (Array.isArray(userCalendarEvents)) {
-      const userCalendarEventsWithUid = userCalendarEvents?.map((event) => {
-        return { ...event, id: `external-${Math.random() * 10}` };
-      });
+      const userCalendarEventsWithUid = userCalendarEvents?.map(
+        (event, index) => {
+          return {
+            ...event,
+            id: `external-${Math.random() * 10}`,
+          };
+        }
+      );
       setCalendarEvents(userCalendarEventsWithUid);
     }
-    setExternalEvents(eventsWithColor || []);
-    console.log({ userCalendarEvents });
   }, [workoutPlans, userCalendarEvents]);
 
   // add external events
@@ -93,18 +121,19 @@ function Calendar() {
   };
 
   const handleEventClick = (e) => {
-    console.log(e.event.id);
-    if (
-      window.confirm(
-        `are you sure you want to delete this event?  ${e.event.title}`
-      )
-    ) {
-      const filteredEvents = () =>
-        calendarEvents.filter((event) => event.id !== e.event.id);
+    setClickedEvent({ event: e, exercises: e.event.extendedProps.workout });
+    setOpen(true);
+  };
 
-      dispatch(updateCalendarEvents());
-      setCalendarEvents(filteredEvents);
-    }
+  const handleDeleteEvent = () => {
+    const filteredEvents = () =>
+      calendarEvents.filter(
+        (event) => event.id !== clickedEvent.event.event.id
+      );
+
+    dispatch(updateCalendarEvents());
+    setCalendarEvents(filteredEvents);
+    setOpen(false);
   };
 
   const handleClearMonth = () => {
@@ -125,21 +154,24 @@ function Calendar() {
   };
 
   useEffect(() => {
-    console.log("calendarEvents changed... updating");
+    // console.log("calendarEvents changed... updating");
     console.log({ calendarEvents });
     console.log("userCalendarEvents", userCalendarEvents);
   }, [calendarEvents]);
 
   // handle event receive
   const handleEventReceive = (eventInfo) => {
-    console.log(eventInfo);
+    console.log("event received");
+    console.log(eventInfo.event);
+
     const newEvent = {
       id: `external-${Math.random() * 10}`,
       title: eventInfo.event.title,
       date: eventInfo.event.startStr,
+      workout: eventInfo.event.extendedProps.plan,
     };
-
     setCalendarEvents((prevEvents) => [...prevEvents, newEvent]);
+    // setClickedEvent({ event: eventInfo, exercises: newEvent.workout });
   };
 
   const handleEventDrop = (eventDropInfo) => {
@@ -163,7 +195,7 @@ function Calendar() {
     const updatedUserEvents = {
       events: [...calendarEvents],
     };
-    console.log(updatedUserEvents);
+    // console.log(updatedUserEvents);
     dispatch(updateCalendarEvents(updatedUserEvents));
   };
 
@@ -178,76 +210,177 @@ function Calendar() {
     click: saveCalendarChanges,
   };
 
-  const theme = useTheme();
-  const matchesSmallPhone = useMediaQuery(theme.breakpoints.down("smallPhone")); //370
-  const matchesPhone = useMediaQuery(theme.breakpoints.down("phone")); //420
-  const matchesSm = useMediaQuery(theme.breakpoints.down("sm")); //550
-  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet")); //768
-  const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
-  const matchesmidLarge = useMediaQuery(theme.breakpoints.down("midLarge")); //1170
-  const matchesLg = useMediaQuery(theme.breakpoints.down("lg")); //1280
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  if (isLoading || isCalendarLoading) {
-    return <Spinner />;
-  }
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    console.log(clickedEvent);
+  }, [clickedEvent]);
+
+  const theme = useTheme();
+  const matchesSm = useMediaQuery(theme.breakpoints.down("sm")); //550
+  const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
+
 
   return (
-    <section className="calendar-page">
-      <div className="calendar">
-        <div className="calendar-items-container">
-          <h1 className="calendar-workouts-title">My Workouts</h1>
-          <div className="calendar__items">
-            <div id="external-events" className="external-events">
-              {externalEvents?.map((event) => (
-                <ExternalEvent key={event._id} event={event} />
-              ))}
+    <>
+      {isLoading || (isCalendarLoading && <Loader />)}
+      <section className="calendar-page">
+        <div className="calendar">
+          <div className="calendar-items-container">
+            <h1 className="calendar-workouts-title">My Workouts</h1>
+            <div className="calendar__items">
+              <div id="external-events" className="external-events">
+                {isLoading ? (
+                  <>
+                    <CalendarSkeleton />
+                  </>
+                ) : (
+                  <>
+                    {externalEvents?.map((event) => (
+                      <ExternalEvent key={event._id} event={event} />
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="calendar-box">
+            <div className="calendar-container">
+              <FullCalendar
+                plugins={[dayGridPlugin, interactionPlugin]}
+                headerToolbar={{
+                  start: "prev,next", // will normally be on the left. if RTL, will be on the right
+                  center: "title",
+                  end: "clearMonthBtn saveChangesBtn", // will normally be on the right. if RTL, will be on the left
+                }}
+                initialView={"dayGridMonth"}
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={true}
+                events={calendarEvents}
+                droppable={true}
+                eventReceive={handleEventReceive}
+                // drop={handleDrop}
+                eventClick={handleEventClick}
+                // eventsSet={handleEventsSet}
+                height={matchesSm ? 500 : matchesMd ? 600 : 800}
+                eventDrop={handleEventDrop}
+                eventDurationEditable={false}
+                dragRevertDuration={500}
+                ref={calendarRef}
+                eventDisplay="block"
+                customButtons={{
+                  clearMonthBtn: clearMonthButton,
+                  saveChangesBtn: saveCalendarButton,
+                }}
+              />
             </div>
           </div>
         </div>
-        <div className="calendar-box">
-          <div className="calendar-container">
-            <FullCalendar
-              plugins={[dayGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                start: "prev,next", // will normally be on the left. if RTL, will be on the right
-                center: "title",
-                end: "clearMonthBtn saveChangesBtn", // will normally be on the right. if RTL, will be on the left
-              }}
-              initialView={"dayGridMonth"}
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={true}
-              events={calendarEvents}
-              droppable={true}
-              eventReceive={handleEventReceive}
-              // drop={handleDrop}
-              eventClick={handleEventClick}
-              // eventsSet={handleEventsSet}
-              height={matchesSm ? 500 : matchesMd ? 600 :  800}
-              eventDrop={handleEventDrop}
-              eventDurationEditable={false}
-              dragRevertDuration={500}
-              ref={calendarRef}
-              eventDisplay="block"
-              
-            
-              customButtons={{
-                clearMonthBtn: clearMonthButton,
-                saveChangesBtn: saveCalendarButton,
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+
+        <Dialog
+          open={open}
+          // TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-describedby="alert-dialog-slide-description"
+          fullWidth={true}
+          maxWidth={"md"}
+        >
+          <DialogActions sx={{ justifyContent: "flex-end" }}>
+            <Button
+              sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+              onClick={handleClose}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+            >
+              <CloseIcon
+                sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+              />
+            </Button>
+          </DialogActions>
+          <DialogTitle
+            sx={{
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflowX: "hidden",
+              textAlign: "center",
+              fontSize: "40px",
+              padding: "10 20px",
+            }}
+            className="calendar-dialog__title"
+          >
+            {clickedEvent?.event.event.title}
+          </DialogTitle>
+          <DialogContent
+            sx={{
+              padding: "20px",
+            }}
+          >
+            <div className="calendar-dialog-container">
+              {clickedEvent?.exercises?.map(({ exercises, muscleGroup }) => (
+                <section className="workout-details-images">
+                  <h2 className="workout-details-muscle-group">
+                    {muscleGroup}
+                  </h2>
+                  <Swiper
+                    pagination={{ type: "fraction" }}
+                    navigation={true}
+                    modules={[Pagination, Navigation]}
+                    className={"workout-details__swiper"}
+                  >
+                    {exercises?.map(({ exercise, reps, sets, weight }) => (
+                      <SwiperSlide className="workout-details-swiper-container">
+                        <img
+                          className="workout-details-swiper__image"
+                          src={exercise.image}
+                        />
+                        <div className="workout-details-swiper-information">
+                          <h3 className="workout-details-swiper__exercise-name">
+                            {exercise.name}
+                          </h3>
+                          <div className="workout-details-swiper__terms">
+                            <div className="workout-details-swiper__term">
+                              <p>Sets: </p> <span>{sets}</span>
+                            </div>
+                            <div className="workout-details-swiper__term">
+                              <p>Reps: </p> <span>{reps}</span>
+                            </div>
+                            <div className="workout-details-swiper__term">
+                              <p>Weight: </p> <span>{weight}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </section>
+              ))}
+            </div>
+          </DialogContent>
+          <DialogActions sx={{ justifyContent: "center" }}>
+            <Button
+              sx={{ width: "54px", height: "54", backgroundColor: "#7f8c8d" }}
+              onClick={handleDeleteEvent}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = `#535c68`)}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = `#7f8c8d`)}
+            >
+              <DeleteIcon
+                sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+              />
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </section>
+    </>
   );
 }
 
 export default Calendar;
-
-/*
-  <button onClick={saveCalendarChanges} type={"button"}>
-      Save Changes
-  </button>
-*/
