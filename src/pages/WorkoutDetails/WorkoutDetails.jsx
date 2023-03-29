@@ -1,25 +1,71 @@
 import "./WorkoutDetails.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tilt from "react-parallax-tilt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/Loader/Loader";
+import {
+  deleteWorkoutPlan,
+  createWorkoutPlan,
+  deleteWorkoutPlanFromDetailPage,
+  saveNewWorkout,
+} from "../../features/workoutPlan/workoutPlanSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+
 
 function WorkoutDetails({ workout }) {
+  const [isCreatedByUser, setIsCreatedByUser] = useState(false);
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
   const { plan, title, _id } = workout;
+  const { user } = useSelector((state) => state.auth);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+
+    setIsCreatedByUser(workout.user === user._id);
+  }, [user, navigate, dispatch, workout.user]);
 
   const handleGoBack = () => {
     navigate(-1);
+    console.log("handleGoBack invoked")
   };
 
-  console.log(workout);
+  const handleEditWorkout = () => {
+    navigate(`/workouts/edit/id/${_id}`);
+  };
+
+  const handleDelete = () => {
+    
+    dispatch(deleteWorkoutPlan(_id));
+    navigate(-2)
+  };
+
+  const handleSaveWorkout = () => {
+    const newWorkout = {
+      title: workout.title,
+      plan: workout.plan,
+    };
+    console.log({ newWorkout });
+    dispatch(saveNewWorkout(newWorkout));
+    alert('workout saved successfully')
+  };
+
+  console.log({ workout });
+  console.log({ user });
+
   return (
     <>
       <div className="workout-details-page">
@@ -35,6 +81,7 @@ function WorkoutDetails({ workout }) {
           >
             <ArrowBackIcon
               className="back-button-arrow"
+              
               sx={{
                 textAlign: "center",
                 pointerEvents: "none",
@@ -53,8 +100,8 @@ function WorkoutDetails({ workout }) {
           >
             <h1 className="workout-details-title-inner">{title}</h1>
           </Tilt>
-          {plan.map(({ exercises, muscleGroup, reps, sets, weight }) => (
-            <section className="workout-details-images">
+          {plan.map(({ exercises, muscleGroup, reps, sets, weight }, index) => (
+            <section key={index} className="workout-details-images">
               <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
               <Swiper
                 pagination={{ type: "fraction" }}
@@ -62,9 +109,13 @@ function WorkoutDetails({ workout }) {
                 modules={[Pagination, Navigation]}
                 className={"workout-details__swiper"}
               >
-                {exercises.map(({ exercise, reps, sets, weight }) => (
-                  <SwiperSlide className="workout-details-swiper-container">
+                {exercises.map(({ exercise, reps, sets, weight }, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className="workout-details-swiper-container"
+                  >
                     <img
+                    alt="slider "
                       className="workout-details-swiper__image"
                       src={exercise.image}
                     />
@@ -72,7 +123,7 @@ function WorkoutDetails({ workout }) {
                       <h3 className="workout-details-swiper__exercise-name">
                         {exercise.name}
                       </h3>
-                      <div className="workout-details-swiper__terms" >
+                      <div className="workout-details-swiper__terms">
                         <div className="workout-details-swiper__term">
                           <p>Sets: </p> <span>{sets}</span>
                         </div>
@@ -89,12 +140,58 @@ function WorkoutDetails({ workout }) {
               </Swiper>
             </section>
           ))}
-          <section className="workout-actions-container"> 
-          <Button>Save workout</Button>
+          <section className="workout-actions-container">
+            {isCreatedByUser ? (
+              <>
+                <Button
+                  className="workout-delete-button"
+                  sx={{ minWidth: "54px", height: "54px" }}
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "54px",
+                      pointerEvents: "none",
+                    }}
+                  />
+                </Button>
+                <Button
+                  className="workout-edit-button"
+                  sx={{ minWidth: "54px", height: "54px" }}
+                  onClick={handleEditWorkout}
+                >
+                  <EditIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "54px",
+                      pointerEvents: "none",
+                    }}
+                  />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  className="workout-save-button"
+                  sx={{ minWidth: "54px", height: "54px" }}
+                  onClick={handleSaveWorkout}
+                >
+                  <SaveIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "54px",
+                      pointerEvents: "none",
+                    }}
+                  />
+                </Button>
+              </>
+            )}
           </section>
           <h1 className="workout-details__created">Created by: Arnold</h1>
         </div>
       </div>
+
     </>
   );
 }

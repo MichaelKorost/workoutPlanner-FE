@@ -74,7 +74,7 @@ const ExternalEvent = memo(({ event }) => {
       >
          <DialogActions sx={{justifyContent:"flex-end"}}>
         <Button
-            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
             onClick={handleClose}
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
@@ -151,4 +151,3 @@ const ExternalEvent = memo(({ event }) => {
 
 export default ExternalEvent
 
-// fc-event fc-h-event mb-1 fc-daygrid-event fc-daygrid-block-event p-2

@@ -44,11 +44,41 @@ const createWorkoutPlan = async (workoutPlanData, token) => {
   return response.data;
 };
 
+// update user workoutPlan
+const updateWorkoutPlan = async (workoutPlanData, token) => {
+  console.log("updatedService id: " + workoutPlanData._id);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(
+    `${API_URL}/${workoutPlanData._id}`,
+    JSON.stringify(workoutPlanData),
+    config
+  );
+  return response.data;
+};
+// Delete user workoutPlan
+const deleteWorkoutPlan = async (id, token) => {
+  console.log("delete id: " + id);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.delete(`${API_URL}/${id}`, config);
+  return response.data;
+};
+
 const workoutPlanService = {
   getAllWorkoutPlans,
   createWorkoutPlan,
   getUserWorkoutPlans,
   getWorkoutPlanById,
+  updateWorkoutPlan,
+  deleteWorkoutPlan,
 };
 
 export default workoutPlanService;

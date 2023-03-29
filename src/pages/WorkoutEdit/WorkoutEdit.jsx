@@ -1,6 +1,6 @@
-import "./WorkoutCreate.css";
+import "./WorkoutEdit.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { createWorkoutPlan } from "../../features/workoutPlan/workoutPlanSlice";
+import { updateWorkoutPlan } from "../../features/workoutPlan/workoutPlanSlice";
 import Spinner from "../../components/Spinner/Spinner";
 
 import { Fragment, useState } from "react";
@@ -10,24 +10,72 @@ import WCSection from "../../components/WCSection/WCSection";
 import { useEffect } from "react";
 import { Box } from "@mui/system";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Add } from "@mui/icons-material";
+import { Add, TransformOutlined } from "@mui/icons-material";
 import CheckIcon from "@mui/icons-material/Check";
 import Loader from "../../components/Loader/Loader";
-import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Navigate, useNavigate } from "react-router-dom";
 
 // TODO: add validations
 
-function WorkoutCreate() {
+function WorkoutEdit({ workout }) {
+  const { title, plan, _id } = workout;
+  //   const { exercises, muscleGroup } = plan;
   const [planTitle, setPlanTitle] = useState("");
   const [sections, setSections] = useState([]);
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
+  const [isBuffer, setIsBuffer] = useState(false)
   const dispatch = useDispatch();
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+
   const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.workoutPlan
   );
+
+  const currentWorkoutPlan = workoutPlans[0]
+
+  useEffect(() => {
+    if (currentWorkoutPlan) {
+      setPlanTitle(currentWorkoutPlan.title);
+      const transformedSections = currentWorkoutPlan.plan.map((section) => {
+        if (
+          section.muscleGroup === "chest" ||
+          section.muscleGroup === "traps" ||
+          section.muscleGroup === "shoulders" ||
+          section.muscleGroup === "biceps" ||
+          section.muscleGroup === "forearms" ||
+          section.muscleGroup === "obliques" ||
+          section.muscleGroup === "abdominals" ||
+          section.muscleGroup === "quads" ||
+          section.muscleGroup === "calves" ||
+          section.muscleGroup === "lowerback" ||
+          section.muscleGroup === "glutes" ||
+          section.muscleGroup === "hamstrings" ||
+          section.muscleGroup === "triceps"
+        ) {
+          return ({
+            muscleGroup: section.muscleGroup,
+            id: Math.random() * 99,
+            isCustom: false,
+            customName: "",
+            exercises: section.exercises,
+          });
+        } else {
+            return ({
+                muscleGroup: "",
+                id: Math.random() * 99,
+                isCustom: true,
+                customName: section.muscleGroup,
+                exercises: section.exercises,
+              })
+        }
+      });
+      console.log(transformedSections);
+      setSections(transformedSections);
+    }
+  }, [currentWorkoutPlan]);
 
   const addSection = (randomNum, sectionIndex) => {
     const id = Math.random() * 10; //uuid -Universally Unique Id
@@ -80,6 +128,7 @@ function WorkoutCreate() {
     });
     const plan = {
       title: planTitle,
+      _id: _id,
       plan: [...planObjects],
     };
 
@@ -90,14 +139,12 @@ function WorkoutCreate() {
 
     let alertDisplayed = false;
     plan.plan.map((section) => {
-      console.log(section)
       if (section.muscleGroup === "") {
         if (!alertDisplayed) {
           alertDisplayed = true;
           alert("Muscle Group must be specified");
         }
-      }
-      else if (section.exercises.length === 0){
+      } else if (section.exercises.length === 0) {
         if (!alertDisplayed) {
           alertDisplayed = true;
           alert("missing exercises");
@@ -106,23 +153,20 @@ function WorkoutCreate() {
     });
 
     if (!alertDisplayed) {
-      console.log("submited");
-      console.log(plan);
-      dispatch(createWorkoutPlan(plan));
-      navigate(-1)
+        console.log("submited");
+        console.log(plan);
+        dispatch(updateWorkoutPlan(plan));
+        setIsBuffer(true)
+        setTimeout(() => {
+            navigate(-1)
+            setIsBuffer(false)
+        },1000)
+        
     }
-
   };
 
-  useEffect(() => {
-    // console.log(sections);
-  });
 
-  useEffect(() => {
-    return () => {
-      addSection();
-    };
-  }, []);
+  console.log(currentWorkoutPlan);
 
   if (isLoading) {
     return <Loader />;
@@ -130,6 +174,7 @@ function WorkoutCreate() {
 
   return (
     <section className="workout-create-page">
+        {isBuffer && <Loader />}
       <form onSubmit={handleSubmit} className="create">
         <Box
           sx={{
@@ -186,11 +231,11 @@ function WorkoutCreate() {
           <CheckIcon
             sx={{ fontSize: "40px", color: "white", pointerEvents: "none" }}
           />{" "}
-          Create Workout
+          Update Workout
         </Button>
       </form>
     </section>
   );
 }
 
-export default WorkoutCreate;
+export default WorkoutEdit;

@@ -296,7 +296,7 @@ function Calendar() {
         >
           <DialogActions sx={{ justifyContent: "flex-end" }}>
             <Button
-              sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+              sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
               onClick={handleClose}
               onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
               onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
@@ -325,8 +325,8 @@ function Calendar() {
             }}
           >
             <div className="calendar-dialog-container">
-              {clickedEvent?.exercises?.map(({ exercises, muscleGroup }) => (
-                <section className="workout-details-images">
+              {clickedEvent?.exercises?.map(({ exercises, muscleGroup }, index) => (
+                <section key={index} className="workout-details-images">
                   <h2 className="workout-details-muscle-group">
                     {muscleGroup}
                   </h2>
@@ -336,8 +336,8 @@ function Calendar() {
                     modules={[Pagination, Navigation]}
                     className={"workout-details__swiper"}
                   >
-                    {exercises?.map(({ exercise, reps, sets, weight }) => (
-                      <SwiperSlide className="workout-details-swiper-container">
+                    {exercises?.map(({ exercise, reps, sets, weight }, index) => (
+                      <SwiperSlide key={index} className="workout-details-swiper-container">
                         <img
                           className="workout-details-swiper__image"
                           src={exercise.image}
@@ -367,7 +367,7 @@ function Calendar() {
           </DialogContent>
           <DialogActions sx={{ justifyContent: "center" }}>
             <Button
-              sx={{ width: "54px", height: "54", backgroundColor: "#7f8c8d" }}
+              sx={{ width: "54px", height: "54px", backgroundColor: "#7f8c8d" }}
               onClick={handleDeleteEvent}
               onMouseEnter={(e) => (e.target.style.backgroundColor = `#535c68`)}
               onMouseLeave={(e) => (e.target.style.backgroundColor = `#7f8c8d`)}

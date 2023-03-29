@@ -5,15 +5,17 @@ import Calendar from "./pages/Calendar/Calendar";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Exercise from "./pages/Exercise/Exercise";
 import Exercises from "./pages/Exercises/Exercises";
-import Home from "./pages/Home/Home";
+
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import UserWorkouts from "./pages/UserWorkouts/UserWorkouts";
 import Workout from "./pages/Workout/Workout";
 import WorkoutCreate from "./pages/WorkoutCreate/WorkoutCreate";
-import WorkoutDetails from "./pages/WorkoutDetails/WorkoutDetails";
+
 import Workouts from "./pages/Workouts/Workouts";
+
+import WorkoutEditMiddleMan from "./pages/WorkoutEditMiddleMan.jsx/WorkoutEditMiddleMan";
 
 function App() {
   return (
@@ -31,6 +33,10 @@ function App() {
           <Route path="/workouts/new" element={<WorkoutCreate />} />
           <Route path="/workouts/my" element={<UserWorkouts />} />
           <Route path="/workouts/id/:id" element={<Workout />} />
+          <Route
+            path="/workouts/edit/id/:id"
+            element={<WorkoutEditMiddleMan />}
+          />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>

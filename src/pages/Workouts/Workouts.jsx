@@ -3,6 +3,7 @@ import "./Workouts.css";
 import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner/Spinner";
 import {
+  deleteWorkoutPlan,
   getAllWorkoutPlans,
   reset,
 } from "../../features/workoutPlan/workoutPlanSlice";
@@ -15,20 +16,28 @@ import { useTheme } from "@emotion/react";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton";
-
-
+import { useNavigate } from "react-router-dom";
 
 function Workouts() {
   const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
+
   const [searchBar, setSearchBar] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
   const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.workoutPlan
   );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate, dispatch]);
 
   useEffect(() => {
     if (isError) {
@@ -48,8 +57,12 @@ function Workouts() {
     setSearchBar(value);
   };
 
- 
- 
+  const handleDeleteWorkoutPlan = (id) => {
+    // const updatedWorkouts = listOfWorkoutPlans.filter((workout) => workout._id !== id)
+    // setListOfWorkoutPlans(updatedWorkouts)
+    dispatch(deleteWorkoutPlan(id));
+  }
+
 
   return (
     <div className="workouts-page">
@@ -64,7 +77,7 @@ function Workouts() {
         style={{ backgroundColor: randomColor }}
       >
         {isLoading ? (
-         <WorkoutsSkeleton />
+          <WorkoutsSkeleton />
         ) : listOfWorkoutPlans?.filter((workout) =>
             workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
           ).length === 0 ? (
@@ -79,7 +92,7 @@ function Workouts() {
                 .includes(searchBar.toLocaleLowerCase())
             )
             .map((workout) => {
-              return <WorkoutCard key={workout._id} workout={workout} />;
+              return <WorkoutCard onDelete={handleDeleteWorkoutPlan} key={workout._id} workout={workout} />;
             })
         )}
       </div>

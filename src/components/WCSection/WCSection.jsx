@@ -71,15 +71,15 @@ const muscleGroups = [
 // TODO: from each section, will receive an object
 
 function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake }) {
-  const { muscleGroup, id, customName, isCustom, exercises } = section;
+  const { muscleGroup, id, customName, isCustom = false, exercises } = section;
 
   const [isCustomSelected, setIsCustomSelected] = useState(isCustom);
   const [customText, setCustomText] = useState(customName);
   const [selectedGroup, setSelectedGroup] = useState(muscleGroup);
-  const [addedExercises, setAddedExercises] = useState([]);
+  const [addedExercises, setAddedExercises] = useState(exercises||[]);
   const [isAdd, setIsAdd] = useState(false);
   const [isBackDropActive, setIsBackDropActive] = useState(isAdd);
-
+  const [isChecked, setIsChecked] = useState(isCustom || false)
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -110,6 +110,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
     setCustomText("");
     setSelectedGroup("");
     setIsCustomSelected(!isCustomSelected);
+    setIsChecked(!isChecked);
   };
 
   const addExercise = () => {
@@ -143,6 +144,8 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
   const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
   const matchesmidLarge = useMediaQuery(theme.breakpoints.down("midLarge")); //1170
   const matchesLg = useMediaQuery(theme.breakpoints.down("lg")); //1280
+
+// console.log({section})
 
   return (
     <>
@@ -214,10 +217,10 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
             className={"create__checkbox"}
           >
             <FormControlLabel
-              control={<Checkbox />}
+              control={<Checkbox checked={isChecked} onChange={toggleCustomText} />}
               label={matchesSmallPhone ? "Custom text" : "Custom"}
               labelPlacement="end"
-              onChange={toggleCustomText}
+              // onChange={toggleCustomText}
             />
           </Box>
           <Button

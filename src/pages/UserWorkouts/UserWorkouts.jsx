@@ -6,6 +6,7 @@ import {
   getAllWorkoutPlans,
   reset,
   getUserWorkoutPlans,
+  deleteWorkoutPlan
 } from "../../features/workoutPlan/workoutPlanSlice";
 import { useDispatch, useSelector } from "react-redux";
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
@@ -19,7 +20,7 @@ import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton
 
 function UserWorkouts() {
   const [searchBar, setSearchBar] = useState("");
-  const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
+  const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState(null);
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -48,14 +49,20 @@ function UserWorkouts() {
 
   
   useEffect(() => {
-     setListOfWorkoutPlans(workoutPlans);
+    console.log('workoutPlans:', workoutPlans)
+      setListOfWorkoutPlans(workoutPlans);
+    
    }, [workoutPlans]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
   };
 
-
+  const handleDeleteWorkoutPlan = (id) => {
+    // const updatedWorkouts = listOfWorkoutPlans.filter((workout) => workout._id !== id)
+    // setListOfWorkoutPlans(updatedWorkouts)
+    dispatch(deleteWorkoutPlan(id));
+  }
 
 
   return (
@@ -86,7 +93,7 @@ function UserWorkouts() {
               .includes(searchBar.toLocaleLowerCase())
           )
           .map((workout) => {
-            return <WorkoutCard key={workout._id} workout={workout} />;
+            return <WorkoutCard onDelete={handleDeleteWorkoutPlan} key={Math.random()*99} workout={workout} />;
           })
       )}
     </div>

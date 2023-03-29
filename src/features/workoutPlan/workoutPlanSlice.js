@@ -86,6 +86,84 @@ export const createWorkoutPlan = createAsyncThunk(
     }
   }
 );
+// save new workout from details page
+
+export const saveNewWorkout = createAsyncThunk(
+  "workoutPlans/saveNewWorkout",
+  async (workoutPlanData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await workoutPlanService.createWorkoutPlan(workoutPlanData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Update user workout plan
+
+export const updateWorkoutPlan = createAsyncThunk(
+  "workoutPlans/update",
+  async (workoutPlanData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await workoutPlanService.updateWorkoutPlan(workoutPlanData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// Delete user workout plan
+
+export const deleteWorkoutPlan = createAsyncThunk(
+  "workoutPlans/delete",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await workoutPlanService.deleteWorkoutPlan(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Delete user workout plan from details page
+
+export const deleteWorkoutPlanFromDetailPage = createAsyncThunk(
+  "workoutPlans/deleteFromDetailsPage",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await workoutPlanService.deleteWorkoutPlan(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const workoutPlansSlice = createSlice({
   name: "workoutPlans",
@@ -147,9 +225,73 @@ export const workoutPlansSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.workoutPlans = action.payload;
+        state.workoutPlans = [action.payload];
       })
       .addCase(getWorkoutPlanById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(updateWorkoutPlan.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateWorkoutPlan.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.workoutPlans = state?.workoutPlans?.map((workoutPlan) =>
+          workoutPlan._id === action.payload._id ? action.payload : workoutPlan
+        );
+      })
+      .addCase(updateWorkoutPlan.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(deleteWorkoutPlan.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteWorkoutPlan.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.workoutPlans = state.workoutPlans.filter(
+          (workoutPlan) => workoutPlan._id !== action.payload
+        );
+      })
+      .addCase(deleteWorkoutPlan.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(deleteWorkoutPlanFromDetailPage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteWorkoutPlanFromDetailPage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        // state.workoutPlans = state.workoutPlans;
+      })
+      .addCase(deleteWorkoutPlanFromDetailPage.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(saveNewWorkout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(saveNewWorkout.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.workoutPlans = state.workoutPlans;
+      })
+      .addCase(saveNewWorkout.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

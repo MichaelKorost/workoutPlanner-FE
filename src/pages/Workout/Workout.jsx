@@ -15,6 +15,8 @@ function Workout() {
     (state) => state.workoutPlan
   );
 
+  const currentWorkoutPlan = workoutPlans[0]
+
   useEffect(() => {
     if (isError) {
       console.log(message);
@@ -31,8 +33,8 @@ function Workout() {
         <Loader />
       ) : (
         <div>
-          {workoutPlans && workoutPlans._id ? (
-            <WorkoutDetails workout={workoutPlans} />
+          {currentWorkoutPlan && currentWorkoutPlan._id ? (
+            <WorkoutDetails workout={currentWorkoutPlan} />
           ) : (
             <ExerciseNotFound errorMessage={"Workout page not found"} />
           )}
