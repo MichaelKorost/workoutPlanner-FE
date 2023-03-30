@@ -1,6 +1,6 @@
 import "./Workouts.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Spinner from "../../components/Spinner/Spinner";
 import {
   deleteWorkoutPlan,
@@ -19,8 +19,9 @@ import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton
 import { useNavigate } from "react-router-dom";
 
 function Workouts() {
-  const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
-  const [randomColor, setRandomColor] = useState(
+  // const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
 
@@ -29,37 +30,47 @@ function Workouts() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
+  const { workoutPlans, isError, isSuccess, message } = useSelector(
     (state) => state.workoutPlan
   );
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate, dispatch]);
-
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
     if (isError) {
-      console.log(message);
+      console.log(message)
     }
-    dispatch(getAllWorkoutPlans());
-    return () => {
-      dispatch(reset());
-    };
-  }, [isError, message, dispatch]);
+
+    if (!user) {
+      navigate("/login")
+    }else if(user.token) {
+      try {
+        setIsLoading(true)
+        await dispatch(getAllWorkoutPlans()).unwrap()
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  },[dispatch, isError, message, navigate, user])
 
   useEffect(() => {
-    setListOfWorkoutPlans(workoutPlans);
-  }, [workoutPlans]);
+    fetchData()
+
+    return () => {
+      dispatch(reset())
+    }
+
+  },[dispatch, fetchData])
+
+  // useEffect(() => {
+  //   setListOfWorkoutPlans(workoutPlans);
+  // }, [workoutPlans]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
   };
 
   const handleDeleteWorkoutPlan = (id) => {
-    // const updatedWorkouts = listOfWorkoutPlans.filter((workout) => workout._id !== id)
-    // setListOfWorkoutPlans(updatedWorkouts)
     dispatch(deleteWorkoutPlan(id));
   }
 
@@ -78,14 +89,14 @@ function Workouts() {
       >
         {isLoading ? (
           <WorkoutsSkeleton />
-        ) : listOfWorkoutPlans?.filter((workout) =>
+        ) : workoutPlans?.filter((workout) =>
             workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
           ).length === 0 ? (
           <ExerciseNotFound
             errorMessage={"No Workouts found. Please try different keywords."}
           />
         ) : (
-          listOfWorkoutPlans
+          workoutPlans
             ?.filter((workout) =>
               workout.title
                 .toLowerCase()

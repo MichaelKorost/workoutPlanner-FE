@@ -17,50 +17,80 @@ import { Skeleton, useMediaQuery } from "@mui/material";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import { useTheme } from "@emotion/react";
 import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton";
+import { useCallback } from "react";
 
 function UserWorkouts() {
   const [searchBar, setSearchBar] = useState("");
-  const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState(null);
-  const [randomColor, setRandomColor] = useState(
+  // const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
+  const { workoutPlans, isError, message } = useSelector(
     (state) => state.workoutPlan
   );
 
-  useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
+    const fetchData = useCallback(async () => {
+      if (isError) {
+        console.log(message)
+      }
 
-    if (!user) {
-      navigate("/login");
-    } else if (user.token) {
-      dispatch(getUserWorkoutPlans());
-    }
+      if (!user) {
+        navigate("/login")
+      }else if(user.token) {
+        try {
+          setIsLoading(true)
+          await dispatch(getUserWorkoutPlans()).unwrap()
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false)
+        }
+      }
+    },[dispatch, isError, message, navigate, user])
 
-    return () => {
-      dispatch(reset());
-    };
-  }, [user, navigate, isError, message, dispatch]);
+
+    useEffect(() => {
+      fetchData()
+
+      return () => {
+        dispatch(reset())
+      }
+
+    },[dispatch, fetchData])
+
+
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.log(message);
+  //   }
+
+  //   if (!user) {
+  //     navigate("/login");
+  //   } else if (user.token) {
+  //     dispatch(getUserWorkoutPlans());
+  //   }
+
+  //   return () => {
+  //     dispatch(reset());
+  //   };
+  // }, [user, navigate, isError, message, dispatch]);
 
   
-  useEffect(() => {
-    console.log('workoutPlans:', workoutPlans)
-      setListOfWorkoutPlans(workoutPlans);
+  // useEffect(() => {
+  //   console.log('workoutPlans:', workoutPlans)
+  //     setListOfWorkoutPlans(workoutPlans);
     
-   }, [workoutPlans]);
+  //  }, [workoutPlans]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
   };
 
   const handleDeleteWorkoutPlan = (id) => {
-    // const updatedWorkouts = listOfWorkoutPlans.filter((workout) => workout._id !== id)
-    // setListOfWorkoutPlans(updatedWorkouts)
     dispatch(deleteWorkoutPlan(id));
   }
 
@@ -79,14 +109,14 @@ function UserWorkouts() {
     >
       {isLoading ? (
         <WorkoutsSkeleton />
-      ) : listOfWorkoutPlans?.filter((workout) =>
+      ) : workoutPlans?.filter((workout) =>
           workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
         ).length === 0 ? (
         <ExerciseNotFound
           errorMessage={"No Workouts found. Please try different keywords."}
         />
       ) : (
-        listOfWorkoutPlans
+        workoutPlans
           ?.filter((workout) =>
             workout.title
               .toLowerCase()

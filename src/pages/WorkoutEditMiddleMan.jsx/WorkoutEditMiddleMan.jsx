@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import Loader from "../../components/Loader/Loader";
-import { reset } from "../../features/auth/authSlice";
-import { getWorkoutPlanById } from "../../features/workoutPlan/workoutPlanSlice";
+// import { reset } from "../../features/auth/authSlice";
+import { getWorkoutPlanById, reset } from "../../features/workoutPlan/workoutPlanSlice";
 import WorkoutDetails from "../WorkoutDetails/WorkoutDetails";
 import WorkoutEdit from "../WorkoutEdit/WorkoutEdit";
 

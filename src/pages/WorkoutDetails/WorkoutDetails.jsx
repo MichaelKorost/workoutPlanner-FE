@@ -19,7 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 
 
-function WorkoutDetails({ workout }) {
+function WorkoutDetails({ workout, onDelete }) {
   const [isCreatedByUser, setIsCreatedByUser] = useState(false);
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
@@ -47,10 +47,8 @@ function WorkoutDetails({ workout }) {
     navigate(`/workouts/edit/id/${_id}`);
   };
 
-  const handleDelete = () => {
-    
-    dispatch(deleteWorkoutPlan(_id));
-    navigate(-2)
+  const handleDelete = () => {  
+    onDelete()
   };
 
   const handleSaveWorkout = () => {
