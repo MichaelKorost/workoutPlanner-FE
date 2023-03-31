@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+
 import Navbar from "./components/Navbar/Navbar";
 import Calendar from "./pages/Calendar/Calendar";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -16,6 +17,7 @@ import WorkoutCreate from "./pages/WorkoutCreate/WorkoutCreate";
 import Workouts from "./pages/Workouts/Workouts";
 
 import WorkoutEditMiddleMan from "./pages/WorkoutEditMiddleMan.jsx/WorkoutEditMiddleMan";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -41,6 +43,13 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
+      <ToastContainer
+        position="top-center"
+        autoClose={2500}
+        hideProgressBar={true}
+        closeOnClick
+        style={{ marginTop: "54px" }}
+      />
     </div>
   );
 }

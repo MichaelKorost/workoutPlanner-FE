@@ -38,11 +38,6 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 function Exercises() {
-  //   TODO: favorite an exercise
-  //   TODO: mobile responsive
-  //   TODO: fix traps (mid back) probably in db *pain*
-  //   TODO: make a load more on scroll down
-  //   TODO: ekeleton loading with MUI
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchFilters, setSearchFilters] = useState({
@@ -51,18 +46,16 @@ function Exercises() {
     difficulty: [],
   });
   const [searchBar, setSearchBar] = useState("");
-  const [randomColor, setRandomColor] = useState(
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
 
   const { exercises, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.exercise
   );
 
-  const theme = useTheme();
-  const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet"));
-  const matchesSm = useMediaQuery(theme.breakpoints.down("sm"));
+
 
   useEffect(() => {
     if (isError) {

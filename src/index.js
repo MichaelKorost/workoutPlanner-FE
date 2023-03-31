@@ -9,6 +9,9 @@ import "./index.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 
+// import toastify styles
+import "react-toastify/dist/ReactToastify.css";
+
 const container = document.getElementById("root");
 const root = createRoot(container);
 

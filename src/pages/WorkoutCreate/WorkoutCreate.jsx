@@ -1,33 +1,53 @@
 import "./WorkoutCreate.css";
 import { useDispatch, useSelector } from "react-redux";
-import { createWorkoutPlan } from "../../features/workoutPlan/workoutPlanSlice";
-import Spinner from "../../components/Spinner/Spinner";
+import {
+  createWorkoutPlan,
+  reset,
+} from "../../features/workoutPlan/workoutPlanSlice";
 
-import { Fragment, useState } from "react";
+import { forwardRef, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import WCSection from "../../components/WCSection/WCSection";
 import { useEffect } from "react";
 import { Box } from "@mui/system";
-import AddBoxIcon from "@mui/icons-material/AddBox";
+
 import { Add } from "@mui/icons-material";
 import CheckIcon from "@mui/icons-material/Check";
 import Loader from "../../components/Loader/Loader";
 import { useNavigate } from "react-router-dom";
-
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import {toast} from "react-toastify"
 // TODO: add validations
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function WorkoutCreate() {
   const [planTitle, setPlanTitle] = useState("");
   const [sections, setSections] = useState([]);
-  const [randomColor, setRandomColor] = useState(
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
+
   const dispatch = useDispatch();
-    const navigate = useNavigate()
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.workoutPlan
-  );
+  const navigate = useNavigate();
+
+  const { isLoading } = useSelector((state) => state.workoutPlan);
+
+  // snackbar notifications
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const addSection = (randomNum, sectionIndex) => {
     const id = Math.random() * 10; //uuid -Universally Unique Id
@@ -84,23 +104,35 @@ function WorkoutCreate() {
     };
 
     if (!planTitle) {
-      alert("Please provide a title");
+      
+      toast.error("Workout is missing a title")
+      // setOpen(true);
+      // setErrorMessage("Workout is missing a title")
+      // alert("Please provide a title");
+
       return;
     }
 
     let alertDisplayed = false;
     plan.plan.map((section) => {
-      console.log(section)
       if (section.muscleGroup === "") {
         if (!alertDisplayed) {
           alertDisplayed = true;
-          alert("Muscle Group must be specified");
+
+          // alert("Muscle Group must be specified");
+          toast.error("Muscle group must be specified")
+          // setOpen(true);
+          // setErrorMessage("Muscle Group must be specified")
+
         }
-      }
-      else if (section.exercises.length === 0){
+      } else if (section.exercises.length === 0) {
         if (!alertDisplayed) {
           alertDisplayed = true;
-          alert("missing exercises");
+
+          // alert("missing exercises");
+          toast.error("Missing exercises")
+          // setOpen(true);
+          // setErrorMessage("missing exercises")
         }
       }
     });
@@ -109,9 +141,10 @@ function WorkoutCreate() {
       console.log("submited");
       console.log(plan);
       dispatch(createWorkoutPlan(plan));
-      navigate(-1)
+      dispatch(reset());
+      toast.success("Workout created successfully!")
+      navigate(-1);
     }
-
   };
 
   useEffect(() => {
@@ -129,6 +162,7 @@ function WorkoutCreate() {
   }
 
   return (
+    <>
     <section className="workout-create-page">
       <form onSubmit={handleSubmit} className="create">
         <Box
@@ -189,7 +223,21 @@ function WorkoutCreate() {
           Create Workout
         </Button>
       </form>
+
     </section>
+    {/* <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+      </Stack> */}
+    </>
   );
 }
 

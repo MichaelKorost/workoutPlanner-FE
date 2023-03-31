@@ -15,6 +15,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import Loader from "../../components/Loader/Loader";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // TODO: add validations
 
@@ -133,7 +134,7 @@ function WorkoutEdit({ workout }) {
     };
 
     if (!planTitle) {
-      alert("Please provide a title");
+      toast.error("Muscle group must be specified")
       return;
     }
 
@@ -142,12 +143,12 @@ function WorkoutEdit({ workout }) {
       if (section.muscleGroup === "") {
         if (!alertDisplayed) {
           alertDisplayed = true;
-          alert("Muscle Group must be specified");
+          toast.error("Muscle group must be specified")
         }
       } else if (section.exercises.length === 0) {
         if (!alertDisplayed) {
           alertDisplayed = true;
-          alert("missing exercises");
+          toast.error("Missing exercises")
         }
       }
     });
@@ -160,6 +161,7 @@ function WorkoutEdit({ workout }) {
         setTimeout(() => {
             navigate(-1)
             setIsBuffer(false)
+            toast.success("Workout updated successfully!")
         },1000)
         
     }

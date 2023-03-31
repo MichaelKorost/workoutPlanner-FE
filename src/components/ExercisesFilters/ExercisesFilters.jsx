@@ -102,7 +102,7 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
           aria-labelledby="Filters"
           subheader={
             <ListSubheader
-              sx={{ backgroundColor: randomColor + "00" }}
+              sx={{ backgroundColor: randomColor + "00" , position:"static"}}
               component="div"
               id="nested-list-subheader"
             >
