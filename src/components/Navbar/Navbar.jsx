@@ -131,7 +131,7 @@ const logoutHandler = () => {
             </div>
           </li>
           <li>
-            <Link to="/calendar" className="nav__link">
+            <Link to="/calendar" className="nav__link" onClick={closeMenu}>
               <i className="fa fa-calendar" aria-hidden="true"></i>Calendar
             </Link>
           </li>
