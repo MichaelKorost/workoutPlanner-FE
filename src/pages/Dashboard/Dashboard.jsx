@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Test from "../Test/Test";
+import Loader from "../../components/Loader/Loader";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -22,7 +23,9 @@ function Dashboard() {
 
   return (
     <>
+    {isLoading && <Loader />}
       <Navbar />
+      {/* <h1>hello, {user.name}</h1> */}
       <Test />
     </>
   );

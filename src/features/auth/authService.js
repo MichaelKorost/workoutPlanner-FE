@@ -40,7 +40,7 @@ const login = async (userData) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    throw new Error("error bruh");
+    throw new Error("Email or password are incorrect");
   }
 };
 

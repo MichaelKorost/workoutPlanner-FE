@@ -63,28 +63,6 @@ function UserWorkouts() {
     },[dispatch, fetchData])
 
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     console.log(message);
-  //   }
-
-  //   if (!user) {
-  //     navigate("/login");
-  //   } else if (user.token) {
-  //     dispatch(getUserWorkoutPlans());
-  //   }
-
-  //   return () => {
-  //     dispatch(reset());
-  //   };
-  // }, [user, navigate, isError, message, dispatch]);
-
-  
-  // useEffect(() => {
-  //   console.log('workoutPlans:', workoutPlans)
-  //     setListOfWorkoutPlans(workoutPlans);
-    
-  //  }, [workoutPlans]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
@@ -109,6 +87,8 @@ function UserWorkouts() {
     >
       {isLoading ? (
         <WorkoutsSkeleton />
+      ) : !Array.isArray(workoutPlans) ? (
+        <ExerciseNotFound errorMessage={"No workout plans found."} />
       ) : workoutPlans?.filter((workout) =>
           workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
         ).length === 0 ? (

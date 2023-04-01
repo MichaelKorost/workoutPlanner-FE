@@ -14,7 +14,7 @@ function ExerciseNotFound({errorMessage}) {
       <img
         className="exercise__img2"
         src={personalTrainer}
-        alt="exercise image"
+        alt="exercise"
       />
       <div className="exercise-not-found__text">
         <div>{errorMessage}</div>

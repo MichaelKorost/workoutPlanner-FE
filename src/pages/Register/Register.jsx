@@ -10,7 +10,7 @@ import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 
 function Register() {
-  const [image, setImage] = useState();
+  // const [image, setImage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -44,19 +44,19 @@ function Register() {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   // handle and convert to base 64
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    setFilesToBase(file);
-    console.log(file);
-  };
+  // const handleImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setFilesToBase(file);
+  //   console.log(file);
+  // };
 
-  const setFilesToBase = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
-  };
+  // const setFilesToBase = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setImage(reader.result);
+  //   };
+  // };
 
   const changeHandler = (e) => {
     setFormData((prevState) => ({
@@ -69,13 +69,13 @@ function Register() {
     e.preventDefault();
 
     const userData = {
-      pic:image,
+      // image:image,
       name,
       email,
       password,
       passwordConfirmation,
     };
-  
+  console.log(userData)
     dispatch(register(userData));
   };
 
@@ -87,7 +87,7 @@ function Register() {
         <div className="register-image-container">
           <img
             className="register__img"
-            src={image ? image : missingImg}
+            src={ missingImg}
             alt="upload"
           />
           <Button
@@ -106,7 +106,7 @@ function Register() {
             }}
           >
             <AddIcon />
-            <input hidden accept="image/*" type="file" onChange={handleImage} />
+            {/* <input hidden accept="image/*" type="file" onChange={handleImage} /> */}
           </Button>
         </div>
         <section className="register__inputs">
