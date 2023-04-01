@@ -3,6 +3,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { login, reset } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "./Login.scss"
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ function Login() {
   }
 
   return (
-    <>
+    <div className="login-page">
       <div>WorkoutPlanner</div>
       <form onSubmit={submitHandler}>
         <div>
@@ -84,7 +85,7 @@ function Login() {
         </div>
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
   );
 }
 

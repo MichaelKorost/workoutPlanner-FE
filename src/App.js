@@ -23,24 +23,58 @@ function App() {
   return (
     <div className="app">
       <Router>
-        <Navbar />
         <Routes>
-          {/* <Route path="/exercises" element={<Home />} /> */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/exercises" element={<Exercises />} />
-          <Route path="/exercises/id/:id" element={<Exercise />} />
-          <Route path="/workouts" element={<Workouts />} />
-          <Route path="/workouts/new" element={<WorkoutCreate />} />
-          <Route path="/workouts/my" element={<UserWorkouts />} />
-          <Route path="/workouts/id/:id" element={<Workout />} />
           <Route
-            path="/workouts/edit/id/:id"
-            element={<WorkoutEditMiddleMan />}
+            path="/exercises/*"
+            element={
+              <div>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Exercises />} />
+                  <Route path="id/:id" element={<Exercise />} />
+                </Routes>
+              </div>
+            }
           />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/workouts/*"
+            element={
+              <div>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Workouts />} />
+                  <Route path="new" element={<WorkoutCreate />} />
+                  <Route path="my" element={<UserWorkouts />} />
+                  <Route path="id/:id" element={<Workout />} />
+                  <Route
+                    path="edit/id/:id"
+                    element={<WorkoutEditMiddleMan />}
+                  />
+                </Routes>
+              </div>
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <div>
+                <Navbar />
+                <Calendar />
+              </div>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <div>
+                <Navbar />
+                <Profile />
+              </div>
+            }
+          />
         </Routes>
       </Router>
       <ToastContainer
