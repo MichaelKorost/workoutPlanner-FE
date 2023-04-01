@@ -1,7 +1,7 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {logout, reset} from '../../features/auth/authSlice'
   
 import Logo from "../../assets/logoipsum-258.svg";
@@ -15,10 +15,13 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
+import Loader from "../Loader/Loader";
 
 // TODO: Add a logo to the navbar
 
 const Navbar = () => {
+  const { user, isLoading } = useSelector((state) => state.auth);
+
   const [isClicked, setIsClicked] = useState(false);
   const [active, setActive] = useState(false);
   const [isWorkoutsDropdownOpen, setIsWorkoutsDropdownOpen] = useState(false);
@@ -45,6 +48,11 @@ const logoutHandler = () => {
     setActive(!active);
   };
 
+  const closeMenu = () => {
+    setIsClicked(false)
+    setActive(false)
+  }
+
   const menuRef = useRef();
   const workoutsButtonRef = useRef();
   const profileButtonRef = useRef();
@@ -62,6 +70,7 @@ const logoutHandler = () => {
   });
   return (
     <>
+    {isLoading && <Loader />}
       <nav className="nav">
         <Link to="/" className="nav__title">
           <img src={Logo} alt="logo" />
@@ -93,16 +102,16 @@ const logoutHandler = () => {
               <div className="dropdown-menu" ref={menuRef}>
                 <ul onClick={toggleProfileDropdown} className="dropdown-items">
                   <li>
-                    <Link to="/profile" className="nav-profile">
+                    <Link to="/profile" className="nav-profile" onClick={closeMenu}>
                       <img
                         src={missingImg}
                         alt="pic"
                         className="nav-profile__pic"
                       />
-                      <p className="nav-profile__name">James Charles</p>
+                      <p className="nav-profile__name">{ user?.name || "James Charles"} </p>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/profile/edit" className="">
                       <ManageAccountsIcon /> Update Profile
                     </Link>
@@ -111,7 +120,7 @@ const logoutHandler = () => {
                     <Link to="/track" className="">
                       <TimelineIcon /> Weight tracker
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link to={'/'} className="" onClick={logoutHandler}>
                       <LogoutIcon /> Logout
@@ -151,22 +160,22 @@ const logoutHandler = () => {
               <div className="dropdown-menu" ref={menuRef}>
                 <ul onClick={toggleWorkoutsDropdown} className="dropdown-items">
                   <li>
-                    <Link to="/workouts" className="">
+                    <Link to="/workouts" className="" onClick={closeMenu}>
                       <SearchIcon /> Browse
                     </Link>
                   </li>
                   <li>
-                    <Link to="/workouts/new" className="">
+                    <Link to="/workouts/new" className="" onClick={closeMenu}>
                       <AddIcon /> new
                     </Link>
                   </li>
                   <li>
-                    <Link to="/workouts/my" className="">
+                    <Link to="/workouts/my" className="" onClick={closeMenu}>
                       <FolderSharedIcon /> Personal
                     </Link>
                   </li>
                   <li>
-                    <Link to="/workouts/today" className="">
+                    <Link to="/workouts/today" className="" onClick={closeMenu}>
                       <TodayIcon /> Today's
                     </Link>
                   </li>
@@ -176,15 +185,15 @@ const logoutHandler = () => {
           </li>
 
           <li>
-            <Link to="/exercises" className="nav__link">
+            <Link to="/exercises" className="nav__link" onClick={closeMenu}>
               <SportsGymnasticsIcon className="mui-icon" /> Exercises
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/bmi" className="nav__link">
               <i className="fa fa-calculator" aria-hidden="true"></i> BMI
             </Link>
-          </li>
+          </li> */}
         </ul>
 
         <div className="nav-mobile" id="nav-mobile" onClick={toggleMenu}>
