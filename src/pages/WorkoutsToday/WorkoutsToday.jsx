@@ -60,9 +60,10 @@ function WorkoutsToday() {
     const day = date.toLocaleString("en-US", { day: "2-digit" });
 
     const today = `${year}-${month}-${day}`;
-    const todaysEvents = userCalendarEvents.filter((event) =>
-      event.date === today ? event : ""
-    );
+    const todaysEvents = Array.isArray(userCalendarEvents) ? userCalendarEvents.filter((event) =>
+    event.date === today ? event : ""
+  ) : [];
+
     console.log(todaysEvents);
     setTodayWorkouts(todaysEvents);
   }, [userCalendarEvents]);
