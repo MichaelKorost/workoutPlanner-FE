@@ -34,6 +34,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
 import Loader from "../../components/Loader/Loader";
 import CalendarSkeleton from "../../components/CalendarSkeleton/CalendarSkeleton";
+import { toast } from "react-toastify";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -197,6 +198,7 @@ function Calendar() {
     };
     // console.log(updatedUserEvents);
     dispatch(updateCalendarEvents(updatedUserEvents));
+    toast.success("Calendar updated successfully!")
   };
 
   // custom buttons

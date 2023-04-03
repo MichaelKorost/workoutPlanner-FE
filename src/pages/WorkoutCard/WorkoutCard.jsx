@@ -337,7 +337,7 @@ function WorkoutCard({ workout, onDelete }) {
             whiteSpace: "nowrap",
             overflowX: "hidden",
             textAlign: "center",
-            fontSize: "40px",
+            fontSize: "20px",
             padding: "10 20px",
           }}
           className="calendar-dialog__title"

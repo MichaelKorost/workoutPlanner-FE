@@ -13,22 +13,20 @@ const register = async (userData) => {
   return response.data;
 };
 
-// Login user
-// const login = async (userData) => {
-//   try {
-//     const response = await axios.post(`${API_URL}/users/login`, userData);
-//     console.log(response);
-//     if (!response.data.message) {
-//       localStorage.setItem("user", JSON.stringify(response.data));
-//       return response.data;
-//     } else {
-//       console.log(response.data);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return null;
-//   }
-// };
+const updateUsername = async (newName, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(
+    `${API_URL}/users/me`,
+    { name: newName },
+    config
+  );
+  return response.data;
+};
+
 const login = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/users/login`, userData);
@@ -53,6 +51,7 @@ const authService = {
   register,
   login,
   logout,
+  updateUsername,
 };
 
 export default authService;

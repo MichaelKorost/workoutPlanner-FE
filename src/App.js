@@ -15,7 +15,7 @@ import Workout from "./pages/Workout/Workout";
 import WorkoutCreate from "./pages/WorkoutCreate/WorkoutCreate";
 
 import Workouts from "./pages/Workouts/Workouts";
-
+import WorkoutsToday from "./pages/WorkoutsToday/WorkoutsToday";
 import WorkoutEditMiddleMan from "./pages/WorkoutEditMiddleMan.jsx/WorkoutEditMiddleMan";
 import { ToastContainer } from "react-toastify";
 
@@ -48,6 +48,7 @@ function App() {
                   <Route path="/" element={<Workouts />} />
                   <Route path="new" element={<WorkoutCreate />} />
                   <Route path="my" element={<UserWorkouts />} />
+                  <Route path="today" element={<WorkoutsToday />} />
                   <Route path="id/:id" element={<Workout />} />
                   <Route
                     path="edit/id/:id"

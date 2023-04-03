@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner/Spinner";
 import { login, reset } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import Loader from "../../components/Loader/Loader";
 import { Button, FormControl, OutlinedInput } from "@mui/material";
@@ -34,9 +34,6 @@ function Login() {
       navigate("/");
     }
     
-    if (isSuccess) {
-      toast.success(`Welcome, ${user.name}`)
-    }
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -61,8 +58,11 @@ function Login() {
       password,
     };
 
+    
     dispatch(login(userData));
   };
+
+console.log(user)
 
   return (
     <div className="login-page">
@@ -142,7 +142,7 @@ function Login() {
           >
             Login
           </Button>
-          <p className="login__create">Don't have an account? <b className="login__create--bold">Create</b></p>
+          <p className="login__create">Don't have an account? <Link to={"/register"} > <b className="login__create--bold">Create</b> </Link> </p>
         </section>
       </form>
     </div>

@@ -2,7 +2,7 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {logout, reset} from '../../features/auth/authSlice'
+import {logout, reset, updateUsername} from '../../features/auth/authSlice'
   
 import Logo from "../../assets/logoipsum-258.svg";
 import missingImg from "../../assets/missing-profile.png";
@@ -16,16 +16,22 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import Loader from "../Loader/Loader";
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import Profile from "../../pages/Profile/Profile";
+import CloseIcon from "@mui/icons-material/Close";
+import { toast } from "react-toastify";
 
 // TODO: Add a logo to the navbar
 
 const Navbar = () => {
   const { user, isLoading } = useSelector((state) => state.auth);
 
+  const [openDialog, setOpenDialog] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [active, setActive] = useState(false);
   const [isWorkoutsDropdownOpen, setIsWorkoutsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
 
   const toggleWorkoutsDropdown = () => {
     setIsWorkoutsDropdownOpen(!isWorkoutsDropdownOpen);
@@ -53,6 +59,32 @@ const logoutHandler = () => {
     setActive(false)
   }
 
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+    closeMenu()
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
+  const handleUpdateUsername = (newName) => {
+    if (newName.length === "") {
+      toast.error("name cannot be empty")
+      return
+    }
+    if (!newName) {
+      toast.error("name cannot be empty")
+      return
+    }
+    if (newName === user.name) {
+      toast.error("nothing changed")
+      return
+    }
+    dispatch(updateUsername(newName))
+    toast.success("username updated successfully")
+  }
+
   const menuRef = useRef();
   const workoutsButtonRef = useRef();
   const profileButtonRef = useRef();
@@ -68,6 +100,8 @@ const logoutHandler = () => {
       setIsProfileDropdownOpen(false);
     }
   });
+
+
   return (
     <>
     {isLoading && <Loader />}
@@ -102,14 +136,14 @@ const logoutHandler = () => {
               <div className="dropdown-menu" ref={menuRef}>
                 <ul onClick={toggleProfileDropdown} className="dropdown-items">
                   <li>
-                    <Link to="/profile" className="nav-profile" onClick={closeMenu}>
+                    <div className="nav-profile" onClick={handleClickOpen}>
                       <img
                         src={missingImg}
                         alt="pic"
                         className="nav-profile__pic"
                       />
                       <p className="nav-profile__name">{ user?.name || "James Charles"} </p>
-                    </Link>
+                    </div>
                   </li>
                   {/* <li>
                     <Link to="/profile/edit" className="">
@@ -204,6 +238,32 @@ const logoutHandler = () => {
         className={`backdrop ${active ? "backdrop-active" : ""}`}
         onClick={toggleMenu}
       ></div>
+
+      <Dialog
+        fullWidth={true}
+        maxWidth={"sm"}
+        open={openDialog}
+        onClose={handleClose}
+      >
+       <DialogActions sx={{ justifyContent: "flex-end" }}>
+          <Button
+            sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
+            onClick={handleClose}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+          >
+            <CloseIcon
+              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+            />
+          </Button>
+        </DialogActions>
+
+        <DialogContent>
+          <Profile user={user} onSave={handleUpdateUsername} />
+       
+        </DialogContent>
+      </Dialog>
+
     </>
   );
 };

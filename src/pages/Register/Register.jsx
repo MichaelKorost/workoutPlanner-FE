@@ -2,7 +2,7 @@ import "./Register.scss";
 import { useState, useEffect } from "react";
 import { register, reset } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, FormControl, OutlinedInput } from "@mui/material";
 import missingImg from "../../assets/missing-profile.png";
 import AddIcon from "@mui/icons-material/Add";
@@ -102,6 +102,7 @@ function Register() {
               minWidth: "40px",
               minHeight: "40px",
               padding: "0",
+              boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
               "&:hover": { backgroundColor: "#2ed573" },
             }}
           >
@@ -192,6 +193,7 @@ function Register() {
           >
             Register
           </Button>
+          <p className="login__create">Already have an account? <Link to={"/login"} > <b className="login__create--bold">Login</b> </Link> </p>
         </section>
       </form>
     </div>

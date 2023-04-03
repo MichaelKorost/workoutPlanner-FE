@@ -16,16 +16,14 @@ function Dashboard() {
     (state) => state.auth
   );
 
-  
-  if (isLoading) {
-    return <Spinner />;
-  }
+
+
 
   return (
     <>
     {isLoading && <Loader />}
       <Navbar />
-      {/* <h1>hello, {user.name}</h1> */}
+      <h1>hello, {user?.name}</h1>
       <Test />
     </>
   );
