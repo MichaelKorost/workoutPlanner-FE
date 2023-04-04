@@ -198,7 +198,9 @@ function Calendar() {
     };
     // console.log(updatedUserEvents);
     dispatch(updateCalendarEvents(updatedUserEvents));
-    toast.success("Calendar updated successfully!")
+    if (isCalendarSuccess) {
+      toast.success("Calendar updated successfully!")
+    }
   };
 
   // custom buttons

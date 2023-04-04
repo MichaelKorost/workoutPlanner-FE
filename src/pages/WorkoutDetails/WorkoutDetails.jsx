@@ -359,7 +359,7 @@ function WorkoutDetails({ workout, onDelete }) {
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#009432`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#27ae60`)}
           >
-            <DeleteIcon
+            <SaveIcon
               sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
             />
           </Button>

@@ -9,6 +9,7 @@ import {
   resetCalendar,
 } from "../../features/calendar/calendarSlice";
 import TodaysWorkout from "../../components/TodaysWorkout/TodaysWorkout";
+import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 
 function WorkoutsToday() {
   const [todayWorkouts, setTodayWorkouts] = useState([]);
@@ -80,7 +81,7 @@ function WorkoutsToday() {
             <TodaysWorkout key={index} workout={workout.workout} title={workout.title}  />
           ))
         ) : (
-          <p>No workouts scheduled today</p>
+            <ExerciseNotFound errorMessage={"No workouts scheduled today"} />
         )}
       </section>
     </>
