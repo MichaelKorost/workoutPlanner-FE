@@ -467,7 +467,7 @@ function WorkoutCard({ workout, onDelete }) {
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button
-            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
             onClick={handleCloseDeleteDialog}
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
@@ -477,7 +477,7 @@ function WorkoutCard({ workout, onDelete }) {
             />
           </Button>
           <Button
-            sx={{ width: "54px", height: "54", backgroundColor: "#27ae60" }}
+            sx={{ width: "54px", height: "54px", backgroundColor: "#27ae60" }}
             onClick={handleDelete}
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#009432`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#27ae60`)}

@@ -1,6 +1,6 @@
 import "./WorkoutDetails.scss";
 import { useEffect, useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tilt from "react-parallax-tilt";
@@ -26,6 +26,8 @@ function WorkoutDetails({ workout, onDelete }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openSaveDialog, setOpenSaveDialog] = useState(false)
+  const [newTitle, setNewTitle] = useState(workout?.title)
+  const [toggleEdit, setToggleEdit] = useState(true)
   const [randomColor, setRandomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -58,7 +60,7 @@ function WorkoutDetails({ workout, onDelete }) {
 
   const handleSaveWorkout = () => {
     const newWorkout = {
-      title: workout.title,
+      title: newTitle,
       plan: workout.plan,
     };
     console.log({ newWorkout });
@@ -66,6 +68,15 @@ function WorkoutDetails({ workout, onDelete }) {
     // alert('workout saved successfully')
     toast.success("Workout saved successfully!")
   };
+
+  const handleTitleChange = (e) => {
+    setNewTitle(e.target.value)
+  }
+
+  const handleToggleEdit = () => {
+    setToggleEdit(!toggleEdit)
+    setNewTitle(workout.title)
+  }
 
   const handleOpenEditDialog = () => {
     setOpenEditDialog(true);
@@ -223,7 +234,7 @@ function WorkoutDetails({ workout, onDelete }) {
               </>
             )}
           </section>
-          <h1 className="workout-details__created">Created by: Arnold</h1>
+          <h1 className="workout-details__created">Created by: <span className="workout-details__creator" >{workout?.creator}</span></h1>
         </div>
       </div>
 
@@ -341,10 +352,36 @@ function WorkoutDetails({ workout, onDelete }) {
         <DialogContentText id="alert-dialog-description" sx={{textAlign: "center"}}>
             Are you sure you want to <b>Save</b> this workout?
           </DialogContentText>
+          <Box
+          sx={{
+            display: "flex",
+            margin:"20px 0 0 ",
+            alignItems: "center",
+            padding: "0 10px",
+            backgroundColor: "white",
+            borderRadius: "8px",
+            justifyContent: "center",
+            boxShadow:
+              " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+            maxWidth: "400px",
+            width:"100%",
+            height: "80px",
+          }}
+        >
+          <TextField id="input-with-sx" label="Workout Title" variant="standard" onChange={handleTitleChange} value={newTitle} disabled={toggleEdit} />
+          <EditIcon
+            onClick={handleToggleEdit}
+            sx={{
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              "&:hover": { backgroundColor: "#f1f2f6", borderRadius: "50%" },
+            }}
+          />
+        </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button
-            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
             onClick={handleCloseSaveDialog}
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
@@ -354,7 +391,7 @@ function WorkoutDetails({ workout, onDelete }) {
             />
           </Button>
           <Button
-            sx={{ width: "54px", height: "54", backgroundColor: "#27ae60" }}
+            sx={{ width: "54px", height: "54px", backgroundColor: "#27ae60" }}
             onClick={handleSaveWorkout}
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#009432`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#27ae60`)}

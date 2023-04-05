@@ -130,8 +130,15 @@
 
 .workout-details__created {
   margin: 0 0 0 auto;
+  color: #555;
   font-family: "Manrope", sans-serif;
-  font-size: 20px;
+  font-size: 16px;
+}
+
+.workout-details__creator{
+  color: black;
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
 }
 
 .workout-save-button {
