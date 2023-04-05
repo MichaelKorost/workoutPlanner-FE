@@ -20,11 +20,14 @@ import personalTraining from "../../assets/undraw_personal_training.svg";
 import stabilityBall from "../../assets/undraw_stability_ball.svg";
 import yoga from "../../assets/undraw_yoga.svg";
 import Tilt from 'react-parallax-tilt'
+import TodaysWorkoutCardSkeleton from "../../components/TodaysWorkoutCardSkeleton/TodaysWorkoutCardSkeleton";
+
 
 function Dashboard() {
   const [todayWorkouts, setTodayWorkouts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,6 +47,7 @@ function Dashboard() {
     } else if (user.token) {
       try {
         setIsLoading(true);
+
         await dispatch(getUserCalendarEvents()).unwrap();
       } catch (error) {
         toast.error(error);
@@ -55,7 +59,6 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-
     return () => {
       dispatch(resetCalendar());
     };
@@ -74,7 +77,7 @@ function Dashboard() {
           event.date === today ? event : ""
         )
       : [];
-    console.log(todaysEvents);
+
     setTodayWorkouts(todaysEvents);
   }, [userCalendarEvents]);
 
@@ -92,6 +95,8 @@ function Dashboard() {
       return;
     }
     dispatch(updateUsername(newName));
+    localStorage.setItem("username", newName)
+    setOpenDialog(false)
     toast.success("username updated successfully");
   };
 
@@ -104,14 +109,14 @@ function Dashboard() {
   };
 
   const capitalize = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    if (!str) return str;
+    return str?.charAt(0).toUpperCase() + str.slice(1);
   };
 
   return (
     <>
       <Navbar />
       <div className="dashboard-page">
-        {isLoading && <Loader />}
         <h1 className="dashboard__greet">Hello, <span className="dashboard__greet-name">{capitalize(user?.name)}</span></h1>
 
         <div className="dashboard-container">
@@ -127,7 +132,8 @@ function Dashboard() {
                     />
                   ))
                 ) : (
-                  <p> Looks like you're resting today</p>
+                  
+                  <div>{isLoading ? <TodaysWorkoutCardSkeleton /> :<ExerciseNotFound errorMessage={"Looks like you're resting today..."}/> } </div>
                 )}
               </div>
               <section className="dashboard-group1">

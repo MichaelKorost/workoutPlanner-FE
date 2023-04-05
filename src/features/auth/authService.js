@@ -24,6 +24,11 @@ const updateUsername = async (newName, token) => {
     { name: newName },
     config
   );
+
+  if (response.data) {
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
+
   return response.data;
 };
 

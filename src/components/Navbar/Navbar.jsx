@@ -82,6 +82,7 @@ const logoutHandler = () => {
       return
     }
     dispatch(updateUsername(newName))
+    setOpenDialog(false)
     toast.success("username updated successfully")
   }
 

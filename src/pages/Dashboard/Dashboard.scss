@@ -5,6 +5,7 @@
   justify-content: flex-start;
   display: flex;
   flex-direction: column;
+align-items: center;
   gap: 30px;
 }
 
@@ -13,6 +14,15 @@
   font-weight: 900;
   font-size: 26px;
   color: #555;
+  max-width: 700px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  gap:5px;
+  align-self: flex-start;
+  width: 80%;
 }
 
 .dashboard__greet-name{
@@ -20,6 +30,7 @@
   font-weight: 900;
   font-size: 36px;
   color: black;
+ 
 }
 
 .dashboard-container {
@@ -267,7 +278,7 @@ justify-content: center;
 
 .dashboard__menu{
   max-width: 900px;
-width: 100%;
+  width: 100%;
 
 }
 
@@ -287,11 +298,37 @@ width: 100%;
     gap: 20px;
   }
 
-
+  .dashboard__greet {
+    display: flex;
+    align-items: flex-end;
+    font-family: "Manrope", sans-serif;
+    gap: 5px;
+    font-weight: 900;
+    font-size: 18px;
+    color: #555;
+    max-width:500px;
+    // background-color: #22a6b3;
+    overflow: visible;
+    // overflow-x: hidden;
+    height: 50px;
+  }
+  
+  .dashboard__greet-name{
+    display: flex;
+    font-family: "Manrope", sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    color: black;
+    max-width: 500px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 
   .dashboard-today-and-group1-container{
     flex-direction: column;
-    max-width: 350px;
+    max-width: 600px;
     width: 100%;
   }
 
@@ -302,7 +339,7 @@ width: 100%;
   .dashboard-group2{
     flex-direction: column-reverse;
     align-items: center;
-    max-width: 350px;
+    max-width: 600px;
     width: 100%;
   }
 

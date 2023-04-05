@@ -34,6 +34,7 @@ function Login() {
       navigate("/");
     }
     
+  
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -58,11 +59,11 @@ function Login() {
       password,
     };
 
-    
+
     dispatch(login(userData));
+
   };
 
-console.log(user)
 
   return (
     <div className="login-page">

@@ -41,7 +41,7 @@ const handleToggleEdit = () => {
     setNewName(user.name)
   },[user])
 
-  console.log(user)
+
   return (
     <div className="profile-page">
       <div className="profile-image-container">

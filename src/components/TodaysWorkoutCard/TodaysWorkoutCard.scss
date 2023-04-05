@@ -82,3 +82,26 @@
       object-fit: cover;
     }
 }
+
+@media (max-width: 768px) {
+    .todays-workout-mini-swiper-container{
+        flex-direction: row;
+    }
+
+    .todays-workout-mini-swiper__image{
+        width: 50%;
+      height: 150px;
+      object-fit: cover;
+    }
+}
+@media (max-width: 500px) {
+    .todays-workout-mini-swiper-container{
+        flex-direction: row;
+    }
+
+    .todays-workout-mini-swiper__image{
+        width: 50%;
+      height: 100px;
+      object-fit: cover;
+    }
+}
