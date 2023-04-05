@@ -10,7 +10,9 @@ import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 
 function Register() {
-  // const [image, setImage] = useState("");
+  const [img, setImg] = useState("");
+  const [imgToUpload, setImgToUpload] = useState("");
+  const [imgUploading, setImgUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +20,7 @@ function Register() {
     passwordConfirmation: "",
   });
 
-  const { name, email, password, passwordConfirmation } = formData;
+  const { name, email, password, passwordConfirmation, image } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -43,20 +45,45 @@ function Register() {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  // handle and convert to base 64
-  // const handleImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setFilesToBase(file);
-  //   console.log(file);
-  // };
+  // upload to cloudinary
+  const uploadImage = async () => {
+    if (!imgToUpload) return;
 
-  // const setFilesToBase = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setImage(reader.result);
-  //   };
-  // };
+    const data = new FormData();
+    data.append("file", imgToUpload);
+    data.append("upload_preset", "ml_default");
+    data.append("cloud_name", "dlvvmlrui");
+
+    setImgUploading(true);
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dlvvmlrui/image/upload/",
+      {
+        method: "post",
+        body: data,
+      }
+    );
+
+    const { url } = await response.json();
+    console.log({ url });
+    
+    setImgUploading(false);
+    return url
+  };
+
+  const changeImage = (e) => {
+    const file = e.target.files[0];
+    setImgToUpload(file);
+    setFilesToBase(file);
+  };
+
+  const setFilesToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImg(reader.result);
+    };
+  };
 
   const changeHandler = (e) => {
     setFormData((prevState) => ({
@@ -65,31 +92,29 @@ function Register() {
     }));
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const imageUrl = await uploadImage();
 
     const userData = {
-      // image:image,
+      image: imageUrl,
       name,
       email,
       password,
       passwordConfirmation,
     };
-  console.log(userData)
+    console.log(userData);
+    // console.log(imgUrl);
     dispatch(register(userData));
   };
 
   return (
     <div className="register-page">
-      {isLoading && <Loader />}
+      {(isLoading || imgUploading) && <Loader />}
       <form onSubmit={submitHandler} className="register__form">
         <div className="register__waves" />
         <div className="register-image-container">
-          <img
-            className="register__img"
-            src={ missingImg}
-            alt="upload"
-          />
+          <img className="register__img" src={img || missingImg} alt="upload" />
           <Button
             variant="contained"
             component="label"
@@ -102,12 +127,13 @@ function Register() {
               minWidth: "40px",
               minHeight: "40px",
               padding: "0",
-              boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+              boxShadow:
+                "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
               "&:hover": { backgroundColor: "#2ed573" },
             }}
           >
             <AddIcon />
-            {/* <input hidden accept="image/*" type="file" onChange={handleImage} /> */}
+            <input hidden accept="image/*" type="file" onChange={changeImage} />
           </Button>
         </div>
         <section className="register__inputs">
@@ -193,7 +219,13 @@ function Register() {
           >
             Register
           </Button>
-          <p className="login__create">Already have an account? <Link to={"/login"} > <b className="login__create--bold">Login</b> </Link> </p>
+          <p className="login__create">
+            Already have an account?{" "}
+            <Link to={"/login"}>
+              {" "}
+              <b className="login__create--bold">Login</b>{" "}
+            </Link>{" "}
+          </p>
         </section>
       </form>
     </div>

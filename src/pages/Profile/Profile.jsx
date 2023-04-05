@@ -4,7 +4,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import "./Profile.scss";
-import { Box, Button, TextField, Tooltip } from "@mui/material";
+import { Box, Button, Skeleton, TextField, Tooltip } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import missingImg from "../../assets/missing-profile.png";
 import EditIcon from "@mui/icons-material/Edit";
@@ -14,12 +14,44 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
+import Loader from "../../components/Loader/Loader";
+import {updateImage} from '../../features/auth/authSlice'
 
 function Profile({user, onSave}) {
 
+  const [img, setImg] = useState(user.image || missingImg);
+  const [imgUploading, setImgUploading] = useState(false);
+
 const [newName, setNewName] = useState(user.name)
 const [toggleEdit, setToggleEdit] = useState(true)
+
+const dispatch = useDispatch()
+
+const uploadImage = async (e) => {
+  const image = e.target.files[0]
+  const data = new FormData();
+  data.append("file", image);
+  data.append("upload_preset", "ml_default");
+  data.append("cloud_name", "dlvvmlrui");
+
+  setImgUploading(true);
+
+  const response = await fetch(
+    "https://api.cloudinary.com/v1_1/dlvvmlrui/image/upload/",
+    {
+      method: "post",
+      body: data,
+    }
+  );
+
+  const { url } = await response.json();
+  console.log({ url });
+  setImgUploading(false);
+  setImg(url)
+  dispatch(updateImage(url))
+  toast.success("Profile Image Updated")
+};
+
 
 
 const handleToggleEdit = () => {
@@ -31,9 +63,9 @@ const handleToggleEdit = () => {
     setNewName(e.target.value)
   }
 
-  const handleSave = () => {
-  
+  const handleSave =  () => {
     const updatedName = newName
+
     onSave(updatedName)
   }
 
@@ -42,10 +74,16 @@ const handleToggleEdit = () => {
   },[user])
 
 
+
   return (
     <div className="profile-page">
       <div className="profile-image-container">
-        <img className="profile__img" src={missingImg} alt="upload" />
+        {imgUploading ? ( <>
+          <Skeleton variant="circular" width={220} height={220} />
+        </>) : (<>
+          <img className="profile__img" src={ img} alt="upload" />
+        </>)}
+        
         <Button
           variant="contained"
           component="label"
@@ -64,7 +102,7 @@ const handleToggleEdit = () => {
           }}
         >
           <AddIcon />
-          {/* <input hidden accept="image/*" type="file" onChange={handleImage} /> */}
+          <input hidden accept="image/*" type="file" onChange={uploadImage} />
         </Button>
       </div>
       <section className="profile-info-container">

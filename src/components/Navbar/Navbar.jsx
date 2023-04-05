@@ -139,7 +139,7 @@ const logoutHandler = () => {
                   <li>
                     <div className="nav-profile" onClick={handleClickOpen}>
                       <img
-                        src={missingImg}
+                        src={user?.image ||missingImg}
                         alt="pic"
                         className="nav-profile__pic"
                       />

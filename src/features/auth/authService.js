@@ -32,6 +32,25 @@ const updateUsername = async (newName, token) => {
   return response.data;
 };
 
+const updateImage = async (newImage, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(
+    `${API_URL}/users/img`,
+    { image: newImage },
+    config
+  );
+
+  if (response.data) {
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
+
+  return response.data;
+};
+
 const login = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/users/login`, userData);
@@ -57,6 +76,7 @@ const authService = {
   login,
   logout,
   updateUsername,
+  updateImage,
 };
 
 export default authService;

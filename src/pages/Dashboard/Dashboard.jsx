@@ -81,24 +81,23 @@ function Dashboard() {
     setTodayWorkouts(todaysEvents);
   }, [userCalendarEvents]);
 
-  const handleUpdateUsername = (newName) => {
+ const handleUpdateUsername = (newName) => {
     if (newName.length === "") {
-      toast.error("name cannot be empty");
-      return;
+      toast.error("name cannot be empty")
+      return
     }
     if (!newName) {
-      toast.error("name cannot be empty");
-      return;
+      toast.error("name cannot be empty")
+      return
     }
     if (newName === user.name) {
-      toast.error("nothing changed");
-      return;
+      toast.error("nothing changed")
+      return
     }
-    dispatch(updateUsername(newName));
-    localStorage.setItem("username", newName)
+    dispatch(updateUsername(newName))
     setOpenDialog(false)
-    toast.success("username updated successfully");
-  };
+    toast.success("username updated successfully")
+  }
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -113,6 +112,7 @@ function Dashboard() {
     return str?.charAt(0).toUpperCase() + str.slice(1);
   };
 
+console.log(user?.image)
   return (
     <>
       <Navbar />
