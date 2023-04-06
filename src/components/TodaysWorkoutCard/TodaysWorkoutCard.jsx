@@ -23,13 +23,13 @@ function TodaysWorkoutCard({ workout, title }) {
     >
       <button className="workout-title-button" onClick={handleTItleClick}>
         <Tilt
-          className="todays-workout-card__title"
+          className="todays-workout-small-card__title"
           perspective={1000}
           tiltMaxAngleX={10}
           scale={1.05}
           tiltMaxAngleY={10}
         >
-          <h1 className="todays-workout-card__title-inner">{title}</h1>
+          <h1 className="todays-workout-small-card__title-inner">{title}</h1>
         </Tilt>
       </button>
 

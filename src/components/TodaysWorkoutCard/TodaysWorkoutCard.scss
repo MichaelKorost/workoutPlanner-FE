@@ -9,10 +9,35 @@
     height: fit-content;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     margin: 0 0 30px 0;
+    overflow-x: hidden;
 }
 
 .workout-title-button{
     cursor: pointer;
+}
+
+.todays-workout-small-card__title{
+    display: flex;
+    margin: 0 auto ;
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+    background-color: white;
+    width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 3px;
+    font-weight: 500;
+    transform-style: preserve-3d;
+    
+}
+.workout-title-button{
+    width: auto;
+    max-width: 100%;
+}
+
+.todays-workout-small-card__title-inner{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transform: translateZ(60px);
 }
 
 .todays-workout-mini-images{

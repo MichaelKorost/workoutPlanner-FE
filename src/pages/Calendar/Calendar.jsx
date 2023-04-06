@@ -230,6 +230,7 @@ function Calendar() {
   const matchesSm = useMediaQuery(theme.breakpoints.down("sm")); //550
   const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
 
+  console.log(clickedEvent);
 
   return (
     <>

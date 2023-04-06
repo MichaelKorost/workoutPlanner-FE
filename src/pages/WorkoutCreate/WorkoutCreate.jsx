@@ -40,14 +40,7 @@ function WorkoutCreate() {
 
   const { isLoading } = useSelector((state) => state.workoutPlan);
 
-  // snackbar notifications
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
 
-    setOpen(false);
-  };
 
   const addSection = (randomNum, sectionIndex) => {
     const id = Math.random() * 10; //uuid -Universally Unique Id
@@ -106,10 +99,6 @@ function WorkoutCreate() {
     if (!planTitle) {
       
       toast.error("Workout is missing a title")
-      // setOpen(true);
-      // setErrorMessage("Workout is missing a title")
-      // alert("Please provide a title");
-
       return;
     }
 
@@ -118,12 +107,7 @@ function WorkoutCreate() {
       if (section.muscleGroup === "") {
         if (!alertDisplayed) {
           alertDisplayed = true;
-
-          // alert("Muscle Group must be specified");
           toast.error("Muscle group must be specified")
-          // setOpen(true);
-          // setErrorMessage("Muscle Group must be specified")
-
         }
       } else if (section.exercises.length === 0) {
         if (!alertDisplayed) {
@@ -152,9 +136,7 @@ function WorkoutCreate() {
   });
 
   useEffect(() => {
-    return () => {
-      addSection();
-    };
+    addSection();
   }, []);
 
   if (isLoading) {
