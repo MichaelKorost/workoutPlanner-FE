@@ -87,6 +87,13 @@
     color: #636e72;
 }
 
+.login-buttons-container{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+
 .login__forgot-password{
     display: flex;
     font-family: "Manrope", sans-serif;

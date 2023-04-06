@@ -92,15 +92,12 @@ function Calendar() {
     message,
     dispatch,
     isCalendarError,
-    calendarMessage,
+    calendarMessage,  
   ]);
 
   useEffect(() => {
     if (Array.isArray(workoutPlans)) {
-      const eventsWithColor = workoutPlans?.map((workout) => {
-        return { ...workout /*color: randomColor*/ };
-      });
-      setExternalEvents(eventsWithColor || []);
+      setExternalEvents(workoutPlans || []);
     }
 
     if (Array.isArray(userCalendarEvents)) {
@@ -117,8 +114,8 @@ function Calendar() {
   }, [workoutPlans, userCalendarEvents]);
 
   // add external events
-  const addEvent = () => {
-    alert("navigating to workout new");
+  const handleCreateWorkout = () => {
+    navigate("/workouts/new")
   };
 
   const handleEventClick = (e) => {
@@ -158,7 +155,7 @@ function Calendar() {
     // console.log("calendarEvents changed... updating");
     console.log({ calendarEvents });
     console.log("userCalendarEvents", userCalendarEvents);
-  }, [calendarEvents]);
+  }, [calendarEvents, userCalendarEvents]);
 
   // handle event receive
   const handleEventReceive = (eventInfo) => {
@@ -241,6 +238,7 @@ function Calendar() {
             <h1 className="calendar-workouts-title">My Workouts</h1>
             <div className="calendar__items">
               <div id="external-events" className="external-events">
+                <Button variant="contained" className="external-events__button" onClick={handleCreateWorkout}>Create Workout</Button>
                 {isLoading ? (
                   <>
                     <CalendarSkeleton />

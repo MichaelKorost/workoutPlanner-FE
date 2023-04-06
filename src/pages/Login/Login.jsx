@@ -33,8 +33,6 @@ function Login() {
     if (isSuccess || user) {
       navigate("/");
     }
-    
-  
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -45,6 +43,14 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
+
+  const handleDemoUser = () => {
+    const userData = {
+      email:"gigachad@gmail.com",
+      password: "123123",
+    };
+    dispatch(login(userData));
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -58,12 +64,11 @@ function Login() {
       email,
       password,
     };
-
-
     dispatch(login(userData));
-
   };
 
+  const testVar = process.env.TEST;
+console.log(`${testVar}`)
 
   return (
     <div className="login-page">
@@ -120,30 +125,63 @@ function Login() {
 
           <p className="login__forgot-password">Forgot your password?</p>
 
-          <Button
-            type="submit"
-            sx={{
-              height: "44px",
-              borderRadius: "26px",
-              width: "200px",
-              color: "white",
-              fontSize: "20px",
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: "800",
-              margin:" 10px 0 0 0",
-              boxShadow:
-                "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-              transition: "all 0.3s ease",
-              "&:hover": {
+          <section className="login-buttons-container">
+            <Button
+              type="submit"
+              sx={{
+                height: "44px",
+                borderRadius: "26px",
+                width: "50%",
+                color: "white",
+                fontSize: "20px",
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: "800",
+                margin: " 10px 0 0 0",
                 boxShadow:
-                  "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-              },
-            }}
-            className="register__button"
-          >
-            Login
-          </Button>
-          <p className="login__create">Don't have an account? <Link to={"/register"} > <b className="login__create--bold">Create</b> </Link> </p>
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
+                },
+              }}
+              className="register__button"
+            >
+              Login
+            </Button>
+            <Button
+              type="button"
+              onClick={handleDemoUser}
+              sx={{
+                height: "44px",
+                borderRadius: "26px",
+                width: "50%",
+                color: "white",
+                fontSize: "20px",
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: "800",
+                margin: " 10px 0 0 0",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
+                },
+              }}
+              className="register__button"
+            >
+              Demo
+            </Button>
+          </section>
+
+          <p className="login__create">
+            Don't have an account?{" "}
+            <Link to={"/register"}>
+              {" "}
+              <b className="login__create--bold">Create</b>{" "}
+            </Link>{" "}
+          </p>
         </section>
       </form>
     </div>

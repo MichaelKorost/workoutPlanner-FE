@@ -108,6 +108,8 @@ function Register() {
     dispatch(register(userData));
   };
 
+ 
+
   return (
     <div className="register-page">
       {(isLoading || imgUploading) && <Loader />}
