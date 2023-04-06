@@ -207,18 +207,6 @@ function WorkoutCreate() {
       </form>
 
     </section>
-    {/* <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar
-          open={open}
-          autoHideDuration={4000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            {errorMessage}
-          </Alert>
-        </Snackbar>
-      </Stack> */}
     </>
   );
 }

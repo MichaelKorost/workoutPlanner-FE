@@ -62,7 +62,9 @@ export const calendarSlice = createSlice({
         state.isCalendarLoading = false;
         state.isCalendarError = false;
         state.isCalendarSuccess = true;
-        state.userCalendarEvents = action.payload;
+        state.userCalendarEvents = Array.isArray(action.payload)
+          ? action.payload
+          : [];
       })
       .addCase(getUserCalendarEvents.rejected, (state, action) => {
         state.isCalendarLoading = false;

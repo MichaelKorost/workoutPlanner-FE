@@ -7,14 +7,14 @@ import ExternalEvent from "../../components/ExternalEvent/ExternalEvent";
 import Spinner from "../../components/Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getUserWorkoutPlans } from "../../features/workoutPlan/workoutPlanSlice";
+import { getUserWorkoutPlans, reset } from "../../features/workoutPlan/workoutPlanSlice";
 import {
   calendarSlice,
   getUserCalendarEvents,
   resetCalendar,
   updateCalendarEvents,
 } from "../../features/calendar/calendarSlice";
-import { reset } from "../../features/auth/authSlice";
+// import { reset } from "../../features/auth/authSlice";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
