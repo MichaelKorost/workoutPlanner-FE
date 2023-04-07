@@ -19,15 +19,13 @@ import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound
 import personalTraining from "../../assets/undraw_personal_training.svg";
 import stabilityBall from "../../assets/undraw_stability_ball.svg";
 import yoga from "../../assets/undraw_yoga.svg";
-import Tilt from 'react-parallax-tilt'
+import Tilt from "react-parallax-tilt";
 import TodaysWorkoutCardSkeleton from "../../components/TodaysWorkoutCardSkeleton/TodaysWorkoutCardSkeleton";
-
 
 function Dashboard() {
   const [todayWorkouts, setTodayWorkouts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
-  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,7 +37,7 @@ function Dashboard() {
 
   const fetchData = useCallback(async () => {
     if (isCalendarError) {
-      console.log(calendarMessage);
+      toast.error(calendarMessage);
     }
 
     if (!user) {
@@ -64,7 +62,6 @@ function Dashboard() {
     };
   }, [dispatch, fetchData]);
 
-  //get today's workouts //filter causes an issue
   useEffect(() => {
     const date = new Date();
     const year = date.getFullYear();
@@ -81,23 +78,23 @@ function Dashboard() {
     setTodayWorkouts(todaysEvents);
   }, [userCalendarEvents]);
 
- const handleUpdateUsername = (newName) => {
+  const handleUpdateUsername = (newName) => {
     if (newName.length === "") {
-      toast.error("name cannot be empty")
-      return
+      toast.error("name cannot be empty");
+      return;
     }
     if (!newName) {
-      toast.error("name cannot be empty")
-      return
+      toast.error("name cannot be empty");
+      return;
     }
     if (newName === user.name) {
-      toast.error("nothing changed")
-      return
+      toast.error("nothing changed");
+      return;
     }
-    dispatch(updateUsername(newName))
-    setOpenDialog(false)
-    toast.success("username updated successfully")
-  }
+    dispatch(updateUsername(newName));
+    setOpenDialog(false);
+    toast.success("username updated successfully");
+  };
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -112,12 +109,16 @@ function Dashboard() {
     return str?.charAt(0).toUpperCase() + str.slice(1);
   };
 
-
   return (
     <>
       <Navbar />
       <div className="dashboard-page">
-        <h1 className="dashboard__greet">Hello, <span className="dashboard__greet-name">{capitalize(user?.name)}</span></h1>
+        <h1 className="dashboard__greet">
+          Hello,{" "}
+          <span className="dashboard__greet-name">
+            {capitalize(user?.name)}
+          </span>
+        </h1>
 
         <div className="dashboard-container">
           <section className="dashboard__menu">
@@ -132,8 +133,15 @@ function Dashboard() {
                     />
                   ))
                 ) : (
-                  
-                  <div>{isLoading ? <TodaysWorkoutCardSkeleton /> :<ExerciseNotFound errorMessage={"Looks like you're resting today..."}/> } </div>
+                  <div>
+                    {isLoading ? (
+                      <TodaysWorkoutCardSkeleton />
+                    ) : (
+                      <ExerciseNotFound
+                        errorMessage={"Looks like you're resting today..."}
+                      />
+                    )}{" "}
+                  </div>
                 )}
               </div>
               <section className="dashboard-group1">
@@ -142,13 +150,13 @@ function Dashboard() {
                     to={"/workouts/new"}
                     className="dashboard__link group1-item1 square"
                   >
-                    <div>Create new workout</div>
+                    <div>Create workout plan</div>
                   </Link>
                   <Link
                     to={"/exercises"}
                     className="dashboard__link group1-item2 square"
                   >
-                    <div>Browse Exercises</div>
+                    <div>Exercises</div>
                   </Link>
                 </div>
                 <Link
@@ -185,7 +193,12 @@ function Dashboard() {
             </section>
           </section>
 
-          <Tilt className="dashboard__logo" perspective={2200} tiltMaxAngleX={10} tiltMaxAngleY={10}>
+          <Tilt
+            className="dashboard__logo"
+            perspective={2200}
+            tiltMaxAngleX={10}
+            tiltMaxAngleY={10}
+          >
             <h1 className="logo__title">Workout Planner</h1>
             <img
               className="logo__img logo-img1"
@@ -197,11 +210,7 @@ function Dashboard() {
               src={stabilityBall}
               alt="stability ball"
             />
-            <img
-              className="logo__img logo-img3"
-              src={yoga}
-              alt="yoga"
-            />
+            <img className="logo__img logo-img3" src={yoga} alt="yoga" />
           </Tilt>
         </div>
       </div>

@@ -15,21 +15,16 @@ function WorkoutsToday() {
   const [todayWorkouts, setTodayWorkouts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const {
-    userCalendarEvents,
-    isCalendarError,
-    isCalendarSuccess,
-    // isCalendarLoading,
-    calendarMessage,
-  } = useSelector((state) => state.calendar);
+  const { userCalendarEvents, isCalendarError, calendarMessage } = useSelector(
+    (state) => state.calendar
+  );
 
   const fetchData = useCallback(async () => {
     if (isCalendarError) {
-      console.log(calendarMessage);
+      toast.error(calendarMessage);
     }
 
     if (!user) {
@@ -61,11 +56,12 @@ function WorkoutsToday() {
     const day = date.toLocaleString("en-US", { day: "2-digit" });
 
     const today = `${year}-${month}-${day}`;
-    const todaysEvents = Array.isArray(userCalendarEvents) ? userCalendarEvents.filter((event) =>
-    event.date === today ? event : ""
-  ) : [];
+    const todaysEvents = Array.isArray(userCalendarEvents)
+      ? userCalendarEvents.filter((event) =>
+          event.date === today ? event : ""
+        )
+      : [];
 
-    console.log(todaysEvents);
     setTodayWorkouts(todaysEvents);
   }, [userCalendarEvents]);
 
@@ -78,10 +74,14 @@ function WorkoutsToday() {
       <section className="workouts-today-page">
         {todayWorkouts.length ? (
           todayWorkouts.map((workout, index) => (
-            <TodaysWorkout key={index} workout={workout.workout} title={workout.title}  />
+            <TodaysWorkout
+              key={index}
+              workout={workout.workout}
+              title={workout.title}
+            />
           ))
         ) : (
-            <ExerciseNotFound errorMessage={"No workouts scheduled today"} />
+          <ExerciseNotFound errorMessage={"No workouts scheduled today"} />
         )}
       </section>
     </>

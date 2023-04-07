@@ -1,34 +1,38 @@
 import "./WorkoutDetails.scss";
 import { useEffect, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tilt from "react-parallax-tilt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../components/Loader/Loader";
-import {
-  deleteWorkoutPlan,
-  createWorkoutPlan,
-  deleteWorkoutPlanFromDetailPage,
-  saveNewWorkout,
-} from "../../features/workoutPlan/workoutPlanSlice";
+
+import { saveNewWorkout } from "../../features/workoutPlan/workoutPlanSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
 
-
 function WorkoutDetails({ workout, onDelete }) {
   const [isCreatedByUser, setIsCreatedByUser] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [openSaveDialog, setOpenSaveDialog] = useState(false)
-  const [newTitle, setNewTitle] = useState(workout?.title)
-  const [toggleEdit, setToggleEdit] = useState(true)
-  const [randomColor, setRandomColor] = useState(
+  const [openSaveDialog, setOpenSaveDialog] = useState(false);
+  const [newTitle, setNewTitle] = useState(workout?.title);
+  const [toggleEdit, setToggleEdit] = useState(true);
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
   const { plan, title, _id } = workout;
@@ -47,15 +51,14 @@ function WorkoutDetails({ workout, onDelete }) {
 
   const handleGoBack = () => {
     navigate(-1);
-    console.log("handleGoBack invoked")
   };
 
   const handleEditWorkout = () => {
     navigate(`/workouts/edit/id/${_id}`);
   };
 
-  const handleDelete = () => {  
-    onDelete()
+  const handleDelete = () => {
+    onDelete();
   };
 
   const handleSaveWorkout = () => {
@@ -63,20 +66,20 @@ function WorkoutDetails({ workout, onDelete }) {
       title: newTitle,
       plan: workout.plan,
     };
-    console.log({ newWorkout });
+
     dispatch(saveNewWorkout(newWorkout));
-    // alert('workout saved successfully')
-    toast.success("Workout saved successfully!")
+
+    toast.success("Workout saved successfully!");
   };
 
   const handleTitleChange = (e) => {
-    setNewTitle(e.target.value)
-  }
+    setNewTitle(e.target.value);
+  };
 
   const handleToggleEdit = () => {
-    setToggleEdit(!toggleEdit)
-    setNewTitle(workout.title)
-  }
+    setToggleEdit(!toggleEdit);
+    setNewTitle(workout.title);
+  };
 
   const handleOpenEditDialog = () => {
     setOpenEditDialog(true);
@@ -89,21 +92,18 @@ function WorkoutDetails({ workout, onDelete }) {
   const handleOpenDeleteDialog = () => {
     setOpenDeleteDialog(true);
   };
-  
+
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
-  }
+  };
 
   const handleOpenSaveDialog = () => {
-    setOpenSaveDialog(true)
-  }
+    setOpenSaveDialog(true);
+  };
 
   const handleCloseSaveDialog = () => {
-    setOpenSaveDialog(false)
-  }
-
-  console.log({ workout });
-  console.log({ user });
+    setOpenSaveDialog(false);
+  };
 
   return (
     <>
@@ -120,7 +120,6 @@ function WorkoutDetails({ workout, onDelete }) {
           >
             <ArrowBackIcon
               className="back-button-arrow"
-              
               sx={{
                 textAlign: "center",
                 pointerEvents: "none",
@@ -154,7 +153,7 @@ function WorkoutDetails({ workout, onDelete }) {
                     className="workout-details-swiper-container"
                   >
                     <img
-                    alt="slider"
+                      alt="slider"
                       className="workout-details-swiper__image"
                       src={exercise.image}
                     />
@@ -182,59 +181,61 @@ function WorkoutDetails({ workout, onDelete }) {
           <section className="workout-actions-container">
             {isCreatedByUser ? (
               <>
-              <Tooltip title="Delete" placement="top" >
-                <Button
-                  className="workout-delete-button"
-                  sx={{ minWidth: "54px", height: "54px" }}
-                  onClick={handleOpenDeleteDialog}
-                >
-                  <DeleteIcon
-                    sx={{
-                      color: "white",
-                      fontSize: "54px",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </Button>
-              </Tooltip>
-              <Tooltip title="Edit" placement="top" >
-                <Button
-                  className="workout-edit-button"
-                  sx={{ minWidth: "54px", height: "54px" }}
-                  onClick={handleOpenEditDialog}
-                >
-                  <EditIcon
-                    sx={{
-                      color: "white",
-                      fontSize: "54px",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </Button>
-
-              </Tooltip>
+                <Tooltip title="Delete" placement="top">
+                  <Button
+                    className="workout-delete-button"
+                    sx={{ minWidth: "54px", height: "54px" }}
+                    onClick={handleOpenDeleteDialog}
+                  >
+                    <DeleteIcon
+                      sx={{
+                        color: "white",
+                        fontSize: "54px",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                </Tooltip>
+                <Tooltip title="Edit" placement="top">
+                  <Button
+                    className="workout-edit-button"
+                    sx={{ minWidth: "54px", height: "54px" }}
+                    onClick={handleOpenEditDialog}
+                  >
+                    <EditIcon
+                      sx={{
+                        color: "white",
+                        fontSize: "54px",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                </Tooltip>
               </>
             ) : (
               <>
-              <Tooltip title="Save" placement="top" >
-                <Button
-                  className="workout-save-button"
-                  sx={{ minWidth: "54px", height: "54px" }}
-                  onClick={handleOpenSaveDialog}
-                >
-                  <SaveIcon
-                    sx={{
-                      color: "white",
-                      fontSize: "54px",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </Button>
-              </Tooltip>
+                <Tooltip title="Save" placement="top">
+                  <Button
+                    className="workout-save-button"
+                    sx={{ minWidth: "54px", height: "54px" }}
+                    onClick={handleOpenSaveDialog}
+                  >
+                    <SaveIcon
+                      sx={{
+                        color: "white",
+                        fontSize: "54px",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </Button>
+                </Tooltip>
               </>
             )}
           </section>
-          <h1 className="workout-details__created">Created by: <span className="workout-details__creator" >{workout?.creator}</span></h1>
+          <h1 className="workout-details__created">
+            Created by:{" "}
+            <span className="workout-details__creator">{workout?.creator}</span>
+          </h1>
         </div>
       </div>
 
@@ -244,7 +245,9 @@ function WorkoutDetails({ workout, onDelete }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title"  sx={{
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             overflowX: "hidden",
@@ -252,11 +255,15 @@ function WorkoutDetails({ workout, onDelete }) {
             fontSize: "30px",
             padding: "10 20px",
           }}
-          className="calendar-dialog__title">
+          className="calendar-dialog__title"
+        >
           {workout.title}
         </DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description" sx={{textAlign: "center"}}>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ textAlign: "center" }}
+          >
             Are you sure you want to <b>edit</b> this workout?
           </DialogContentText>
         </DialogContent>
@@ -290,7 +297,9 @@ function WorkoutDetails({ workout, onDelete }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title"  sx={{
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             overflowX: "hidden",
@@ -298,11 +307,15 @@ function WorkoutDetails({ workout, onDelete }) {
             fontSize: "30px",
             padding: "10 20px",
           }}
-          className="calendar-dialog__title">
+          className="calendar-dialog__title"
+        >
           {workout.title}
         </DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description" sx={{textAlign: "center"}}>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ textAlign: "center" }}
+          >
             Are you sure you want to <b>delete</b> this workout?
           </DialogContentText>
         </DialogContent>
@@ -330,14 +343,15 @@ function WorkoutDetails({ workout, onDelete }) {
         </DialogActions>
       </Dialog>
 
-
       <Dialog
         open={openSaveDialog}
         onClose={handleCloseSaveDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title"  sx={{
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             overflowX: "hidden",
@@ -345,39 +359,50 @@ function WorkoutDetails({ workout, onDelete }) {
             fontSize: "30px",
             padding: "10 20px",
           }}
-          className="calendar-dialog__title">
+          className="calendar-dialog__title"
+        >
           {workout.title}
         </DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description" sx={{textAlign: "center"}}>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ textAlign: "center" }}
+          >
             Are you sure you want to <b>Save</b> this workout?
           </DialogContentText>
           <Box
-          sx={{
-            display: "flex",
-            margin:"20px 0 0 ",
-            alignItems: "center",
-            padding: "0 10px",
-            backgroundColor: "white",
-            borderRadius: "8px",
-            justifyContent: "center",
-            boxShadow:
-              " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-            maxWidth: "400px",
-            width:"100%",
-            height: "80px",
-          }}
-        >
-          <TextField id="input-with-sx" label="Workout Title" variant="standard" onChange={handleTitleChange} value={newTitle} disabled={toggleEdit} />
-          <EditIcon
-            onClick={handleToggleEdit}
             sx={{
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              "&:hover": { backgroundColor: "#f1f2f6", borderRadius: "50%" },
+              display: "flex",
+              margin: "20px 0 0 ",
+              alignItems: "center",
+              padding: "0 10px",
+              backgroundColor: "white",
+              borderRadius: "8px",
+              justifyContent: "center",
+              boxShadow:
+                " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+              maxWidth: "400px",
+              width: "100%",
+              height: "80px",
             }}
-          />
-        </Box>
+          >
+            <TextField
+              id="input-with-sx"
+              label="Workout Title"
+              variant="standard"
+              onChange={handleTitleChange}
+              value={newTitle}
+              disabled={toggleEdit}
+            />
+            <EditIcon
+              onClick={handleToggleEdit}
+              sx={{
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                "&:hover": { backgroundColor: "#f1f2f6", borderRadius: "50%" },
+              }}
+            />
+          </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button
@@ -402,7 +427,6 @@ function WorkoutDetails({ workout, onDelete }) {
           </Button>
         </DialogActions>
       </Dialog>
-
     </>
   );
 }

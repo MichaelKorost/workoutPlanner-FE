@@ -1,19 +1,17 @@
-import "./Exercise.scss";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getExercise, reset } from "../../features/exercises/exerciseSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../../components/Spinner/Spinner";
+
 import ExerciseDetails from "../../components/ExerciseDetails/ExerciseDetails";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import Loader from "../../components/Loader/Loader";
-
 
 function Exercise() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const { exercise, isError, isSuccess, isLoading, message } = useSelector(
+  const { exercise, isError, isLoading, message } = useSelector(
     (state) => state.exercise
   );
 
@@ -31,7 +29,7 @@ function Exercise() {
   return (
     <div>
       {isLoading ? (
-       <Loader />
+        <Loader />
       ) : (
         <div>
           {exercise && exercise._id ? (

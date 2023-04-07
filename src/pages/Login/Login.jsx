@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Spinner from "../../components/Spinner/Spinner";
 import { login, reset } from "../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -191,31 +190,3 @@ function Login() {
 
 export default Login;
 
-/*
-  <div className="login-page">
-      <div>WorkoutPlanner</div>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={changeHandler}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={changeHandler}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-*/

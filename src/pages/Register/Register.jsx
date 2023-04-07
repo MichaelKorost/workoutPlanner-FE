@@ -65,7 +65,7 @@ function Register() {
     );
 
     const { url } = await response.json();
-    console.log({ url });
+
     
     setImgUploading(false);
     return url
@@ -103,8 +103,7 @@ function Register() {
       password,
       passwordConfirmation,
     };
-    console.log(userData);
-    // console.log(imgUrl);
+
     dispatch(register(userData));
   };
 
@@ -235,51 +234,3 @@ function Register() {
 
 export default Register;
 
-/*
-<>
-      <div>WorkoutPlanner</div>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="name">name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={changeHandler}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={changeHandler}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={changeHandler}
-          />
-        </div>
-        <div>
-          <label htmlFor="passwordConfirmation">Confirm Password:</label>
-          <input
-            type="password"
-            id="passwordConfirmation"
-            name="passwordConfirmation"
-            value={passwordConfirmation}
-            onChange={changeHandler}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </>
-*/

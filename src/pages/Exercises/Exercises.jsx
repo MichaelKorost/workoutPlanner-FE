@@ -1,8 +1,6 @@
 import "./Exercises.css";
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-// import data and stuff
-import Spinner from "../../components/Spinner/Spinner";
 import {
   getAllExercises,
   reset,
@@ -10,32 +8,14 @@ import {
 } from "../../features/exercises/exerciseSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
-import { useNavigate, useNavigation } from "react-router";
+import { useNavigate } from "react-router";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExercisesFilters from "../../components/ExercisesFilters/ExercisesFilters";
-import {
-  Box,
-  Skeleton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Slide,
-  Button,
-  useMediaQuery,
-} from "@mui/material";
-import { Rectangle, RectangleRounded } from "@mui/icons-material";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
-import { useTheme } from "@emotion/react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import {useSearchParams} from 'react-router-dom'
 import ExercisesSkeleton from "../../components/ExercisesSkeleton/ExercisesSkeleton";
+import { toast } from "react-toastify";
 
-const baseUrl = "https://workout-planner-be.vercel.app/api/exercises";
 
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
 
 function Exercises() {
   const navigate = useNavigate();
@@ -49,17 +29,14 @@ function Exercises() {
   const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
-  // const [searchParams, setSearchParams] = useSearchParams();
 
-  const { exercises, isError, isSuccess, isLoading, message } = useSelector(
+  const { exercises, isError, isLoading, message } = useSelector(
     (state) => state.exercise
   );
 
-
-
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
     dispatch(getAllExercises());
 
@@ -72,27 +49,16 @@ function Exercises() {
     dispatch(getFilteredExercises(searchFilters));
   }, [dispatch, searchFilters]);
 
-  // useEffect(() => {
-    // const params = Object.fromEntries(searchParams);
-    // console.log(params)
-    // setSearchFilters(params);
-  // }, []);
-
-  // const updateSearchParams = (newParams) => {
-  //   setSearchParams({...searchParams, ...newParams})
-  // }  
-
   const searchBarHandler = (value) => {
     setSearchBar(value);
   };
 
   const filterChangehandler = (filters) => {
-    // updateSearchParams({...filters})
+
     setSearchFilters(filters);
   };
 
   const exerciseClickHandler = (id) => {
-    console.log(`card with id of ${id}`);
     navigate("/exercises/id/" + id);
   };
 
@@ -118,13 +84,17 @@ function Exercises() {
       >
         <section className="exercises__list">
           {isLoading ? (
-           <ExercisesSkeleton />
+            <ExercisesSkeleton />
           ) : exercises?.filter((exercise) =>
               exercise.name
                 .toLowerCase()
                 .includes(searchBar.toLocaleLowerCase())
             ).length === 0 ? (
-            <ExerciseNotFound errorMessage={"No exercises found. Please try different keywords or filters."} />
+            <ExerciseNotFound
+              errorMessage={
+                "No exercises found. Please try different keywords or filters."
+              }
+            />
           ) : (
             exercises
               ?.filter((exercise) =>

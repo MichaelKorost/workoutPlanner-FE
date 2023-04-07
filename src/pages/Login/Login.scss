@@ -1,127 +1,115 @@
-
-.login-page{
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: calc(100vh);
-    max-width: 800px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    background-color: #eeeeee;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+.login-page {
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: calc(100vh);
+  max-width: 800px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  background-color: #eeeeee;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
-.login__form{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    // padding: 60px 0 0;
-    align-items: center;
-    gap: 20px;
-    position: relative;
+.login__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
 }
 
-.login__header{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    max-width: 80%;
-    // height: 45%;
-    max-height: 300px;
-    //   border: 5px solid black;
-    margin: 0 0 20px 0 ;
-    
-    transform-style: preserve-3d;
+.login__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  max-width: 80%;
+  max-height: 300px;
+  margin: 0 0 20px 0;
+  transform-style: preserve-3d;
 }
 
-.login__image{
-    position: relative;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;;
+.login__image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 }
 
-.login__title{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 29px;
-    font-weight: 900;
-    font-family: "Manrope", sans-serif;
-    text-align: center;
-    color: white;
-    background-color: black;
-    
-    transform: translateZ(60px);
-    // background-color: white;
-    width: 100%;
+.login__title {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 29px;
+  font-weight: 900;
+  font-family: "Manrope", sans-serif;
+  text-align: center;
+  color: white;
+  background-color: black;
+  transform: translateZ(60px);
+  width: 100%;
 }
 
-.login__typography{
-
-    max-width: 400px;
-    width: 80%;
-    padding: 0 40px;
-    z-index: 2;
+.login__typography {
+  max-width: 400px;
+  width: 80%;
+  padding: 0 40px;
+  z-index: 2;
 }
 
-.login__heading{
-    font-family: "Manrope", sans-serif;
-    font-size: 76px;
-    font-weight: 900;
-    line-height: 80px;
+.login__heading {
+  font-family: "Manrope", sans-serif;
+  font-size: 76px;
+  font-weight: 900;
+  line-height: 80px;
 }
-.login__subtitle{
-    font-family: "Manrope", sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #636e72;
-}
-
-.login-buttons-container{
-    display: flex;
-    gap: 10px;
-    width: 100%;
+.login__subtitle {
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #636e72;
 }
 
-
-.login__forgot-password{
-    display: flex;
-    font-family: "Manrope", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #636e72;
-    
-    align-self: flex-end;
+.login-buttons-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
 }
 
-.login__create{
-    font-family: "Manrope", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #636e72;   
+.login__forgot-password {
+  display: flex;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #636e72;
+
+  align-self: flex-end;
 }
 
-.login__create--bold{
-    color: black;
-    font-weight: 900;
+.login__create {
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #636e72;
+}
+
+.login__create--bold {
+  color: black;
+  font-weight: 900;
 }
 
 @media (max-width: 450px) {
-    .login__typography{
-        
-        width: 70%;
-        padding: 0;
-    } 
-
-   
+  .login__typography {
+    width: 70%;
+    padding: 0;
+  }
 }

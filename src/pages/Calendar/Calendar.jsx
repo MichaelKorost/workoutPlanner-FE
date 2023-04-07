@@ -57,11 +57,11 @@ function Calendar() {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
 
     if (isCalendarError) {
-      console.log(message);
+      toast.error(message);
     }
 
     if (!user) {
@@ -141,17 +141,8 @@ function Calendar() {
     setCalendarEvents(filteredEvents);
   };
 
-  useEffect(() => {
-    // console.log("calendarEvents changed... updating");
-    console.log({ calendarEvents });
-    console.log("userCalendarEvents", userCalendarEvents);
-  }, [calendarEvents, userCalendarEvents]);
-
   // handle event receive
   const handleEventReceive = (eventInfo) => {
-    console.log("event received");
-    console.log(eventInfo.event);
-
     const newEvent = {
       id: `external-${Math.random() * 10}`,
       title: eventInfo.event.title,
@@ -159,7 +150,6 @@ function Calendar() {
       workout: eventInfo.event.extendedProps.plan,
     };
     setCalendarEvents((prevEvents) => [...prevEvents, newEvent]);
-    // setClickedEvent({ event: eventInfo, exercises: newEvent.workout });
   };
 
   const handleEventDrop = (eventDropInfo) => {
@@ -183,7 +173,7 @@ function Calendar() {
     const updatedUserEvents = {
       events: [...calendarEvents],
     };
-    // console.log(updatedUserEvents);
+
     dispatch(updateCalendarEvents(updatedUserEvents));
     if (isCalendarSuccess) {
       toast.success("Calendar updated successfully!");
@@ -205,15 +195,9 @@ function Calendar() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    console.log(clickedEvent);
-  }, [clickedEvent]);
-
   const theme = useTheme();
   const matchesSm = useMediaQuery(theme.breakpoints.down("sm")); //550
   const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
-
-  console.log(clickedEvent);
 
   return (
     <>

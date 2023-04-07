@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import Loader from "../../components/Loader/Loader";
-// import { reset } from "../../features/auth/authSlice";
 import { deleteWorkoutPlan, getWorkoutPlanById, reset } from "../../features/workoutPlan/workoutPlanSlice";
 import WorkoutDetails from "../WorkoutDetails/WorkoutDetails";
 
@@ -11,7 +11,7 @@ function Workout() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
+  const { workoutPlans, isError, isLoading, message } = useSelector(
     (state) => state.workoutPlan
   );
 
@@ -19,7 +19,7 @@ function Workout() {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
     dispatch(getWorkoutPlanById(id)); //get single workout
     return () => {

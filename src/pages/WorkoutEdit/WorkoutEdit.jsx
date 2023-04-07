@@ -1,41 +1,36 @@
-import "./WorkoutEdit.scss";
+
 import { useDispatch, useSelector } from "react-redux";
 import { updateWorkoutPlan } from "../../features/workoutPlan/workoutPlanSlice";
-import Spinner from "../../components/Spinner/Spinner";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import WCSection from "../../components/WCSection/WCSection";
 import { useEffect } from "react";
 import { Box } from "@mui/system";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Add, TransformOutlined } from "@mui/icons-material";
+
+import { Add } from "@mui/icons-material";
 import CheckIcon from "@mui/icons-material/Check";
 import Loader from "../../components/Loader/Loader";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Navigate, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// TODO: add validations
 
 function WorkoutEdit({ workout }) {
-  const { title, plan, _id } = workout;
-  //   const { exercises, muscleGroup } = plan;
+  const { _id } = workout;
   const [planTitle, setPlanTitle] = useState("");
   const [sections, setSections] = useState([]);
-  const [randomColor, setRandomColor] = useState(
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
-  const [isBuffer, setIsBuffer] = useState(false)
+  const [isBuffer, setIsBuffer] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.workoutPlan
-  );
+  const { workoutPlans, isLoading } = useSelector((state) => state.workoutPlan);
 
-  const currentWorkoutPlan = workoutPlans[0]
+  const currentWorkoutPlan = workoutPlans[0];
 
   useEffect(() => {
     if (currentWorkoutPlan) {
@@ -56,24 +51,24 @@ function WorkoutEdit({ workout }) {
           section.muscleGroup === "hamstrings" ||
           section.muscleGroup === "triceps"
         ) {
-          return ({
+          return {
             muscleGroup: section.muscleGroup,
             id: Math.random() * 99,
             isCustom: false,
             customName: "",
             exercises: section.exercises,
-          });
+          };
         } else {
-            return ({
-                muscleGroup: "",
-                id: Math.random() * 99,
-                isCustom: true,
-                customName: section.muscleGroup,
-                exercises: section.exercises,
-              })
+          return {
+            muscleGroup: "",
+            id: Math.random() * 99,
+            isCustom: true,
+            customName: section.muscleGroup,
+            exercises: section.exercises,
+          };
         }
       });
-      console.log(transformedSections);
+
       setSections(transformedSections);
     }
   }, [currentWorkoutPlan]);
@@ -94,7 +89,6 @@ function WorkoutEdit({ workout }) {
 
   //   functinal set state
   const deleteSection = (id) => {
-    console.log(`deleted id: ${id}`);
     if (sections.length <= 1) {
       setSections((sections) =>
         sections.filter((section, idx) => section.id !== id)
@@ -127,48 +121,47 @@ function WorkoutEdit({ workout }) {
         exercises: section?.exercises || [],
       };
     });
-    const plan = {
+    const updatedWorkout = {
       title: planTitle,
       _id: _id,
       plan: [...planObjects],
     };
 
     if (!planTitle) {
-      toast.error("Muscle group must be specified")
+      toast.error("Muscle group must be specified");
       return;
     }
 
     let alertDisplayed = false;
-    plan.plan.map((section) => {
+    updatedWorkout.plan.map((section) => {
       if (section.muscleGroup === "") {
         if (!alertDisplayed) {
           alertDisplayed = true;
-          toast.error("Muscle group must be specified")
+          toast.error("Muscle group must be specified");
         }
       } else if (section.exercises.length === 0) {
         if (!alertDisplayed) {
           alertDisplayed = true;
-          toast.error("Missing exercises")
+          toast.error("Missing exercises");
         }
       }
+      return null
     });
 
     if (!alertDisplayed) {
-        console.log("submited");
-        console.log(plan);
-        dispatch(updateWorkoutPlan(plan));
-        setIsBuffer(true)
-        setTimeout(() => {
-            navigate(-1)
-            setIsBuffer(false)
-            toast.success("Workout updated successfully!")
-        },1000)
-        
+     
+     
+      dispatch(updateWorkoutPlan(updatedWorkout));
+      setIsBuffer(true);
+      setTimeout(() => {
+        navigate(-1);
+        setIsBuffer(false);
+        toast.success("Workout updated successfully!");
+      }, 1000);
     }
   };
 
 
-  console.log(currentWorkoutPlan);
 
   if (isLoading) {
     return <Loader />;
@@ -176,7 +169,7 @@ function WorkoutEdit({ workout }) {
 
   return (
     <section className="workout-create-page">
-        {isBuffer && <Loader />}
+      {isBuffer && <Loader />}
       <form onSubmit={handleSubmit} className="create">
         <Box
           sx={{

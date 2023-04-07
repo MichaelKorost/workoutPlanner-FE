@@ -1,4 +1,4 @@
-// Import Swiper styles
+// Import Swiper styles, when I move them to another spot I need to restyle everything
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -12,78 +12,73 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import Loader from "../../components/Loader/Loader";
-import {updateImage} from '../../features/auth/authSlice'
 
-function Profile({user, onSave}) {
+import { updateImage } from "../../features/auth/authSlice";
 
+function Profile({ user, onSave }) {
   const [img, setImg] = useState(user.image || missingImg);
   const [imgUploading, setImgUploading] = useState(false);
 
-const [newName, setNewName] = useState(user.name)
-const [toggleEdit, setToggleEdit] = useState(true)
+  const [newName, setNewName] = useState(user.name);
+  const [toggleEdit, setToggleEdit] = useState(true);
 
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-const uploadImage = async (e) => {
-  const image = e.target.files[0]
-  const data = new FormData();
-  data.append("file", image);
-  data.append("upload_preset", "ml_default");
-  data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_NAME);
+  const uploadImage = async (e) => {
+    const image = e.target.files[0];
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "ml_default");
+    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_NAME);
 
-  setImgUploading(true);
+    setImgUploading(true);
 
-  const response = await fetch(
-    process.env.REACT_APP_CLOUDINARY_LINK,
-    {
+    const response = await fetch(process.env.REACT_APP_CLOUDINARY_LINK, {
       method: "post",
       body: data,
-    }
-  );
+    });
 
-  const { url } = await response.json();
-  console.log({ url });
-  setImgUploading(false);
-  setImg(url)
-  dispatch(updateImage(url))
-  toast.success("Profile Image Updated")
-};
+    const { url } = await response.json();
+    setImgUploading(false);
+    setImg(url);
+    dispatch(updateImage(url));
+    toast.success("Profile Image Updated");
+  };
 
-
-
-const handleToggleEdit = () => {
-  setToggleEdit(!toggleEdit)
-  setNewName(user.name)
-}
+  const handleToggleEdit = () => {
+    setToggleEdit(!toggleEdit);
+    setNewName(user.name);
+  };
 
   const handleTextChange = (e) => {
-    setNewName(e.target.value)
-  }
+    setNewName(e.target.value);
+  };
 
-  const handleSave =  () => {
-    const updatedName = newName
+  const handleSave = () => {
+    const updatedName = newName;
 
-    onSave(updatedName)
-  }
+    onSave(updatedName);
+  };
 
   useEffect(() => {
-    setNewName(user.name)
-  },[user])
-
-
+    setNewName(user.name);
+  }, [user]);
 
   return (
     <div className="profile-page">
       <div className="profile-image-container">
-        {imgUploading ? ( <>
-          <Skeleton variant="circular" width={220} height={220} />
-        </>) : (<>
-          <img className="profile__img" src={ img} alt="upload" />
-        </>)}
-        
+        {imgUploading ? (
+          <>
+            <Skeleton variant="circular" width={220} height={220} />
+          </>
+        ) : (
+          <>
+            <img className="profile__img" src={img} alt="upload" />
+          </>
+        )}
+
         <Button
           variant="contained"
           component="label"
@@ -121,7 +116,14 @@ const handleToggleEdit = () => {
           }}
         >
           <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-          <TextField id="input-with-sx" label="Name" variant="standard" onChange={handleTextChange} value={newName} disabled={toggleEdit} />
+          <TextField
+            id="input-with-sx"
+            label="Name"
+            variant="standard"
+            onChange={handleTextChange}
+            value={newName}
+            disabled={toggleEdit}
+          />
           <EditIcon
             onClick={handleToggleEdit}
             sx={{
@@ -132,12 +134,12 @@ const handleToggleEdit = () => {
           />
           <Tooltip title="Save" placement="top">
             <Button
-            onClick={handleSave}
+              onClick={handleSave}
               sx={{
                 width: "54px",
                 height: "54px",
                 backgroundColor: "#2196f3",
-                margin:" 0 0 0 auto",
+                margin: " 0 0 0 auto",
                 "&:hover": { backgroundColor: "#1e88e5" },
               }}
             >

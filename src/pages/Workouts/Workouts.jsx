@@ -1,7 +1,6 @@
 import "./Workouts.css";
 
 import { useState, useEffect, useCallback } from "react";
-import Spinner from "../../components/Spinner/Spinner";
 import {
   deleteWorkoutPlan,
   getAllWorkoutPlans,
@@ -9,18 +8,14 @@ import {
 } from "../../features/workoutPlan/workoutPlanSlice";
 import { useDispatch, useSelector } from "react-redux";
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
-import Loader from "../../components/Loader/Loader";
-import { AnimatePresence, motion } from "framer-motion";
-import { Skeleton, useMediaQuery } from "@mui/material";
-import { useTheme } from "@emotion/react";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Workouts() {
-  // const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -30,41 +25,36 @@ function Workouts() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { workoutPlans, isError, isSuccess, message } = useSelector(
+  const { workoutPlans, isError, message } = useSelector(
     (state) => state.workoutPlan
   );
 
   const fetchData = useCallback(async () => {
     if (isError) {
-      console.log(message)
+      toast.error(message);
     }
 
     if (!user) {
-      navigate("/login")
-    }else if(user.token) {
+      navigate("/login");
+    } else if (user.token) {
       try {
-        setIsLoading(true)
-        await dispatch(getAllWorkoutPlans()).unwrap()
+        setIsLoading(true);
+        await dispatch(getAllWorkoutPlans()).unwrap();
       } catch (error) {
-        console.log(error);
+        toast.error(error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
-  },[dispatch, isError, message, navigate, user])
+  }, [dispatch, isError, message, navigate, user]);
 
   useEffect(() => {
-    fetchData()
+    fetchData();
 
     return () => {
-      dispatch(reset())
-    }
-
-  },[dispatch, fetchData])
-
-  // useEffect(() => {
-  //   setListOfWorkoutPlans(workoutPlans);
-  // }, [workoutPlans]);
+      dispatch(reset());
+    };
+  }, [dispatch, fetchData]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
@@ -72,8 +62,7 @@ function Workouts() {
 
   const handleDeleteWorkoutPlan = (id) => {
     dispatch(deleteWorkoutPlan(id));
-  }
-
+  };
 
   return (
     <div className="workouts-page">
@@ -103,7 +92,13 @@ function Workouts() {
                 .includes(searchBar.toLocaleLowerCase())
             )
             .map((workout) => {
-              return <WorkoutCard onDelete={handleDeleteWorkoutPlan} key={workout._id} workout={workout} />;
+              return (
+                <WorkoutCard
+                  onDelete={handleDeleteWorkoutPlan}
+                  key={workout._id}
+                  workout={workout}
+                />
+              );
             })
         )}
       </div>
@@ -112,153 +107,3 @@ function Workouts() {
 }
 
 export default Workouts;
-
-/*
-
-
-
-return (
-    <div className="workouts-page">
-      <ExercisesSearchBar
-        onChange={searchBarHandler}
-        value={searchBar}
-        placeholder={"Push, Pull, Legs, Cardio..."}
-        searchLabel={"Search Workouts"}
-      />
-      <div
-        className="workouts-container"
-        style={{ backgroundColor: randomColor }}
-      >
-        {isLoading ? (
-          <>
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 320 : 320}
-              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
-              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
-              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
-              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
-              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
-              sx={{ display: "flex" }}
-            />
-            <Skeleton
-              animation={"wave"}
-              variant={"rectangular"}
-              width={matchesSm ? "90%" : matchesTablet ? 300 : 300}
-              height={matchesSm ? 300 : matchesTablet ? 300 : 500}
-              sx={{ display: "flex" }}
-            />
-          </>
-        ) : (
-          listOfWorkoutPlans.map((workout) => {
-            return <Workout key={workout._id} workout={workout} />;
-          })
-        )}
-      </div>
-    </div>
-  );
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-infinite scrolling
-
-function Workouts() {
-  const [hasMore, setHasMore] = useState(true);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(2);
-  const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState([]);
-  
-  
-  const dispatch = useDispatch();
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.workoutPlan
-  );
-
-  const fetchMoreData = () => {
-    const nextIndex = listOfWorkoutPlans.length;
-    const nextWorkoutPlans = workoutPlans.slice(nextIndex, nextIndex + 3);
-    setListOfWorkoutPlans((prevState) => [...prevState, ...nextWorkoutPlans]);
-    if (nextIndex + 3 >= workoutPlans.length) {
-      setHasMore(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
-    dispatch(getAllWorkoutPlans());
-    return () => {
-      dispatch(reset());
-    };
-  }, [isError, message, dispatch]);
-
-  useEffect(() => {
-    if (workoutPlans.length > 0) {
-      const initialWorkoutPlans = workoutPlans.slice(0, 3);
-      setListOfWorkoutPlans(initialWorkoutPlans);
-      setHasMore(workoutPlans.length > 3);
-    }
-  }, [workoutPlans]);
-
- 
-
-  if (isLoading) {
-    <Spinner />;
-  }
-
-  return (
-    <InfiniteScroll dataLength={listOfWorkoutPlans.length} next={fetchMoreData} hasMore={hasMore}>
-      <div className="workouts-container">
-        {listOfWorkoutPlans.map((workout) => {
-          return <Workout key={workout._id} workout={workout} />;
-        })}
-      </div>
-    </InfiniteScroll>
-  )
-}
-
-export default Workouts;
-
-*/

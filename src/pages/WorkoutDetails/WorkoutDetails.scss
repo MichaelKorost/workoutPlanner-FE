@@ -12,7 +12,6 @@
   align-items: flex-start;
   flex-direction: column;
   overflow-y: scroll;
-  //   overflow-x: hidden;
   height: 95%;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   width: 100%;
@@ -35,8 +34,6 @@
   transform-style: preserve-3d;
   width: fit-content;
   max-width: 800px;
-  //   min-width: fit-content;
-  //   word-wrap: break-word;
 }
 
 .workout-details-title-inner {
@@ -48,7 +45,6 @@
   display: flex;
   width: 64px;
   height: 64px;
-  // border-radius: 50% !important;
   padding: 0 !important;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   border: none;
@@ -135,7 +131,7 @@
   font-size: 16px;
 }
 
-.workout-details__creator{
+.workout-details__creator {
   color: black;
   font-family: "Manrope", sans-serif;
   font-size: 22px;
@@ -143,7 +139,7 @@
 
 .workout-save-button {
   font-size: 17px !important;
-  
+
   display: flex !important;
   justify-content: center !important ;
   align-items: center !important;
@@ -173,7 +169,7 @@
     font-size: 16px;
   }
 
-  .workout-actions-container{
+  .workout-actions-container {
     width: 100%;
   }
 
@@ -229,12 +225,11 @@
 }
 .workout-details-container::-webkit-scrollbar-track {
   background-color: #f2f2f2;
-  // height: 90%;
 }
 
 .workout-details-container::-webkit-scrollbar-thumb {
   background-color: #888;
-  // height: 90%;
+
   border-radius: 48px;
 }
 

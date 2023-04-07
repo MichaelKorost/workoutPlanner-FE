@@ -7,21 +7,11 @@
   top: 105px;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* background-color: white; */
+
   padding: 16px 0;
   width: fit-content;
   margin: 0 auto;
-  /* border-radius: 10px; */
-  /* box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; */
 }
-
-/* .exercises__content {
-  display: flex;
-  justify-content: center;
-  background-color: aqua;
-  height: auto;
-  overflow: hidden;
-} */
 
 .exercise-list-container {
   display: flex;
@@ -48,7 +38,6 @@
 
 .exercise-list-container::-webkit-scrollbar-thumb {
   background-color: #888;
-  /* border-radius: 10px; */
 }
 
 .exercise-list-container::-webkit-scrollbar-thumb:hover {
@@ -90,7 +79,7 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    /* padding: 16px 0; */
+
     max-width: 400px;
     width: 70%;
     top: 12%;

@@ -1,11 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import Loader from "../../components/Loader/Loader";
-// import { reset } from "../../features/auth/authSlice";
-import { getWorkoutPlanById, reset } from "../../features/workoutPlan/workoutPlanSlice";
-import WorkoutDetails from "../WorkoutDetails/WorkoutDetails";
+
+import {
+  getWorkoutPlanById,
+  reset,
+} from "../../features/workoutPlan/workoutPlanSlice";
+
 import WorkoutEdit from "../WorkoutEdit/WorkoutEdit";
 
 function WorkoutEditMiddleMan() {
@@ -13,17 +17,15 @@ function WorkoutEditMiddleMan() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { workoutPlans, isError, isSuccess, message } = useSelector(
+  const { workoutPlans, isError, message } = useSelector(
     (state) => state.workoutPlan
   );
 
   const currentWorkoutPlan = workoutPlans[0];
 
-  console.log({ currentWorkoutPlan })
-
   const fetchData = useCallback(async () => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
 
     try {

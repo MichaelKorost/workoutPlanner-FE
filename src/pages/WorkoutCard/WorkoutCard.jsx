@@ -3,11 +3,7 @@ import "./WorkoutCard.scss";
 import Tilt from "react-parallax-tilt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-import {
-  deleteWorkoutPlan,
-  reset,
-} from "../../features/workoutPlan/workoutPlanSlice";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import {
   Button,
   Dialog,
@@ -22,12 +18,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import CheckIcon from "@mui/icons-material/Check";
+import { useSelector } from "react-redux";
+
 import { toast } from "react-toastify";
 
 function WorkoutCard({ workout, onDelete }) {
-  // const [clickedCard, setClickedCard] = useState({});
   const [isCreatedByUser, setIsCreatedByUser] = useState(false);
   const [open, setOpen] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -36,10 +31,7 @@ function WorkoutCard({ workout, onDelete }) {
   const { plan, title, _id } = workout;
 
   const { user } = useSelector((state) => state.auth);
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.workoutPlan
-  );
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +49,6 @@ function WorkoutCard({ workout, onDelete }) {
   const remainingExercisesCount = plan.length - 2;
 
   const handleOpenWorkout = () => {
-    console.log(`card with id of ${_id}`);
     navigate("/workouts/id/" + _id);
   };
 
@@ -66,9 +57,8 @@ function WorkoutCard({ workout, onDelete }) {
   };
 
   const handleDelete = () => {
-    console.log(_id);
     onDelete(_id);
-    toast.success("Workout deleted successfully")
+    toast.success("Workout deleted successfully");
   };
 
   const handleOpenEditDialog = () => {
@@ -82,10 +72,10 @@ function WorkoutCard({ workout, onDelete }) {
   const handleOpenDeleteDialog = () => {
     setOpenDeleteDialog(true);
   };
-  
+
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
-  }
+  };
 
   return (
     <>
@@ -97,11 +87,8 @@ function WorkoutCard({ workout, onDelete }) {
             tiltMaxAngleX={10}
             scale={1.05}
             tiltMaxAngleY={10}
-            onClick={handleOpenWorkout}
           >
-            <h1 onClick={handleOpenWorkout} className="workout-title-inner">
-              {title}
-            </h1>
+            <h1 className="workout-title-inner">{title}</h1>
           </Tilt>
         </button>
         {plan.length > 2 ? (
@@ -139,7 +126,7 @@ function WorkoutCard({ workout, onDelete }) {
             <section className="workout-card-actions">
               {isCreatedByUser ? (
                 <>
-                  <Tooltip title="Delete" placement="top" >
+                  <Tooltip title="Delete" placement="top">
                     <Button
                       className="workout-delete-button"
                       sx={{ minWidth: "44px", height: "44px" }}
@@ -151,58 +138,57 @@ function WorkoutCard({ workout, onDelete }) {
                           fontSize: "34px",
                           pointerEvents: "none",
                         }}
-                    />
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Edit" placement="top" >
-                  <Button
-                    className="workout-edit-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenEditDialog}
-                  >
-                    <EditIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
-                </Tooltip>
+                      />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="Edit" placement="top">
+                    <Button
+                      className="workout-edit-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenEditDialog}
+                    >
+                      <EditIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
+                  </Tooltip>
 
-                <Tooltip title="Open" placement="top" >
-                  <Button
-                    className="workout-open-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenWorkout}
-                  >
-                    <OpenInNewIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
-
-                </Tooltip>
+                  <Tooltip title="Open" placement="top">
+                    <Button
+                      className="workout-open-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenWorkout}
+                    >
+                      <OpenInNewIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
+                  </Tooltip>
                 </>
               ) : (
                 <>
-                  <Tooltip title="Open" placement="top" >
-                  <Button
-                    className="workout-open-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenWorkout}
-                  >
-                    <OpenInNewIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
+                  <Tooltip title="Open" placement="top">
+                    <Button
+                      className="workout-open-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenWorkout}
+                    >
+                      <OpenInNewIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
                   </Tooltip>
                 </>
               )}
@@ -240,69 +226,68 @@ function WorkoutCard({ workout, onDelete }) {
             <section className="workout-card-actions">
               {isCreatedByUser ? (
                 <>
-                <Tooltip title="Delete" placement="top" >
-                  <Button
-                    className="workout-delete-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenDeleteDialog}
-                  >
-                    <DeleteIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Edit" placement="top" >
-                  <Button
-                    className="workout-edit-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenEditDialog}
-                  >
-                    <EditIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Open" placement="top" >
-                  <Button
-                    className="workout-open-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenWorkout}
-                  >
-                    <OpenInNewIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
-
-                </Tooltip>
+                  <Tooltip title="Delete" placement="top">
+                    <Button
+                      className="workout-delete-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenDeleteDialog}
+                    >
+                      <DeleteIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="Edit" placement="top">
+                    <Button
+                      className="workout-edit-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenEditDialog}
+                    >
+                      <EditIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="Open" placement="top">
+                    <Button
+                      className="workout-open-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenWorkout}
+                    >
+                      <OpenInNewIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
+                  </Tooltip>
                 </>
               ) : (
                 <>
-                  <Tooltip title="Open" placement="top" >
-                  <Button
-                    className="workout-open-button"
-                    sx={{ minWidth: "44px", height: "44px" }}
-                    onClick={handleOpenWorkout}
-                  >
-                    <OpenInNewIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "34px",
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </Button>
+                  <Tooltip title="Open" placement="top">
+                    <Button
+                      className="workout-open-button"
+                      sx={{ minWidth: "44px", height: "44px" }}
+                      onClick={handleOpenWorkout}
+                    >
+                      <OpenInNewIcon
+                        sx={{
+                          color: "white",
+                          fontSize: "34px",
+                          pointerEvents: "none",
+                        }}
+                      />
+                    </Button>
                   </Tooltip>
                 </>
               )}
@@ -403,7 +388,9 @@ function WorkoutCard({ workout, onDelete }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title"  sx={{
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             overflowX: "hidden",
@@ -411,11 +398,15 @@ function WorkoutCard({ workout, onDelete }) {
             fontSize: "30px",
             padding: "10 20px",
           }}
-          className="calendar-dialog__title">
+          className="calendar-dialog__title"
+        >
           {workout.title}
         </DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description" sx={{textAlign: "center"}}>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ textAlign: "center" }}
+          >
             Are you sure you want to <b>edit</b> this workout?
           </DialogContentText>
         </DialogContent>
@@ -449,7 +440,9 @@ function WorkoutCard({ workout, onDelete }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title"  sx={{
+        <DialogTitle
+          id="alert-dialog-title"
+          sx={{
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
             overflowX: "hidden",
@@ -457,11 +450,15 @@ function WorkoutCard({ workout, onDelete }) {
             fontSize: "30px",
             padding: "10 20px",
           }}
-          className="calendar-dialog__title">
+          className="calendar-dialog__title"
+        >
           {workout.title}
         </DialogTitle>
         <DialogContent>
-        <DialogContentText id="alert-dialog-description" sx={{textAlign: "center"}}>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ textAlign: "center" }}
+          >
             Are you sure you want to <b>delete</b> this workout?
           </DialogContentText>
         </DialogContent>

@@ -15,10 +15,6 @@
   transition: all 1s cubic-bezier(0.18, 0.9, 0.58, 1);
 }
 
-// .workout:hover {
-//   outline: #888 2px solid;
-// }
-
 .workout::-webkit-scrollbar {
   width: 5px;
   border-radius: 30px;
@@ -35,7 +31,7 @@
   background-color: #555;
 }
 
-.workout-title-button{
+.workout-title-button {
   border: none;
 }
 
@@ -55,7 +51,7 @@
 }
 
 .workout__title:hover {
-background-color: rgb(218, 218, 218);
+  background-color: rgb(218, 218, 218);
 }
 
 .workout__title:hover {
@@ -69,7 +65,7 @@ background-color: rgb(218, 218, 218);
   transform: translateZ(50px);
 }
 
-.workout-title-inner:hover{
+.workout-title-inner:hover {
   text-decoration: underline;
 }
 
@@ -80,17 +76,14 @@ background-color: rgb(218, 218, 218);
   margin: 0 0 0 10px;
 }
 
-
-
-.workout-card__extra{
+.workout-card__extra {
   font-family: "Manrope", sans-serif !important;
   color: #1565c0;
   cursor: pointer;
 }
-.workout-card__extra:hover{
+.workout-card__extra:hover {
   text-decoration: underline;
 }
-
 
 .workout-card__swiper {
   display: flex;
@@ -98,7 +91,7 @@ background-color: rgb(218, 218, 218);
   justify-content: center;
   align-items: center;
   height: 160px;
-  // background-color: aqua;
+
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   background-color: white;
@@ -117,9 +110,6 @@ background-color: rgb(218, 218, 218);
   justify-content: flex-start;
   align-items: center;
 }
-// .swiper-button-next{
-//   z-index: 9999;
-// }
 
 .swiper-button-next {
   color: black;
@@ -135,7 +125,7 @@ background-color: rgb(218, 218, 218);
   font-weight: 300;
 }
 
-.workout-card-actions{
+.workout-card-actions {
   display: flex;
   justify-content: flex-start;
   padding: 0 10px 0;
@@ -154,13 +144,13 @@ background-color: rgb(218, 218, 218);
   background-color: #3498db !important;
   color: white !important;
 }
-.workout-open-button:hover{
+.workout-open-button:hover {
   background-color: #2980b9 !important;
 }
 
 .workout-edit-button {
   font-size: 17px !important;
-  
+
   display: flex !important;
   justify-content: center !important ;
   align-items: center !important;
@@ -169,7 +159,7 @@ background-color: rgb(218, 218, 218);
   color: white !important;
 }
 
-.workout-edit-button:hover{
+.workout-edit-button:hover {
   background-color: #d35400 !important;
 }
 .workout-delete-button {
@@ -182,7 +172,7 @@ background-color: rgb(218, 218, 218);
   color: white !important;
 }
 
-.workout-delete-button:hover{
+.workout-delete-button:hover {
   background-color: #535c68 !important;
 }
 

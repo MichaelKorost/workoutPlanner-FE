@@ -1,28 +1,26 @@
-import "./UserWorkout.scss";
 
 import { useState, useEffect } from "react";
-import Spinner from "../../components/Spinner/Spinner";
+
 import {
-  getAllWorkoutPlans,
   reset,
   getUserWorkoutPlans,
-  deleteWorkoutPlan
+  deleteWorkoutPlan,
 } from "../../features/workoutPlan/workoutPlanSlice";
 import { useDispatch, useSelector } from "react-redux";
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader/Loader";
+
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
-import { Skeleton, useMediaQuery } from "@mui/material";
+
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
-import { useTheme } from "@emotion/react";
+
 import WorkoutsSkeleton from "../../components/WorkoutsSkeleton/WorkoutsSkeleton";
 import { useCallback } from "react";
+import { toast } from "react-toastify";
 
 function UserWorkouts() {
   const [searchBar, setSearchBar] = useState("");
-  // const [listOfWorkoutPlans, setListOfWorkoutPlans] = useState(null);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -33,36 +31,32 @@ function UserWorkouts() {
     (state) => state.workoutPlan
   );
 
-    const fetchData = useCallback(async () => {
-      if (isError) {
-        console.log(message)
+  const fetchData = useCallback(async () => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (!user) {
+      navigate("/login");
+    } else if (user.token) {
+      try {
+        setIsLoading(true);
+        await dispatch(getUserWorkoutPlans()).unwrap();
+      } catch (error) {
+        toast.error(error);
+      } finally {
+        setIsLoading(false);
       }
+    }
+  }, [dispatch, isError, message, navigate, user]);
 
-      if (!user) {
-        navigate("/login")
-      }else if(user.token) {
-        try {
-          setIsLoading(true)
-          await dispatch(getUserWorkoutPlans()).unwrap()
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setIsLoading(false)
-        }
-      }
-    },[dispatch, isError, message, navigate, user])
+  useEffect(() => {
+    fetchData();
 
-
-    useEffect(() => {
-      fetchData()
-
-      return () => {
-        dispatch(reset())
-      }
-
-    },[dispatch, fetchData])
-
-
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, fetchData]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
@@ -70,46 +64,50 @@ function UserWorkouts() {
 
   const handleDeleteWorkoutPlan = (id) => {
     dispatch(deleteWorkoutPlan(id));
-  }
-
+  };
 
   return (
     <div className="workouts-page">
-    <ExercisesSearchBar
-      onChange={searchBarHandler}
-      value={searchBar}
-      placeholder={"Push, Pull, Legs, Cardio..."}
-      searchLabel={"Search Workouts"}
-    />
-    <div
-      className="workouts-container"
-      style={{ backgroundColor: randomColor }}
-    >
-      {isLoading ? (
-        <WorkoutsSkeleton />
-      ) : !Array.isArray(workoutPlans) ? (
-        <ExerciseNotFound errorMessage={"No workout plans found."} />
-      ) : workoutPlans?.filter((workout) =>
-          workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
-        ).length === 0 ? (
-        <ExerciseNotFound
-          errorMessage={"No Workouts found. Please try different keywords."}
-        />
-      ) : (
-        workoutPlans
-          ?.filter((workout) =>
-            workout.title
-              .toLowerCase()
-              .includes(searchBar.toLocaleLowerCase())
-          )
-          .map((workout) => {
-            return <WorkoutCard onDelete={handleDeleteWorkoutPlan} key={Math.random()*99} workout={workout} />;
-          })
-      )}
+      <ExercisesSearchBar
+        onChange={searchBarHandler}
+        value={searchBar}
+        placeholder={"Push, Pull, Legs, Cardio..."}
+        searchLabel={"Search Workouts"}
+      />
+      <div
+        className="workouts-container"
+        style={{ backgroundColor: randomColor }}
+      >
+        {isLoading ? (
+          <WorkoutsSkeleton />
+        ) : !Array.isArray(workoutPlans) ? (
+          <ExerciseNotFound errorMessage={"No workout plans found."} />
+        ) : workoutPlans?.filter((workout) =>
+            workout.title.toLowerCase().includes(searchBar.toLocaleLowerCase())
+          ).length === 0 ? (
+          <ExerciseNotFound
+            errorMessage={"No Workouts found. Please try different keywords."}
+          />
+        ) : (
+          workoutPlans
+            ?.filter((workout) =>
+              workout.title
+                .toLowerCase()
+                .includes(searchBar.toLocaleLowerCase())
+            )
+            .map((workout) => {
+              return (
+                <WorkoutCard
+                  onDelete={handleDeleteWorkoutPlan}
+                  key={Math.random() * 99}
+                  workout={workout}
+                />
+              );
+            })
+        )}
+      </div>
     </div>
-  </div>
   );
 }
 
 export default UserWorkouts;
-
