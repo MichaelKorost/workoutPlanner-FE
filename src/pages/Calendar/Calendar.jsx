@@ -1,33 +1,30 @@
 import "./Calendar.scss";
-import { useRef, useEffect, useState, memo, forwardRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction"; // needed for dayClick
+import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import ExternalEvent from "../../components/ExternalEvent/ExternalEvent";
-import Spinner from "../../components/Spinner/Spinner";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getUserWorkoutPlans, reset } from "../../features/workoutPlan/workoutPlanSlice";
 import {
-  calendarSlice,
+  getUserWorkoutPlans,
+  reset,
+} from "../../features/workoutPlan/workoutPlanSlice";
+import {
   getUserCalendarEvents,
   resetCalendar,
   updateCalendarEvents,
 } from "../../features/calendar/calendarSlice";
-// import { reset } from "../../features/auth/authSlice";
-import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@emotion/react";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  Slide,
   useMediaQuery,
 } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -36,14 +33,7 @@ import Loader from "../../components/Loader/Loader";
 import CalendarSkeleton from "../../components/CalendarSkeleton/CalendarSkeleton";
 import { toast } from "react-toastify";
 
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 function Calendar() {
-  const [randomColor, setRandomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}80`
-  );
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [externalEvents, setExternalEvents] = useState([]);
   const [open, setOpen] = useState(false);
@@ -52,7 +42,7 @@ function Calendar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { workoutPlans, isError, isSuccess, isLoading, message } = useSelector(
+  const { workoutPlans, isError, isLoading, message } = useSelector(
     (state) => state.workoutPlan
   );
   const {
@@ -92,7 +82,7 @@ function Calendar() {
     message,
     dispatch,
     isCalendarError,
-    calendarMessage,  
+    calendarMessage,
   ]);
 
   useEffect(() => {
@@ -115,7 +105,7 @@ function Calendar() {
 
   // add external events
   const handleCreateWorkout = () => {
-    navigate("/workouts/new")
+    navigate("/workouts/new");
   };
 
   const handleEventClick = (e) => {
@@ -196,7 +186,7 @@ function Calendar() {
     // console.log(updatedUserEvents);
     dispatch(updateCalendarEvents(updatedUserEvents));
     if (isCalendarSuccess) {
-      toast.success("Calendar updated successfully!")
+      toast.success("Calendar updated successfully!");
     }
   };
 
@@ -209,10 +199,6 @@ function Calendar() {
   const saveCalendarButton = {
     text: "Save✔️",
     click: saveCalendarChanges,
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
   };
 
   const handleClose = () => {
@@ -238,7 +224,13 @@ function Calendar() {
             <h1 className="calendar-workouts-title">My Workouts</h1>
             <div className="calendar__items">
               <div id="external-events" className="external-events">
-                <Button variant="contained" className="external-events__button" onClick={handleCreateWorkout}>Create Workout</Button>
+                <Button
+                  variant="contained"
+                  className="external-events__button"
+                  onClick={handleCreateWorkout}
+                >
+                  Create Workout
+                </Button>
                 {isLoading ? (
                   <>
                     <CalendarSkeleton />
@@ -328,44 +320,52 @@ function Calendar() {
             }}
           >
             <div className="calendar-dialog-container">
-              {clickedEvent?.exercises?.map(({ exercises, muscleGroup }, index) => (
-                <section key={index} className="workout-details-images">
-                  <h2 className="workout-details-muscle-group">
-                    {muscleGroup}
-                  </h2>
-                  <Swiper
-                    pagination={{ type: "fraction" }}
-                    navigation={true}
-                    modules={[Pagination, Navigation]}
-                    className={"workout-details__swiper"}
-                  >
-                    {exercises?.map(({ exercise, reps, sets, weight }, index) => (
-                      <SwiperSlide key={index} className="workout-details-swiper-container">
-                        <img
-                          className="workout-details-swiper__image"
-                          src={exercise.image}
-                        />
-                        <div className="workout-details-swiper-information">
-                          <h3 className="workout-details-swiper__exercise-name">
-                            {exercise.name}
-                          </h3>
-                          <div className="workout-details-swiper__terms">
-                            <div className="workout-details-swiper__term">
-                              <p>Sets: </p> <span>{sets}</span>
+              {clickedEvent?.exercises?.map(
+                ({ exercises, muscleGroup }, index) => (
+                  <section key={index} className="workout-details-images">
+                    <h2 className="workout-details-muscle-group">
+                      {muscleGroup}
+                    </h2>
+                    <Swiper
+                      pagination={{ type: "fraction" }}
+                      navigation={true}
+                      modules={[Pagination, Navigation]}
+                      className={"workout-details__swiper"}
+                    >
+                      {exercises?.map(
+                        ({ exercise, reps, sets, weight }, index) => (
+                          <SwiperSlide
+                            key={index}
+                            className="workout-details-swiper-container"
+                          >
+                            <img
+                              alt="swipe-img"
+                              className="workout-details-swiper__image"
+                              src={exercise.image}
+                            />
+                            <div className="workout-details-swiper-information">
+                              <h3 className="workout-details-swiper__exercise-name">
+                                {exercise.name}
+                              </h3>
+                              <div className="workout-details-swiper__terms">
+                                <div className="workout-details-swiper__term">
+                                  <p>Sets: </p> <span>{sets}</span>
+                                </div>
+                                <div className="workout-details-swiper__term">
+                                  <p>Reps: </p> <span>{reps}</span>
+                                </div>
+                                <div className="workout-details-swiper__term">
+                                  <p>Weight: </p> <span>{weight}</span>
+                                </div>
+                              </div>
                             </div>
-                            <div className="workout-details-swiper__term">
-                              <p>Reps: </p> <span>{reps}</span>
-                            </div>
-                            <div className="workout-details-swiper__term">
-                              <p>Weight: </p> <span>{weight}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </section>
-              ))}
+                          </SwiperSlide>
+                        )
+                      )}
+                    </Swiper>
+                  </section>
+                )
+              )}
             </div>
           </DialogContent>
           <DialogActions sx={{ justifyContent: "center" }}>

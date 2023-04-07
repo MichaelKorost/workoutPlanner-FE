@@ -2,8 +2,8 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {logout, reset, updateUsername} from '../../features/auth/authSlice'
-  
+import { logout, reset, updateUsername } from "../../features/auth/authSlice";
+
 import Logo from "../../assets/logoipsum-258.svg";
 import missingImg from "../../assets/missing-profile.png";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
@@ -14,13 +14,23 @@ import TodayIcon from "@mui/icons-material/Today";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
 import TimelineIcon from "@mui/icons-material/Timeline";
-import FolderSharedIcon from '@mui/icons-material/FolderShared';
+import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import Loader from "../Loader/Loader";
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Profile from "../../pages/Profile/Profile";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
-
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import { WrongLocation } from "@mui/icons-material";
+import { useTheme } from "@emotion/react";
 // TODO: Add a logo to the navbar
 
 const Navbar = () => {
@@ -32,7 +42,6 @@ const Navbar = () => {
   const [isWorkoutsDropdownOpen, setIsWorkoutsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
-
   const toggleWorkoutsDropdown = () => {
     setIsWorkoutsDropdownOpen(!isWorkoutsDropdownOpen);
   };
@@ -43,11 +52,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-const logoutHandler = () => {
+  const logoutHandler = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/login");
-}
+  };
 
   const toggleMenu = () => {
     setIsClicked(!isClicked);
@@ -55,13 +64,13 @@ const logoutHandler = () => {
   };
 
   const closeMenu = () => {
-    setIsClicked(false)
-    setActive(false)
-  }
+    setIsClicked(false);
+    setActive(false);
+  };
 
   const handleClickOpen = () => {
     setOpenDialog(true);
-    closeMenu()
+    closeMenu();
   };
 
   const handleClose = () => {
@@ -70,21 +79,21 @@ const logoutHandler = () => {
 
   const handleUpdateUsername = (newName) => {
     if (newName.length === "") {
-      toast.error("name cannot be empty")
-      return
+      toast.error("name cannot be empty");
+      return;
     }
     if (!newName) {
-      toast.error("name cannot be empty")
-      return
+      toast.error("name cannot be empty");
+      return;
     }
     if (newName === user.name) {
-      toast.error("nothing changed")
-      return
+      toast.error("nothing changed");
+      return;
     }
-    dispatch(updateUsername(newName))
-    setOpenDialog(false)
-    toast.success("username updated successfully")
-  }
+    dispatch(updateUsername(newName));
+    setOpenDialog(false);
+    toast.success("username updated successfully");
+  };
 
   const menuRef = useRef();
   const workoutsButtonRef = useRef();
@@ -102,13 +111,36 @@ const logoutHandler = () => {
     }
   });
 
+  const theme = useTheme();
+  const matchesSm = useMediaQuery(theme.breakpoints.down("smallPhone")); //960
 
   return (
     <>
-    {isLoading && <Loader />}
+      {isLoading && <Loader />}
       <nav className="nav">
         <Link to="/" className="nav__title">
-          <img src={Logo} alt="logo" />
+          <Box
+            sx={{
+              width: matchesSm ? "160px" : "200px",
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <EventAvailableIcon sx={{ fontSize: matchesSm ? "24px" :"32px" }} />
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: matchesSm ? "16px" : "20px",
+                textDecoration: "none",
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: "900",
+              }}
+            >
+              Workout Planner
+            </Typography>
+          </Box>
         </Link>
 
         <ul className={active ? "nav__items active" : "nav__items"} id="navbar">
@@ -139,11 +171,13 @@ const logoutHandler = () => {
                   <li>
                     <div className="nav-profile" onClick={handleClickOpen}>
                       <img
-                        src={user?.image ||missingImg}
+                        src={user?.image || missingImg}
                         alt="pic"
                         className="nav-profile__pic"
                       />
-                      <p className="nav-profile__name">{ user?.name || "James Charles"} </p>
+                      <p className="nav-profile__name">
+                        {user?.name || "James Charles"}{" "}
+                      </p>
                     </div>
                   </li>
                   {/* <li>
@@ -157,7 +191,7 @@ const logoutHandler = () => {
                     </Link>
                   </li> */}
                   <li>
-                    <Link to={'/'} className="" onClick={logoutHandler}>
+                    <Link to={"/"} className="" onClick={logoutHandler}>
                       <LogoutIcon /> Logout
                     </Link>
                   </li>
@@ -246,7 +280,7 @@ const logoutHandler = () => {
         open={openDialog}
         onClose={handleClose}
       >
-       <DialogActions sx={{ justifyContent: "flex-end" }}>
+        <DialogActions sx={{ justifyContent: "flex-end" }}>
           <Button
             sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
             onClick={handleClose}
@@ -261,10 +295,8 @@ const logoutHandler = () => {
 
         <DialogContent>
           <Profile user={user} onSave={handleUpdateUsername} />
-       
         </DialogContent>
       </Dialog>
-
     </>
   );
 };

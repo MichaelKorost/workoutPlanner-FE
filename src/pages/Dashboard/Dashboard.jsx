@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 
 import Navbar from "../../components/Navbar/Navbar";
-import Loader from "../../components/Loader/Loader";
+
 import { useCallback, useEffect, useState } from "react";
 import {
   getUserCalendarEvents,
@@ -112,7 +112,7 @@ function Dashboard() {
     return str?.charAt(0).toUpperCase() + str.slice(1);
   };
 
-console.log(user?.image)
+
   return (
     <>
       <Navbar />

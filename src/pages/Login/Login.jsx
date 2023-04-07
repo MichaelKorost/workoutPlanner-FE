@@ -45,9 +45,11 @@ function Login() {
   };
 
   const handleDemoUser = () => {
+    const demoEmail = process.env.REACT_APP_DEMO_USER;
+    const demoPassword = process.env.REACT_APP_DEMO_PASSWORD;
     const userData = {
-      email:"gigachad@gmail.com",
-      password: "123123",
+      email:demoEmail,
+      password: demoPassword,
     };
     dispatch(login(userData));
   }
@@ -67,8 +69,7 @@ function Login() {
     dispatch(login(userData));
   };
 
-  const testVar = process.env.TEST;
-console.log(`${testVar}`)
+
 
   return (
     <div className="login-page">

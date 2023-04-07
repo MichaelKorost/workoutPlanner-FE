@@ -20,7 +20,7 @@ function Register() {
     passwordConfirmation: "",
   });
 
-  const { name, email, password, passwordConfirmation, image } = formData;
+  const { name, email, password, passwordConfirmation } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,12 +52,12 @@ function Register() {
     const data = new FormData();
     data.append("file", imgToUpload);
     data.append("upload_preset", "ml_default");
-    data.append("cloud_name", "dlvvmlrui");
+    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_NAME);
 
     setImgUploading(true);
 
     const response = await fetch(
-      "https://api.cloudinary.com/v1_1/dlvvmlrui/image/upload/",
+      process.env.REACT_APP_CLOUDINARY_LINK,
       {
         method: "post",
         body: data,
@@ -108,7 +108,6 @@ function Register() {
     dispatch(register(userData));
   };
 
- 
 
   return (
     <div className="register-page">

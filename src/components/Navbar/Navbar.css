@@ -19,6 +19,16 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   z-index: 99;
+
+  background: url("../../assets/LoginWaves.svg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nav__title {
+  text-decoration: none;
+  color: white;
 }
 
 .nav__items {

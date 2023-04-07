@@ -18,6 +18,7 @@ import Workouts from "./pages/Workouts/Workouts";
 import WorkoutsToday from "./pages/WorkoutsToday/WorkoutsToday";
 import WorkoutEditMiddleMan from "./pages/WorkoutEditMiddleMan.jsx/WorkoutEditMiddleMan";
 import { ToastContainer } from "react-toastify";
+import ExerciseNotFound from "./components/ExerciseNotFound/ExerciseNotFound";
 
 function App() {
   return (
@@ -73,6 +74,15 @@ function App() {
               <div>
                 <Navbar />
                 <Profile />
+              </div>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <div>
+                <Navbar />
+                <ExerciseNotFound errorMessage={"Page not found"} />
               </div>
             }
           />

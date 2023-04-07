@@ -5,7 +5,6 @@ import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 

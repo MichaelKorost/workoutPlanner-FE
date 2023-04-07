@@ -173,6 +173,10 @@ align-items: center;
   background-color: #f2f2f2;
   border-radius: 50%;
   margin: 0 0 0 20px;
+  background: url("../../assets/sphereWaves.svg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
 transition: all 0.5s ease-in-out;
 &:hover{
   .logo-img1{
