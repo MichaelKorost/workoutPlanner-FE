@@ -16,7 +16,6 @@
 }
 
 .create__add {
-  /* color: #090909; */
   padding: 30px;
   border-radius: 16px;
   background-color: white !important;
@@ -31,7 +30,6 @@
 .create__exercises-container {
   display: flex;
   gap: 10px;
-  /* background-color: aqua; */
 }
 
 .create__img {

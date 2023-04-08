@@ -23,9 +23,8 @@
 
 .exercise-details__back-button {
   display: flex;
-  width: 64px ;
+  width: 64px;
   height: 64px;
-  // border-radius: 50% !important;
   padding: 0 !important;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   border: none;
@@ -46,7 +45,6 @@
   padding: 3px;
   font-weight: 500;
   transform-style: preserve-3d;
-  
 }
 
 .title-inner {
@@ -108,17 +106,16 @@
 .guide-step-container {
   display: flex;
   gap: 20px;
-  // width: 80%;
+
   max-width: fit-content;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 10px;
   border-radius: 16px;
-  // margin: 0 auto;
+
   transition: all 0.3s ease;
   height: fit-content;
   align-items: center;
-  // background-color: aqua;
 }
 
 .guide-step-container:hover {
@@ -144,7 +141,7 @@
 }
 
 @media (max-width: 1100px) {
-  .exercise-details__title{
+  .exercise-details__title {
     font-size: 16px;
   }
 }
@@ -164,7 +161,7 @@
   }
 
   .exercise-details__back-button {
-    width: 64px ;
+    width: 64px;
     height: 64px;
   }
   .exercise-details__title {
@@ -192,12 +189,11 @@
 }
 .exercise-details-container::-webkit-scrollbar-track {
   background-color: #f2f2f2;
-  // height: 90%;
 }
 
 .exercise-details-container::-webkit-scrollbar-thumb {
   background-color: #888;
-  // height: 90%;
+
   border-radius: 48px;
 }
 

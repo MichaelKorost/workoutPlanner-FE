@@ -1,12 +1,8 @@
-import { useEffect } from "react";
 import "./ExerciseCard.scss";
 import Tilt from "react-parallax-tilt";
 
-// TODO:test the perspective tilt
-// TODO: reduce text blue
-
 function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
-  const { _id, name, demo, difficulty, group, image, tags } = exercise;
+  const { name, difficulty, group, image, tags } = exercise;
 
   const cardClickHandler = () => {
     if (isSelect) {
@@ -77,13 +73,15 @@ function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
         return "exercise__diff--intermediate";
       case "Advanced":
         return "exercise__diff--advanced";
+      default:
+        break;
     }
   };
 
   return (
-    <Tilt  tiltMaxAngleX={10} scale={1.1} tiltMaxAngleY={10}>
+    <Tilt tiltMaxAngleX={10} scale={1.1} tiltMaxAngleY={10}>
       <div className="exercise" onClick={cardClickHandler}>
-        <img className="exercise__img" src={image} alt="exercise image" />
+        <img className="exercise__img" src={image} alt="exercise" />
         <div className="exercise-information">
           <div className="exercise__title">
             <span className="highlighted-text">

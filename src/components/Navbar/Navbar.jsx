@@ -1,19 +1,15 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset, updateUsername } from "../../features/auth/authSlice";
-
-import Logo from "../../assets/logoipsum-258.svg";
 import missingImg from "../../assets/missing-profile.png";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import SportsGymnasticsIcon from "@mui/icons-material/SportsGymnastics";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import TodayIcon from "@mui/icons-material/Today";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
-import TimelineIcon from "@mui/icons-material/Timeline";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import Loader from "../Loader/Loader";
 import {
@@ -29,9 +25,7 @@ import Profile from "../../pages/Profile/Profile";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import { WrongLocation } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
-// TODO: Add a logo to the navbar
 
 const Navbar = () => {
   const { user, isLoading } = useSelector((state) => state.auth);
@@ -128,7 +122,9 @@ const Navbar = () => {
               justifyContent: "space-between",
             }}
           >
-            <EventAvailableIcon sx={{ fontSize: matchesSm ? "24px" :"32px" }} />
+            <EventAvailableIcon
+              sx={{ fontSize: matchesSm ? "24px" : "32px" }}
+            />
             <Typography
               variant="h6"
               sx={{
@@ -180,12 +176,7 @@ const Navbar = () => {
                       </p>
                     </div>
                   </li>
-                  {/* <li>
-                    <Link to="/profile/edit" className="">
-                      <ManageAccountsIcon /> Update Profile
-                    </Link>
-                  </li>
-                  <li>
+                  {/*<li>
                     <Link to="/track" className="">
                       <TimelineIcon /> Weight tracker
                     </Link>

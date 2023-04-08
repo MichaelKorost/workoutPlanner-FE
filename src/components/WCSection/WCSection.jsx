@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import ExercisesSelect from "../ExercisesSelect/ExercisesSelect";
 import { useTheme } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Pagination } from "swiper";
+import {  Pagination } from "swiper";
 
 const muscleGroups = [
   {
@@ -78,15 +78,10 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
   const [selectedGroup, setSelectedGroup] = useState(muscleGroup);
   const [addedExercises, setAddedExercises] = useState(exercises||[]);
   const [isAdd, setIsAdd] = useState(false);
-  const [isBackDropActive, setIsBackDropActive] = useState(isAdd);
   const [isChecked, setIsChecked] = useState(isCustom || false)
-  const [randomColor, setRandomColor] = useState(
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
-
-  // const toggleBackdrop = () => {
-  //   setIsBackDropActive(!isBackDropActive);
-  // };
 
   const toggleIsAdd = () => {
     setIsAdd(!isAdd);
@@ -115,14 +110,11 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
 
   const addExercise = () => {
     if (!isFake) {
-      console.log(`adding exercises for id: ${id}`);
       setIsAdd(true);
     }
   };
 
   const handleAddedExercises = (addedExercises) => {
-    console.log("handleAddedExercises func");
-    console.log({ addedExercises });
     setAddedExercises(addedExercises);
   };
 
@@ -143,9 +135,6 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
   const matchesTablet = useMediaQuery(theme.breakpoints.down("tablet")); //768
   const matchesMd = useMediaQuery(theme.breakpoints.down("md")); //960
   const matchesmidLarge = useMediaQuery(theme.breakpoints.down("midLarge")); //1170
-  const matchesLg = useMediaQuery(theme.breakpoints.down("lg")); //1280
-
-// console.log({section})
 
   return (
     <>
@@ -158,7 +147,6 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
           <Box
             sx={{
               backgroundColor: isFake ? "#95a5a6" : "white",
-              borderRadius: "8px",
               padding: "5px",
               borderRadius: "8px",
               boxShadow:
@@ -186,7 +174,6 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
                 select
                 label="Muscle group"
                 defaultValue=""
-                // helperText="Please select a muscle group"
                 variant="standard"
                 sx={{
                   width: matchesSmallPhone ? "100%" : "200px",
@@ -220,7 +207,6 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
               control={<Checkbox checked={isChecked} onChange={toggleCustomText} />}
               label={matchesSmallPhone ? "Custom text" : "Custom"}
               labelPlacement="end"
-              // onChange={toggleCustomText}
             />
           </Box>
           <Button
@@ -315,24 +301,3 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
 
 export default WCSection;
 
-/*
- <div className="create__exercises-container">
-          <Button
-            sx={{ padding: "30px", borderRadius: "8px" }}
-            type="Button"
-            onClick={addExercise}
-            className="create__add"
-          >
-            <AddIcon sx={{ width: "120px", height: "120px", color: "black" }} />
-          </Button>
-          {exercises?.map((exercise) => (
-            <img
-              className="create__img"
-              key={`${exercise.exercise._id}-${Math.random()*99}`}
-              src={exercise.exercise.image}
-              alt="exercise img"
-             
-            />
-          ))}
-        </div>
-*/

@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import CheckIcon from "@mui/icons-material/Check";
@@ -21,12 +20,11 @@ import {
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import ExercisesFilters from "../ExercisesFilters/ExercisesFilters";
 import ExercisesSearchBar from "../ExercisesSearchBar/ExercisesSearchBar";
-import Spinner from "../Spinner/Spinner";
-import ExerciseTerms from "../ExerciseTerms/ExerciseTerms";
+
 import ExercisesSkeleton from "../ExercisesSkeleton/ExercisesSkeleton";
 import ExerciseNotFound from "../ExerciseNotFound/ExerciseNotFound";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Pagination } from "swiper";
+import {  Pagination } from "swiper";
 import { useTheme } from "@emotion/react";
 import {
   Box,
@@ -36,8 +34,7 @@ import {
   InputAdornment,
   useMediaQuery,
 } from "@mui/material";
-
-// TODO: when selecting card request sets, reps, weight
+import { toast } from "react-toastify";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -52,7 +49,6 @@ function ExercisesSelect({
 }) {
   const [searchBar, setSearchBar] = useState("");
   const [selectedExercises, setSelectedExercises] = useState(existingExercises);
-  const [isExercisesClicked, setIsExercisesClicked] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState({});
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -63,18 +59,18 @@ function ExercisesSelect({
     tags: [],
     difficulty: [],
   });
-  const [randomColor, setRandomColor] = useState(
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
   const dispatch = useDispatch();
 
-  const { exercises, isError, isSuccess, isLoading, message } = useSelector(
+  const { exercises, isError,  isLoading, message } = useSelector(
     (state) => state.exercise
   );
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
     dispatch(getAllExercises());
 
@@ -87,10 +83,6 @@ function ExercisesSelect({
     dispatch(getFilteredExercises(searchFilters));
   }, [dispatch, searchFilters]);
 
-  useEffect(() => {
-    console.log({ existingExercises });
-    console.log({ selectedExercises });
-  }, [existingExercises]);
 
   const handleAddedExercises = (newExercises) => {
     onAddedExercises(newExercises);
@@ -108,9 +100,6 @@ function ExercisesSelect({
     setOpen(false);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleConfirmExercise = () => {
     const newExercise = {
@@ -135,10 +124,7 @@ function ExercisesSelect({
 
   const handleExerciseTerms = (exercise) => {
     if (!exercise) return;
-    // saving state of selected exercise
     setSelectedExercise(exercise);
-    console.log("handlingExerciseTerms" + exercise.name);
-    // open dialogue, which will use selected exercise's data
     setOpen(true);
   };
 
@@ -147,11 +133,9 @@ function ExercisesSelect({
   };
 
   const handleQuickExerciseDelete = (id) => {
-    console.log("delete invoked" + id);
     const updatedExercises = selectedExercises.filter(
       (exercises) => exercises.exercise._id !== id
     );
-    console.log({ updatedExercises });
     setSelectedExercises(updatedExercises);
   };
 
@@ -211,6 +195,7 @@ function ExercisesSelect({
                 </button>
                 <img
                   src={exercise.image}
+                  alt="exercise"
                   className="exercise-select-swiper-card__img"
                 />
               </div>
@@ -265,7 +250,6 @@ function ExercisesSelect({
                     key={exercise._id}
                     exercise={exercise}
                     isSelect={true}
-                    // onCardClick={() => chooseCardHandler(exercise)}
                     onExerciseSelect={() => handleExerciseTerms(exercise)}
                   />
                 );

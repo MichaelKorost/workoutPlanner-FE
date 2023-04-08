@@ -2,7 +2,6 @@ import "./TodaysWorkout.scss";
 import Tilt from "react-parallax-tilt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-import { Button } from "@mui/material";
 import { useState } from "react";
 
 function TodaysWorkout({ workout, title }) {
@@ -10,8 +9,6 @@ function TodaysWorkout({ workout, title }) {
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
 
-  console.log(workout);
-  console.log(title);
   return (
     <div
       className="todays-workout-card"

@@ -1,6 +1,5 @@
 import { useTheme } from "@emotion/react";
 import { Skeleton, useMediaQuery } from "@mui/material";
-import React from "react";
 
 function CalendarSkeleton() {
   const theme = useTheme();

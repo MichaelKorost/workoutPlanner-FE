@@ -2,19 +2,9 @@ import "./ExerciseDetails.scss";
 import { useState } from "react";
 import ForwardIcon from "@mui/icons-material/Forward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  useMediaQuery,
-} from "@mui/material";
+import { Button, Dialog, DialogContent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Tilt from "react-parallax-tilt";
-import CloseIcon from "@mui/icons-material/Close";
-import Spinner from "../Spinner/Spinner";
 
 const GuideStep = ({ text, number }) => {
   return (
@@ -26,24 +16,18 @@ const GuideStep = ({ text, number }) => {
 };
 
 function ExerciseDetails({ exercise }) {
-  const [selectedId, setSelectedId] = useState(null);
-  const [randomColor, setRandomColor] = useState(
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
   const [open, setOpen] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState("");
 
-  const { demo, difficulty, group, guide, image, name, tags, _id } = exercise;
+  const { demo, difficulty, guide, name } = exercise;
 
   const navigate = useNavigate();
 
-
   const handleGoBack = () => {
     navigate(-1);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
   };
 
   const handleClose = () => {
@@ -58,6 +42,8 @@ function ExerciseDetails({ exercise }) {
         return "exercise__diff--intermediate";
       case "Advanced":
         return "exercise__diff--advanced";
+      default:
+        break;
     }
   };
 
@@ -66,16 +52,13 @@ function ExerciseDetails({ exercise }) {
     setOpen(true);
   };
 
-  const isTablet = useMediaQuery((theme) => theme.breakpoints.down("tablet"));
-
-
-
   return (
     <>
-      <div
-        className="exercise-details-page"
-      >
-        <div className="exercise-details-container" style={{ backgroundColor: randomColor }}>
+      <div className="exercise-details-page">
+        <div
+          className="exercise-details-container"
+          style={{ backgroundColor: randomColor }}
+        >
           <Button
             onClick={handleGoBack}
             className="exercise-details__back-button"
@@ -120,6 +103,7 @@ function ExerciseDetails({ exercise }) {
           >
             <img
               onClick={() => handleOpenImage(demo[0])}
+              alt="exercise"
               className="exercise-details__img"
               src={demo[0]}
             />
@@ -128,6 +112,7 @@ function ExerciseDetails({ exercise }) {
 
             <img
               onClick={() => handleOpenImage(demo[1])}
+              alt="exercise-demo"
               className="exercise-details__img"
               src={demo[1]}
             />
@@ -140,16 +125,11 @@ function ExerciseDetails({ exercise }) {
         </div>
       </div>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-
-        maxWidth={"lg"}
-      >
+      <Dialog open={open} onClose={handleClose} maxWidth={"lg"}>
         <DialogContent
           sx={{ padding: "0", maxWidth: "100%", maxHeight: "100%" }}
         >
-          <img className="dialog__img" src={selectedUrl} />
+          <img className="dialog__img" alt="exercise" src={selectedUrl} />
         </DialogContent>
       </Dialog>
     </>

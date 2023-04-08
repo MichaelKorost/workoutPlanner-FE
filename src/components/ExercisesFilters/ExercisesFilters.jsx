@@ -3,7 +3,6 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
   Button,
   Checkbox,
-  Collaps,
   Collapse,
   FormControlLabel,
   FormGroup,
@@ -13,12 +12,10 @@ import {
   ListSubheader,
   useMediaQuery,
 } from "@mui/material";
-import { forwardRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TuneIcon from "@mui/icons-material/Tune";
-import CloseIcon from '@mui/icons-material/Close';
 
-
-function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
+function ExercisesFilters({ onChangeFilters }) {
   const [isOpenMuscleGroup, setIsOpenMuscleGroup] = useState(false);
   const [isOpenEquipment, setIsOpenEquipment] = useState(false);
   const [isOpenDiff, setIsOpenDiff] = useState(false);
@@ -27,7 +24,7 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
     tags: [],
     difficulty: [],
   });
-  const [randomColor, setRandomColor] = useState(
+  const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}`
   );
   const [isFilterClicked, setIsFilterClicked] = useState(false);
@@ -41,10 +38,6 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
   const toggleOpenFilter = () => {
     setIsFilterClicked(!isFilterClicked);
     setActive(!active);
-  };
-
-  const handleCloseFilter = () => {
-    setIsFilterClicked(false);
   };
 
   const handleCheckboxChange = (e) => {
@@ -72,37 +65,51 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
 
   useEffect(() => {
     onChangeFilters(searchFilters);
-  }, [searchFilters]);
+  }, [onChangeFilters, searchFilters]);
 
-  const isTablet = useMediaQuery((theme) => theme.breakpoints.between("xs","tablet"));
+  const isTablet = useMediaQuery((theme) =>
+    theme.breakpoints.between("xs", "tablet")
+  );
 
   return (
     <>
-      {isTablet && <Button
-        className="filter-button "
-        style={{ backgroundColor: `${randomColor}20` }}
-        onMouseEnter={(e) =>e.target.style.backgroundColor = `${randomColor}50` }
-        onMouseLeave={(e) =>e.target.style.backgroundColor = `${randomColor}20` }
-        type="button"
-        onClick={toggleOpenFilter}
-      >
-        <TuneIcon sx={{ fontSize: "46px" , textAlign: "center", pointerEvents:"none", color:"black" }} />
-      </Button>}
+      {isTablet && (
+        <Button
+          className="filter-button "
+          style={{ backgroundColor: `${randomColor}20` }}
+          onMouseEnter={(e) =>
+            (e.target.style.backgroundColor = `${randomColor}50`)
+          }
+          onMouseLeave={(e) =>
+            (e.target.style.backgroundColor = `${randomColor}20`)
+          }
+          type="button"
+          onClick={toggleOpenFilter}
+        >
+          <TuneIcon
+            sx={{
+              fontSize: "46px",
+              textAlign: "center",
+              pointerEvents: "none",
+              color: "black",
+            }}
+          />
+        </Button>
+      )}
 
-      
       <section
         className={`exercises__filters ${
           isFilterClicked ? "exercises__filters--active" : ""
         }`}
         style={{ backgroundColor: randomColor + "20" }}
-        >
+      >
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "", color: "" }}
           component="nav"
           aria-labelledby="Filters"
           subheader={
             <ListSubheader
-              sx={{ backgroundColor: randomColor + "00" , position:"static"}}
+              sx={{ backgroundColor: randomColor + "00", position: "static" }}
               component="div"
               id="nested-list-subheader"
             >
@@ -542,7 +549,6 @@ function ExercisesFilters({ onChangeFilters, onOpen, isOpen }) {
           </Collapse>
         </List>
       </section>
-        
 
       <div
         style={{ zIndex: "13" }}

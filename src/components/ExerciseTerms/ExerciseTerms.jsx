@@ -8,16 +8,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 // MUI END
-import {forwardRef, useRef, useState} from "react"
-
+import { forwardRef, useState } from "react";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-function ExerciseTerms({isTermsOpen, exercise}) {
+function ExerciseTerms({ isTermsOpen, exercise }) {
   const [open, setOpen] = useState(isTermsOpen);
-
 
   const handleClose = () => {
     setOpen(false);
@@ -35,7 +33,7 @@ function ExerciseTerms({isTermsOpen, exercise}) {
       <DialogTitle>{"Use Google's location service?"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-        {exercise.name}
+          {exercise.name}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
