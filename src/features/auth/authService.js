@@ -54,14 +54,12 @@ const updateImage = async (newImage, token) => {
 const login = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/users/login`, userData);
-    console.log(response);
     if (response.data.message) {
       throw new Error();
     }
     localStorage.setItem("user", JSON.stringify(response.data));
     return response.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Email or password are incorrect");
   }
 };

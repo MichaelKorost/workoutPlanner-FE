@@ -19,7 +19,13 @@ export const getAllExercises = createAsyncThunk(
     try {
       return await exerciseService.getAllExercises();
     } catch (error) {
-      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -31,7 +37,13 @@ export const getExercise = createAsyncThunk(
     try {
       return await exerciseService.getExercise(id);
     } catch (error) {
-      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -49,7 +61,13 @@ export const getFilteredExercises = createAsyncThunk(
       };
       return await exerciseService.getFilteredExercises(searchFilters);
     } catch (error) {
-      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
