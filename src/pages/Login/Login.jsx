@@ -123,7 +123,7 @@ function Login() {
             />
           </FormControl>
 
-          <p className="login__forgot-password">Forgot your password?</p>
+          {/* <p className="login__forgot-password">Forgot your password?</p> */}
 
           <section className="login-buttons-container">
             <Button
