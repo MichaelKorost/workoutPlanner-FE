@@ -26,9 +26,8 @@ function Exercises() {
     difficulty: [],
   });
   const [searchBar, setSearchBar] = useState("");
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
-  );
+ 
+  const { user } = useSelector((state) => state.auth);
 
   const { exercises, isError, isLoading, message } = useSelector(
     (state) => state.exercise
@@ -38,12 +37,17 @@ function Exercises() {
     if (isError) {
       toast.error(message);
     }
+
+    if (!user) {
+      navigate("/login")
+    }
+
     dispatch(getAllExercises());
 
     return () => {
       dispatch(reset());
     };
-  }, [isError, message, dispatch]);
+  }, [isError, message, dispatch, user, navigate]);
 
   useEffect(() => {
     dispatch(getFilteredExercises(searchFilters));

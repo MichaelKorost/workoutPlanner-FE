@@ -69,15 +69,6 @@ function App() {
             }
           />
           <Route
-            path="/profile"
-            element={
-              <div>
-                <Navbar />
-                <Profile />
-              </div>
-            }
-          />
-          <Route
             path="*"
             element={
               <div>
