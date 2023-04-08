@@ -76,7 +76,7 @@ function UserWorkouts() {
       />
       <div
         className="workouts-container"
-        style={{ backgroundColor: randomColor }}
+        style={{ backgroundColor: "#82ccdd40" }}
       >
         {isLoading ? (
           <WorkoutsSkeleton />

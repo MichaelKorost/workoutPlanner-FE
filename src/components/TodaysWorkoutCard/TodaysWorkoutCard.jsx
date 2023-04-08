@@ -2,19 +2,17 @@ import "./TodaysWorkoutCard.scss";
 import Tilt from "react-parallax-tilt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TodaysWorkoutCard({ workout, title }) {
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
-  );
 
   const navigate = useNavigate();
 
   const handleTItleClick = () => {
     navigate("/workouts/today");
   };
+
+const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}20`
 
   return (
     <div

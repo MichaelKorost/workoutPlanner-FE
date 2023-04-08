@@ -21,6 +21,7 @@
   border-radius: 8px;
   padding: 10px;
   gap: 20px;
+  background-color: #cd84f140;
 }
 
 .workouts-container::-webkit-scrollbar {

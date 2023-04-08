@@ -16,10 +16,6 @@ import { toast } from "react-toastify";
 
 function Workouts() {
   const [isLoading, setIsLoading] = useState(true);
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
-  );
-
   const [searchBar, setSearchBar] = useState("");
 
   const dispatch = useDispatch();
@@ -74,7 +70,6 @@ function Workouts() {
       />
       <div
         className="workouts-container"
-        style={{ backgroundColor: randomColor }}
       >
         {isLoading ? (
           <WorkoutsSkeleton />

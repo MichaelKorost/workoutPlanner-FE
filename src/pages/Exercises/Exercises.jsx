@@ -80,7 +80,7 @@ function Exercises() {
 
       <div
         className="exercise-list-container"
-        style={{ backgroundColor: randomColor }}
+        style={{ backgroundColor: "#ffeaa780" }}
       >
         <section className="exercises__list">
           {isLoading ? (

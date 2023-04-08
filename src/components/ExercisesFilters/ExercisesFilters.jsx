@@ -24,9 +24,7 @@ function ExercisesFilters({ onChangeFilters }) {
     tags: [],
     difficulty: [],
   });
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}`
-  );
+
   const [isFilterClicked, setIsFilterClicked] = useState(false);
   const [active, setActive] = useState(false);
 
@@ -76,13 +74,9 @@ function ExercisesFilters({ onChangeFilters }) {
       {isTablet && (
         <Button
           className="filter-button "
-          style={{ backgroundColor: `${randomColor}20` }}
-          onMouseEnter={(e) =>
-            (e.target.style.backgroundColor = `${randomColor}50`)
-          }
-          onMouseLeave={(e) =>
-            (e.target.style.backgroundColor = `${randomColor}20`)
-          }
+          style={{ backgroundColor: `#fd79a840` }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = `#fd79a880`)}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = `#fd79a840`)}
           type="button"
           onClick={toggleOpenFilter}
         >
@@ -101,7 +95,7 @@ function ExercisesFilters({ onChangeFilters }) {
         className={`exercises__filters ${
           isFilterClicked ? "exercises__filters--active" : ""
         }`}
-        style={{ backgroundColor: randomColor + "20" }}
+        style={{ backgroundColor: "#fd79a840" }}
       >
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "", color: "" }}
@@ -109,7 +103,7 @@ function ExercisesFilters({ onChangeFilters }) {
           aria-labelledby="Filters"
           subheader={
             <ListSubheader
-              sx={{ backgroundColor: randomColor + "00", position: "static" }}
+              sx={{ backgroundColor: "#fd79a800", position: "static" }}
               component="div"
               id="nested-list-subheader"
             >
