@@ -60,6 +60,8 @@ function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
         return "exercise-tag--stretches";
       case "machine":
         return "exercise-tag--machine";
+      case "triceps":
+        return "exercise-tag--triceps";
       default:
         break;
     }

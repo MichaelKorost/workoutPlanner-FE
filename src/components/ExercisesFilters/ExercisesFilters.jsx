@@ -161,6 +161,21 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        value={"triceps"}
+                        sx={{ width: "20px", height: "20px", mr: "10px" }}
+                        onChange={(e) => {
+                          handleCheckboxChange(e);
+                        }}
+                      />
+                    }
+                    label="Triceps"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="group"
                         value={"shoulders"}
                         sx={{ width: "20px", height: "20px", mr: "10px" }}
                         onChange={(e) => {

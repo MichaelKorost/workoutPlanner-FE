@@ -8,7 +8,6 @@ import Exercise from "./pages/Exercise/Exercise";
 import Exercises from "./pages/Exercises/Exercises";
 
 import Login from "./pages/Login/Login";
-import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import UserWorkouts from "./pages/UserWorkouts/UserWorkouts";
 import Workout from "./pages/Workout/Workout";
