@@ -19,6 +19,7 @@
   padding: 20px;
   gap: 40px;
   position: relative;
+  overflow-x: hidden;
 }
 
 .exercise-details__back-button {
@@ -180,6 +181,16 @@
   .exercise-details__title {
     margin: 74px auto 0;
     font-size: 16px;
+  }
+}
+
+@media (max-width: 370px) {
+  .exercise-details__difficulty-prompt{
+    font-size: 14px;
+  }
+
+  .exercise-details__difficulty-value {
+    font-size: 14px;
   }
 }
 

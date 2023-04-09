@@ -27,6 +27,10 @@ const muscleGroups = [
     label: "Traps",
   },
   {
+    value: "triceps",
+    label: "Triceps",
+  },
+  {
     value: "shoulders",
     label: "Shoulders",
   },

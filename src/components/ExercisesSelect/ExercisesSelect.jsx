@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+
 // MUI END
 
 import { forwardRef, useEffect, useState } from "react";
@@ -24,7 +25,7 @@ import ExercisesSearchBar from "../ExercisesSearchBar/ExercisesSearchBar";
 import ExercisesSkeleton from "../ExercisesSkeleton/ExercisesSkeleton";
 import ExerciseNotFound from "../ExerciseNotFound/ExerciseNotFound";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {  Pagination } from "swiper";
+import { Pagination } from "swiper";
 import { useTheme } from "@emotion/react";
 import {
   Box,
@@ -35,6 +36,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import ExerciseDetailsDialog from "../ExerciseDetailsDialog/ExerciseDetailsDialog";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -54,6 +56,8 @@ function ExercisesSelect({
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [open, setOpen] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
+
   const [searchFilters, setSearchFilters] = useState({
     group: [],
     tags: [],
@@ -64,7 +68,7 @@ function ExercisesSelect({
   );
   const dispatch = useDispatch();
 
-  const { exercises, isError,  isLoading, message } = useSelector(
+  const { exercises, isError, isLoading, message } = useSelector(
     (state) => state.exercise
   );
 
@@ -83,7 +87,6 @@ function ExercisesSelect({
     dispatch(getFilteredExercises(searchFilters));
   }, [dispatch, searchFilters]);
 
-
   const handleAddedExercises = (newExercises) => {
     onAddedExercises(newExercises);
   };
@@ -99,7 +102,6 @@ function ExercisesSelect({
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const handleConfirmExercise = () => {
     const newExercise = {
@@ -138,6 +140,10 @@ function ExercisesSelect({
     );
     setSelectedExercises(updatedExercises);
   };
+
+
+
+
 
   const theme = useTheme();
   const matchesPhone = useMediaQuery(theme.breakpoints.down("phone")); //420
@@ -280,6 +286,9 @@ function ExercisesSelect({
             <ExerciseCard
               key={selectedExercise._id}
               exercise={selectedExercise}
+              onCardClick={() => {
+                setOpenDetails(true);
+              }}
             />
             <Box
               sx={{
@@ -372,6 +381,34 @@ function ExercisesSelect({
             />
           </Button>
         </DialogActions>
+      </Dialog>
+
+      <Dialog
+        fullWidth={true}
+        maxWidth={"lg"}
+        open={openDetails}
+        onClose={() => {
+          setOpenDetails(false);
+        }}
+      >
+        <DialogActions>
+          <Button
+            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            onClick={() => {
+              setOpenDetails(false);
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+          >
+            <CloseIcon
+              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+            />
+          </Button>
+        </DialogActions>
+
+        <DialogContent sx={{padding:"0"}}>
+          <ExerciseDetailsDialog selectedExercise={selectedExercise} />
+        </DialogContent>
       </Dialog>
     </div>
   );
