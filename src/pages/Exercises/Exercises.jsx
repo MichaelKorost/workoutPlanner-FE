@@ -79,7 +79,7 @@ function Exercises() {
           />
         </header>
 
-        <ExercisesFilters onChangeFilters={filterChangehandler} />
+        <ExercisesFilters onChangeFilters={filterChangehandler} appliedFilter={""} />
       </section>
 
       <div

@@ -149,9 +149,6 @@ function ExercisesSelect({
     setSelectedExercises(updatedExercises);
   };
 
-  useEffect(() => {
-    console.log(searchFilters)
-  })
 
   const theme = useTheme();
   const matchesPhone = useMediaQuery(theme.breakpoints.down("phone")); //420
