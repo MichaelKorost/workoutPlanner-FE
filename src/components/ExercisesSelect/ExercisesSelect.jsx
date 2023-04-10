@@ -48,6 +48,7 @@ function ExercisesSelect({
   onAddedExercises,
   existingExercises,
   onToggleSelect,
+  selectedFilter,
 }) {
   const [searchBar, setSearchBar] = useState("");
   const [selectedExercises, setSelectedExercises] = useState(existingExercises);
@@ -58,10 +59,12 @@ function ExercisesSelect({
   const [open, setOpen] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
 
-  const [searchFilters, setSearchFilters] = useState({
-    group: [],
-    tags: [],
-    difficulty: [],
+  const [searchFilters, setSearchFilters] = useState(() => {
+    if (selectedFilter !== "") {
+      return { group: [selectedFilter], tags: [], difficulty: [] };
+    } else {
+      return { group: [], tags: [], difficulty: [] };
+    }
   });
   const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
@@ -76,16 +79,16 @@ function ExercisesSelect({
     if (isError) {
       toast.error(message);
     }
-    dispatch(getAllExercises());
-
+    // dispatch(getAllExercises());
+    dispatch(getFilteredExercises(searchFilters))
     return () => {
       dispatch(reset());
     };
-  }, [isError, message, dispatch]);
+  }, [isError, message, dispatch, searchFilters]);
 
-  useEffect(() => {
-    dispatch(getFilteredExercises(searchFilters));
-  }, [dispatch, searchFilters]);
+  // useEffect(() => {
+  //   dispatch(getFilteredExercises(searchFilters));
+  // }, [dispatch, searchFilters]);
 
   const handleAddedExercises = (newExercises) => {
     onAddedExercises(newExercises);
@@ -104,12 +107,17 @@ function ExercisesSelect({
   };
 
   const handleConfirmExercise = () => {
+    if (sets < 0 || reps < 0 || weight < 0) {
+      toast.error("values cannot be negative");
+      return;
+    }
     const newExercise = {
       exercise: selectedExercise,
       sets: sets,
       reps: reps,
       weight: weight,
     };
+
     setSelectedExercises((prevSelectedExercises) => [
       ...prevSelectedExercises,
       newExercise,
@@ -141,9 +149,9 @@ function ExercisesSelect({
     setSelectedExercises(updatedExercises);
   };
 
-
-
-
+  useEffect(() => {
+    console.log(searchFilters)
+  })
 
   const theme = useTheme();
   const matchesPhone = useMediaQuery(theme.breakpoints.down("phone")); //420
@@ -164,7 +172,7 @@ function ExercisesSelect({
             searchLabel={"Search Exercises"}
           />
         </header>
-        <ExercisesFilters onChangeFilters={filterChangehandler} />
+        <ExercisesFilters onChangeFilters={filterChangehandler} appliedFilter={selectedFilter} />
       </section>
       <section className="exercise-select-chosen-cards-container">
         <Swiper
@@ -406,7 +414,7 @@ function ExercisesSelect({
           </Button>
         </DialogActions>
 
-        <DialogContent sx={{padding:"0"}}>
+        <DialogContent sx={{ padding: "0" }}>
           <ExerciseDetailsDialog selectedExercise={selectedExercise} />
         </DialogContent>
       </Dialog>

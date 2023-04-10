@@ -59,7 +59,11 @@ const muscleGroups = [
     label: "Calves",
   },
   {
-    value: "lowerback",
+    value: "traps-mid-back",
+    label: "traps (mid-back)",
+  },
+  {
+    value: "lower back",
     label: "Lower back",
   },
   {
@@ -284,6 +288,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
       {isAdd && (
         <section>
           <ExercisesSelect
+            selectedFilter={selectedGroup}
             existingExercises={exercises}
             muscleGroup={muscleGroup}
             customName={customName}

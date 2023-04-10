@@ -15,14 +15,24 @@ import {
 import { useEffect, useState } from "react";
 import TuneIcon from "@mui/icons-material/Tune";
 
-function ExercisesFilters({ onChangeFilters }) {
+function ExercisesFilters({ onChangeFilters, appliedFilter }) {
   const [isOpenMuscleGroup, setIsOpenMuscleGroup] = useState(false);
   const [isOpenEquipment, setIsOpenEquipment] = useState(false);
   const [isOpenDiff, setIsOpenDiff] = useState(false);
-  const [searchFilters, setSearchFilters] = useState({
-    group: [],
-    tags: [],
-    difficulty: [],
+  const [searchFilters, setSearchFilters] = useState(() => {
+    if (appliedFilter !== "") {
+      return {
+        group: [appliedFilter],
+        tags: [],
+        difficulty: [],
+      };
+    } else {
+      return {
+        group: [],
+        tags: [],
+        difficulty: [],
+      };
+    }
   });
 
   const [isFilterClicked, setIsFilterClicked] = useState(false);
@@ -37,6 +47,16 @@ function ExercisesFilters({ onChangeFilters }) {
     setIsFilterClicked(!isFilterClicked);
     setActive(!active);
   };
+
+  // useEffect(() => {
+  //   if (appliedFilter !== "") {
+  //     setSearchFilters({
+  //       group: [appliedFilter],
+  //       tags: [],
+  //       difficulty: [],
+  //     });
+  //   }
+  // }, [appliedFilter]);
 
   const handleCheckboxChange = (e) => {
     const { name, value, checked } = e.target;
@@ -131,6 +151,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("chest")}
                         value={"chest"}
                         sx={{ width: "20px", height: "20px", mr: "10px" }}
                         onChange={(e) => {
@@ -146,6 +167,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("traps")}
                         value={"traps"}
                         sx={{ width: "20px", height: "20px", mr: "10px" }}
                         onChange={(e) => {
@@ -161,6 +183,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("triceps")}
                         value={"triceps"}
                         sx={{ width: "20px", height: "20px", mr: "10px" }}
                         onChange={(e) => {
@@ -176,6 +199,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("shoulders")}
                         value={"shoulders"}
                         sx={{ width: "20px", height: "20px", mr: "10px" }}
                         onChange={(e) => {
@@ -191,6 +215,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("biceps")}
                         value={"biceps"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -206,6 +231,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("forearms")}
                         value={"forearms"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -221,6 +247,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("obliques")}
                         value={"obliques"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -236,6 +263,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("abdominals")}
                         value={"abdominals"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -251,6 +279,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("quads")}
                         value={"quads"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -266,6 +295,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("calves")}
                         value={"calves"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -281,6 +311,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("traps-mid-back")}
                         value={"traps-mid-back"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -296,6 +327,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("lower back")}
                         value={"lower back"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -311,6 +343,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("glutes")}
                         value={"glutes"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
@@ -326,6 +359,7 @@ function ExercisesFilters({ onChangeFilters }) {
                     control={
                       <Checkbox
                         name="group"
+                        checked={searchFilters.group.includes("hamstrings")}
                         value={"hamstrings"}
                         onChange={(e) => {
                           handleCheckboxChange(e);
