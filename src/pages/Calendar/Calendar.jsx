@@ -143,6 +143,11 @@ function Calendar() {
 
   // handle event receive
   const handleEventReceive = (eventInfo) => {
+    const eventCounter = calendarEvents.filter((event) => event.date === eventInfo.event.startStr)
+    if (eventCounter.length > 2) {
+      toast.warning("A day is limited to 3 workouts, any further additions will not be saved!")
+      return
+    }
     const newEvent = {
       id: `external-${Math.random() * 10}`,
       title: eventInfo.event.title,
@@ -153,6 +158,11 @@ function Calendar() {
   };
 
   const handleEventDrop = (eventDropInfo) => {
+    const eventCounter = calendarEvents.filter((event) => event.date === eventDropInfo.event.startStr)
+    if (eventCounter.length > 2) {
+      toast.warning("A day is limited to 3 workouts, any further additions will not be saved!")
+      return
+    }
     const modifiedEvent = calendarEvents.find(
       (event) => event.id === eventDropInfo.event.id
     );
@@ -169,12 +179,12 @@ function Calendar() {
     );
   };
 
-  const saveCalendarChanges = () => {
+  const saveCalendarChanges = async () => {
     const updatedUserEvents = {
       events: [...calendarEvents],
     };
 
-    dispatch(updateCalendarEvents(updatedUserEvents));
+   await  dispatch(updateCalendarEvents(updatedUserEvents));
     if (isCalendarSuccess) {
       toast.success("Calendar updated successfully!");
     }
@@ -243,12 +253,12 @@ function Calendar() {
                 selectable={true}
                 selectMirror={true}
                 dayMaxEvents={true}
+                dayMaxEventRows={true}
+                views={{dayGrid: {dayMaxEventRows: 2}}}
                 events={calendarEvents}
                 droppable={true}
                 eventReceive={handleEventReceive}
-                // drop={handleDrop}
                 eventClick={handleEventClick}
-                // eventsSet={handleEventsSet}
                 height={matchesSm ? 500 : matchesMd ? 600 : 800}
                 eventDrop={handleEventDrop}
                 eventDurationEditable={false}

@@ -132,9 +132,10 @@ function Profile({ user, onSave }) {
               "&:hover": { backgroundColor: "#f1f2f6", borderRadius: "50%" },
             }}
           />
-          <Tooltip title="Save" placement="top">
+          <Tooltip title="Save name" placement="top">
             <Button
               onClick={handleSave}
+              disabled={(newName === user.name)}
               sx={{
                 width: "54px",
                 height: "54px",

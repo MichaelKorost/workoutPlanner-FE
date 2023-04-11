@@ -61,14 +61,13 @@ function WorkoutDetails({ workout, onDelete }) {
     onDelete();
   };
 
-  const handleSaveWorkout = () => {
+  const handleSaveWorkout = async () => {
     const newWorkout = {
       title: newTitle,
       plan: workout.plan,
     };
 
-    dispatch(saveNewWorkout(newWorkout));
-
+    await dispatch(saveNewWorkout(newWorkout));
     toast.success("Workout saved successfully!");
   };
 
