@@ -18,7 +18,6 @@ function ExerciseNotFound({errorMessage}) {
       />
       <div className="exercise-not-found__text">
         <div>{errorMessage}</div>
-        <div>😢</div>
       </div>
     </Tilt>
   );

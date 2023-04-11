@@ -1,5 +1,5 @@
 import "./Exercises.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   getAllExercises,
@@ -8,24 +8,25 @@ import {
 } from "../../features/exercises/exerciseSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
-import { useLocation, useNavigate } from "react-router";
+import {  useNavigate } from "react-router";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExercisesFilters from "../../components/ExercisesFilters/ExercisesFilters";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import ExercisesSkeleton from "../../components/ExercisesSkeleton/ExercisesSkeleton";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
-// const activeFilters = JSON.parse(localStorage.getItem("activeFilters"));
 
 function Exercises() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { search } = useLocation();
+
   const [searchFilters, setSearchFilters] = useState({
     group: [],
     tags: [],
     difficulty: [],
   });
+
   const [searchBar, setSearchBar] = useState("");
 
   const { user } = useSelector((state) => state.auth);
@@ -42,9 +43,9 @@ function Exercises() {
     if (!user) {
       navigate("/login");
     }
-
-
-    dispatch(getAllExercises());
+ 
+      dispatch(getAllExercises());
+    
 
 
     return () => {
@@ -54,47 +55,21 @@ function Exercises() {
 
   useEffect(() => {
     dispatch(getFilteredExercises(searchFilters));
+
   }, [dispatch, searchFilters]);
 
   const searchBarHandler = (value) => {
     setSearchBar(value);
   };
 
+  useEffect(() => {
+    setSearchFilters(searchFilters);
 
-
-  // useEffect(() => {
-  //   updateUrlParams(searchFilters);
-  // }, [searchFilters]);
-
-  // const updateUrlParams = (filters) => {
-  //   const searchParams = new URLSearchParams();
-  //   searchParams.set("group", filters.group.join(","));
-  //   searchParams.set("tags", filters.tags.join(","));
-  //   searchParams.set("difficulty", filters.difficulty.join(","));
-
-  //   const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-  //   const encodedUrl = encodeURI(newUrl).replace(/%2C/g, ",");
-  //   window.history.pushState({}, "", encodedUrl);
-
-
-  //   const urlSearchParams = new URLSearchParams(searchParams);
-  //   const group = urlSearchParams.getAll("group").join(",");
-
-  //   const tags = urlSearchParams.getAll("tags").join(",");
-  //   const difficulty = urlSearchParams.getAll("difficulty").join(",");
-
-  //   const activeFilters = {
-  //     group: group.split(","),
-  //     tags: tags.split(","),
-  //     difficulty: difficulty.split(","),
-  //   };
-
-  //   localStorage.setItem("activeFilters", JSON.stringify(activeFilters));
- 
-  // };
+  }, [searchFilters, ]);
 
   const filterChangehandler = (filters) => {
     setSearchFilters(filters);
+ 
   };
 
   const exerciseClickHandler = (id) => {

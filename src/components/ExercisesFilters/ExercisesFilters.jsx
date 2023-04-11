@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import TuneIcon from "@mui/icons-material/Tune";
 
 function ExercisesFilters({ onChangeFilters, appliedFilter }) {
+  // const computedState = useFilters() // useSearchParams
   const [isOpenMuscleGroup, setIsOpenMuscleGroup] = useState(false);
   const [isOpenEquipment, setIsOpenEquipment] = useState(false);
   const [isOpenDiff, setIsOpenDiff] = useState(false);

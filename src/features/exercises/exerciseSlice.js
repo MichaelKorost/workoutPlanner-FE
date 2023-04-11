@@ -52,12 +52,12 @@ export const getExercise = createAsyncThunk(
 
 export const getFilteredExercises = createAsyncThunk(
   "exercises/getFilteredExercises",
-  async (selectedCheckboxes, thunkAPI) => {
+  async ({ group = [], tags = [], difficulty = [] } = {}, thunkAPI) => {
     try {
       const searchFilters = {
-        group: selectedCheckboxes?.group.join(","),
-        tags: selectedCheckboxes?.tags.join(","),
-        difficulty: selectedCheckboxes?.difficulty.join(","),
+        group: group.join(","),
+        tags: tags.join(","),
+        difficulty: difficulty.join(","),
       };
       return await exerciseService.getFilteredExercises(searchFilters);
     } catch (error) {
