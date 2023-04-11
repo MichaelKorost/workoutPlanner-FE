@@ -39,12 +39,14 @@
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  transition: all 0.2 ease;
+  transition: all 0.2s ease;
 }
 
 .create__img:hover {
-  outline: 1px solid rgba(0, 0, 0, 0.4);
+  /* outline: 1px solid rgba(0, 0, 0, 0.4); */
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .create-swiper {

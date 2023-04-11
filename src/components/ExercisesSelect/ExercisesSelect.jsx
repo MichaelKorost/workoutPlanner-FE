@@ -111,6 +111,7 @@ function ExercisesSelect({
       toast.error("values cannot be negative");
       return;
     }
+    
     const newExercise = {
       exercise: selectedExercise,
       sets: sets,

@@ -1,7 +1,7 @@
 import "./ExerciseCard.scss";
 import Tilt from "react-parallax-tilt";
 
-function ExerciseCard({ exercise, onCardClick, isSelect, onExerciseSelect }) {
+function ExerciseCard({ exercise = {}, onCardClick, isSelect, onExerciseSelect = () => {} }) {
   const { name, difficulty, group, image, tags } = exercise;
 
   const cardClickHandler = () => {

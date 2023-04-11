@@ -4,18 +4,29 @@ import {
   Box,
   Button,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
+  Input,
+  InputAdornment,
   MenuItem,
   TextField,
   useMediaQuery,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect } from "react";
 import ExercisesSelect from "../ExercisesSelect/ExercisesSelect";
 import { useTheme } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {  Pagination } from "swiper";
+import { Pagination } from "swiper";
+import ExerciseCard from "../ExerciseCard/ExerciseCard";
+import { toast } from "react-toastify";
 
 const muscleGroups = [
   {
@@ -78,15 +89,25 @@ const muscleGroups = [
 
 // TODO: from each section, will receive an object
 
-function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake }) {
+function WCSection({
+  section = {},
+  onDeleteSection,
+  onUpdate = () => {},
+  isFake,
+}) {
   const { muscleGroup, id, customName, isCustom = false, exercises } = section;
 
   const [isCustomSelected, setIsCustomSelected] = useState(isCustom);
   const [customText, setCustomText] = useState(customName);
   const [selectedGroup, setSelectedGroup] = useState(muscleGroup);
-  const [addedExercises, setAddedExercises] = useState(exercises||[]);
+  const [addedExercises, setAddedExercises] = useState(exercises || []);
   const [isAdd, setIsAdd] = useState(false);
-  const [isChecked, setIsChecked] = useState(isCustom || false)
+  const [isChecked, setIsChecked] = useState(isCustom || false);
+  const [sets, setSets] = useState("");
+  const [reps, setReps] = useState("");
+  const [weight, setWeight] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState({});
   const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
   );
@@ -126,6 +147,42 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
     setAddedExercises(addedExercises);
   };
 
+  const handleExerciseClick = (exercise) => {
+    setSelectedExercise(exercise);
+    setOpen(true);
+    setReps(exercise.reps)
+    setSets(exercise.sets)
+    setWeight(exercise.weight)
+    console.log(exercise);
+  };
+
+  const handleConfirmExercise = () => {
+    if (sets < 0 || reps < 0 || weight < 0) {
+      toast.error("values cannot be negative");
+      return;
+    }
+  
+    const updatedExercise = {
+      exercise: selectedExercise.exercise,
+      sets: sets,
+      reps: reps,
+      weight: weight,
+    };
+  
+    setAddedExercises((prevExercises) => {
+      const index = prevExercises.findIndex((exercise) => exercise.exercise._id === updatedExercise.exercise._id);
+        const newExercises = [...prevExercises];
+        newExercises[index] = updatedExercise;
+        return newExercises;
+      
+    });
+  
+    setOpen(false);
+    setSets("");
+    setReps("");
+    setWeight("");
+  };
+
   useEffect(() => {
     onUpdate({
       id,
@@ -149,7 +206,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
       <section
         className={`create__section ${isFake && "fake-section"}`}
         style={{ backgroundColor: isFake ? "#7f8c8d" : randomColor }}
-        onMouseEnter={ (e) => e.target.classList.remove("warning")}
+        onMouseEnter={(e) => e.target.classList.remove("warning")}
       >
         <div className="create__section-name">
           <Box
@@ -199,7 +256,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
 
           <Box
             sx={{
-              background: isFake ? "#95a5a6" :  "white",
+              background: isFake ? "#95a5a6" : "white",
               boxShadow:
                 "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
               padding: "5px",
@@ -212,7 +269,9 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
             className={"create__checkbox"}
           >
             <FormControlLabel
-              control={<Checkbox checked={isChecked} onChange={toggleCustomText} />}
+              control={
+                <Checkbox checked={isChecked} onChange={toggleCustomText} />
+              }
               label={matchesSmallPhone ? "Custom text" : "Custom"}
               labelPlacement="end"
             />
@@ -221,7 +280,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
             variant="contained"
             type="button"
             style={{
-              backgroundColor: isFake ? "#95a5a6" :  "white",
+              backgroundColor: isFake ? "#95a5a6" : "white",
               minWidth: "42px",
               height: "42px",
               padding: "0",
@@ -232,7 +291,9 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
             className="create__delete-button"
             onClick={() => deleteSection()}
           >
-            <DeleteIcon sx={{ color: "black", fontSize: "28px", pointerEvents:"none" }} />
+            <DeleteIcon
+              sx={{ color: "black", fontSize: "28px", pointerEvents: "none" }}
+            />
           </Button>
         </div>
 
@@ -258,7 +319,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
           >
             <SwiperSlide className="create-swiper__slide">
               <Button
-                sx={{ padding: "30px", borderRadius: "8px"}}
+                sx={{ padding: "30px", borderRadius: "8px" }}
                 type="Button"
                 onClick={addExercise}
                 className={`create__add ${isFake && "fake"}`}
@@ -276,6 +337,7 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
               >
                 <img
                   className="create__img"
+                  onClick={() => handleExerciseClick(exercise)}
                   src={exercise.exercise.image}
                   alt="exercise img"
                 />
@@ -304,9 +366,127 @@ function WCSection({ section = {}, onDeleteSection, onUpdate = () => {}, isFake 
           ></div>
         </section>
       )}
+
+      <Dialog
+        className="exercise-select__dialog"
+        open={open}
+        keepMounted
+        onClose={() => {
+          setOpen(false);
+        }}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogContent
+          sx={{
+            padding: "20px",
+            paddingTop: "20px !important",
+            overflow: "hidden",
+          }}
+        >
+          <div className="exercise-select-dialog-container">
+            <ExerciseCard
+              exercise={selectedExercise?.exercise}
+              isSelect={true}
+              // onCardClick={() => {
+              //   setOpenDetails(true);
+              // }}
+            />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, mt: 0, width: "25ch" }}
+              >
+                <Input
+                  id="standard-sets"
+                  aria-describedby="standard-sets-helper-text"
+                  inputProps={{
+                    "aria-label": "sets",
+                  }}
+                  type="number"
+                  value={sets}
+                  onChange={(e) => setSets(e.target.value)}
+                />
+                <FormHelperText id="standard-sets-helper-text">
+                  Sets
+                </FormHelperText>
+              </FormControl>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, mt: 0, width: "25ch" }}
+              >
+                <Input
+                  id="standard-reps"
+                  type="number"
+                  value={reps}
+                  onChange={(e) => setReps(e.target.value)}
+                  aria-describedby="standard-reps-helper-text"
+                  inputProps={{
+                    "aria-label": "reps",
+                  }}
+                />
+                <FormHelperText id="standard-reps-helper-text">
+                  Reps
+                </FormHelperText>
+              </FormControl>
+              <FormControl
+                variant="standard"
+                sx={{ m: 1, mt: 0, width: "25ch" }}
+              >
+                <Input
+                  id="standard-adornment-weight"
+                  endAdornment={
+                    <InputAdornment position="end">kg</InputAdornment>
+                  }
+                  aria-describedby="standard-weight-helper-text"
+                  inputProps={{
+                    "aria-label": "weight",
+                  }}
+                  type="number"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+                <FormHelperText id="standard-weight-helper-text">
+                  Weight
+                </FormHelperText>
+              </FormControl>
+            </Box>
+          </div>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button
+            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            onClick={() => {
+              setOpen(false);
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+          >
+            <CloseIcon
+              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+            />
+          </Button>
+          <Button
+            sx={{ width: "54px", height: "54", backgroundColor: "#27ae60" }}
+            onClick={handleConfirmExercise}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#009432`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `#27ae60`)}
+          >
+            <CheckIcon
+              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+            />
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
 
 export default WCSection;
-
