@@ -24,12 +24,6 @@ function ExerciseDetails({ exercise }) {
 
   const { demo, difficulty, guide, name } = exercise;
 
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    navigate(-1);
-  };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -59,22 +53,6 @@ function ExerciseDetails({ exercise }) {
           className="exercise-details-container"
           style={{ backgroundColor: randomColor }}
         >
-          <Button
-            onClick={handleGoBack}
-            className="exercise-details__back-button"
-            variant="text"
-            sx={{ backgroundColor: "white" }}
-          >
-            <ArrowBackIcon
-              className="back-button-arrow"
-              sx={{
-                textAlign: "center",
-                pointerEvents: "none",
-                color: "black",
-                fontSize: "64px",
-              }}
-            />
-          </Button>
           <Tilt
             className="exercise-details__title"
             perspective={1000}

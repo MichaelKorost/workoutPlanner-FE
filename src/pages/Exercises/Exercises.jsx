@@ -8,19 +8,29 @@ import {
 } from "../../features/exercises/exerciseSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
-import {  useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import ExercisesSearchBar from "../../components/ExercisesSearchBar/ExercisesSearchBar";
 import ExercisesFilters from "../../components/ExercisesFilters/ExercisesFilters";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
 import ExercisesSkeleton from "../../components/ExercisesSkeleton/ExercisesSkeleton";
 import { toast } from "react-toastify";
-import { useSearchParams } from "react-router-dom";
-
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Tooltip,
+} from "@mui/material";
+import ExerciseDetailsDialog from "../../components/ExerciseDetailsDialog/ExerciseDetailsDialog";
+import CloseIcon from "@mui/icons-material/Close";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function Exercises() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [selectedExercise, setSelectedExercise] = useState({});
+  const [openDetails, setOpenDetails] = useState(false);
   const [searchFilters, setSearchFilters] = useState({
     group: [],
     tags: [],
@@ -43,10 +53,24 @@ function Exercises() {
     if (!user) {
       navigate("/login");
     }
- 
-      dispatch(getAllExercises());
-    
 
+    dispatch(getAllExercises());
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [isError, message, dispatch, user, navigate]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (!user) {
+      navigate("/login");
+    }
+
+    dispatch(getAllExercises());
 
     return () => {
       dispatch(reset());
@@ -55,7 +79,6 @@ function Exercises() {
 
   useEffect(() => {
     dispatch(getFilteredExercises(searchFilters));
-
   }, [dispatch, searchFilters]);
 
   const searchBarHandler = (value) => {
@@ -64,16 +87,23 @@ function Exercises() {
 
   useEffect(() => {
     setSearchFilters(searchFilters);
+  }, [searchFilters]);
 
-  }, [searchFilters, ]);
+  // new
+  useEffect(() => {
+    setSearchFilters(searchFilters);
+  }, [searchFilters]);
 
   const filterChangehandler = (filters) => {
     setSearchFilters(filters);
- 
   };
 
-  const exerciseClickHandler = (id) => {
-    navigate("/exercises/id/" + id);
+  const exerciseClickHandler = (exercise) => {
+    setSelectedExercise(exercise);
+    setOpenDetails(true);
+  };
+  const handleOpenExercise = (id) => {
+    window.open("/exercises/id/" + id, "_blank");
   };
 
   return (
@@ -124,13 +154,59 @@ function Exercises() {
                   <ExerciseCard
                     key={exercise._id}
                     exercise={exercise}
-                    onCardClick={() => exerciseClickHandler(exercise._id)}
+                    onCardClick={() => exerciseClickHandler(exercise)}
                   />
                 );
               })
           )}
         </section>
       </div>
+
+      <Dialog
+        fullWidth={true}
+        maxWidth={"lg"}
+        open={openDetails}
+        onClose={() => {
+          setOpenDetails(false);
+        }}
+      >
+        <DialogActions>
+          <Button
+            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            onClick={() => {
+              setOpenDetails(false);
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+          >
+            <CloseIcon
+              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+            />
+          </Button>
+        </DialogActions>
+
+        <DialogContent sx={{ padding: "0" }}>
+          <ExerciseDetailsDialog selectedExercise={selectedExercise} />
+        </DialogContent>
+
+        <DialogActions sx={{justifyContent:"flex-start"}}>
+          <Tooltip title="Open in a new tab" placement="top">
+            <Button
+              className="workout-open-button"
+              sx={{ minWidth: "54px", height: "54px" }}
+              onClick={() => handleOpenExercise(selectedExercise._id)}
+            >
+              <OpenInNewIcon
+                sx={{
+                  color: "white",
+                  fontSize: "44px",
+                  pointerEvents: "none",
+                }}
+              />
+            </Button>
+          </Tooltip>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

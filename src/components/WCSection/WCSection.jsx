@@ -153,7 +153,6 @@ function WCSection({
     setReps(exercise.reps)
     setSets(exercise.sets)
     setWeight(exercise.weight)
-    console.log(exercise);
   };
 
   const handleConfirmExercise = () => {
