@@ -13,6 +13,12 @@ import { toast } from "react-toastify";
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import Profile from "../Profile/Profile";
 import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
+import FolderSharedIcon from "@mui/icons-material/FolderShared";
+import PersonIcon from '@mui/icons-material/Person';
+import SportsGymnasticsIcon from "@mui/icons-material/SportsGymnastics";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { updateUsername } from "../../features/auth/authSlice";
 import TodaysWorkoutCard from "../../components/TodaysWorkoutCard/TodaysWorkoutCard";
 import ExerciseNotFound from "../../components/ExerciseNotFound/ExerciseNotFound";
@@ -150,20 +156,28 @@ function Dashboard() {
                     to={"/workouts/new"}
                     className="dashboard__link group1-item1 square"
                   >
-                    <div>Create workout plan</div>
+                    <div>
+                      <AddCircleIcon sx={{height: "54px", width:"54px"}} />
+                      <h2 className="dashboard__button-text" >Create workout plan</h2></div>
                   </Link>
                   <Link
                     to={"/exercises"}
                     className="dashboard__link group1-item2 square"
                   >
-                    <div>Exercises</div>
+                    <div>
+                    <SportsGymnasticsIcon sx={{height: "54px", width:"54px"}} />
+                     <h2 className="dashboard__button-text">Exercises</h2> 
+                      </div>
                   </Link>
                 </div>
                 <Link
                   to={"/workouts"}
                   className="dashboard__link group1-item3 square"
                 >
-                  <div>workout plans</div>
+                  <div> 
+                    <SearchIcon sx={{height: "54px", width:"54px"}} />
+                    <h2 className="dashboard__button-text">workout plans</h2>
+                    </div>
                 </Link>
               </section>
               <h1 className="dashboard__today-text">Today!</h1>
@@ -174,21 +188,30 @@ function Dashboard() {
                   to={"/calendar"}
                   className="dashboard__link group2-item1 square"
                 >
-                  <div>Calendar</div>
+                  <div>
+                    <CalendarMonthIcon sx={{height: "54px", width:"54px"}} />
+                    <h2 className="dashboard__button-text">Calendar</h2>
+                    </div>
                 </Link>
                 <Link
                   to={"/"}
                   className="dashboard__link group2-item2 square"
                   onClick={handleClickOpen}
                 >
-                  <div>Profile</div>
+                  <div>
+                  < PersonIcon sx={{height: "54px", width:"54px"}} />
+                  <h2 className="dashboard__button-text">Profile</h2>
+                    </div>
                 </Link>
               </div>
               <Link
                 to={"/workouts/my"}
                 className="dashboard__link group2-item3 square"
               >
-                <div>My workout plans</div>
+                <div>
+                <FolderSharedIcon sx={{height: "54px", width:"54px"}} />
+                  <h2 className="dashboard__button-text">My workout plans</h2> 
+                  </div>
               </Link>
             </section>
           </section>

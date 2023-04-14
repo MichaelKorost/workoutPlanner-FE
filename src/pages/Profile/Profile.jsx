@@ -133,6 +133,7 @@ function Profile({ user, onSave }) {
             }}
           />
           <Tooltip title="Save name" placement="top">
+            <span style={{margin: " 0 0 0 auto"}}>
             <Button
               onClick={handleSave}
               disabled={(newName === user.name)}
@@ -140,12 +141,13 @@ function Profile({ user, onSave }) {
                 width: "54px",
                 height: "54px",
                 backgroundColor: "#2196f3",
-                margin: " 0 0 0 auto",
+                
                 "&:hover": { backgroundColor: "#1e88e5" },
               }}
             >
               <SaveAsIcon sx={{ color: "white", fontSize: "36px" }} />
             </Button>
+            </span>
           </Tooltip>
         </Box>
       </section>

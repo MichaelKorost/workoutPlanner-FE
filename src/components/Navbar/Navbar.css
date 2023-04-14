@@ -4,6 +4,7 @@
 /* font-family: 'Cambay', sans-serif; */
 
 .nav {
+  max-width: 1920px;
   display: flex;
   flex-direction: row;
   align-items: center;
