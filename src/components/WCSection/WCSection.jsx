@@ -27,6 +27,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import { toast } from "react-toastify";
+import ExerciseDetailsDialog from "../ExerciseDetailsDialog/ExerciseDetailsDialog";
+import ExerciseDetails from "../ExerciseDetails/ExerciseDetails";
 
 const muscleGroups = [
   {
@@ -107,6 +109,7 @@ function WCSection({
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [open, setOpen] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState({});
   const [randomColor] = useState(
     `#${Math.floor(Math.random() * 16777215).toString(16)}20`
@@ -385,10 +388,11 @@ function WCSection({
           <div className="exercise-select-dialog-container">
             <ExerciseCard
               exercise={selectedExercise?.exercise}
-              isSelect={true}
-              // onCardClick={() => {
-              //   setOpenDetails(true);
-              // }}
+              isSelect={false}
+              onCardClick={() => {
+                if (!open) return
+                setOpenDetails(true);
+              }}
             />
             <Box
               sx={{
@@ -484,6 +488,35 @@ function WCSection({
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+        fullWidth={true}
+        maxWidth={"lg"}
+        open={openDetails}
+        onClose={() => {
+          setOpenDetails(false);
+        }}
+      >
+        <DialogActions>
+          <Button
+            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            onClick={() => {
+              setOpenDetails(false);
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+          >
+            <CloseIcon
+              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+            />
+          </Button>
+        </DialogActions>
+
+        <DialogContent sx={{ padding: "0" }}>
+          <ExerciseDetailsDialog selectedExercise={selectedExercise.exercise} />
+        </DialogContent>
+      </Dialog>
+
     </>
   );
 }
