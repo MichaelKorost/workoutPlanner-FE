@@ -10,4 +10,53 @@ Workout Planner is a web application for creating or saving existing workouts, a
 ## Video
 https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-bb91-85595b7804b8.mp4
 
+## Gallery
+![Dashboard](https://i.imgur.com/6jx8obZ.png "Dashboard")
+![Exercises](https://i.imgur.com/X0ovz4H.png "Exercises")
+![Workouts](https://i.imgur.com/xyN6BGU.png "Workouts")
+![Workouts](https://i.imgur.com/xyN6BGU.png "Workouts")
+![Workout details](https://i.imgur.com/J9WKAJU.png "Workout details")
+![Save existing workout](https://i.imgur.com/jzGPFN6.png "Save existing workout")
+![Create workout](https://i.imgur.com/1FRSKjn.png "Create workout")
+![Calendar](https://i.imgur.com/dpJ1mzr.png "Calendar")
+![Calendar workout](https://i.imgur.com/pCGejMb.png "Calendar workout")
+![Profile](https://i.imgur.com/1uHi3ph.png "Profile")
 
+## Installation
+
+clone repository
+
+```
+git clone https://github.com/MichaelKorost/workoutPlanner-FE.git
+```
+enter the relevant folder
+
+```
+cd workoutPlanner-FE
+```
+
+install all project dependencies
+
+```
+npm install
+```
+
+start the development server
+
+```
+npm start
+```
+## Technologies
+
+-  NodeJS - Backend runtime environment
+-  Express - Backend web application framework
+- Redux - Frontend library for state management
+- SCSS - Frontend preprocessor for CSS
+-  MUI - Frontend UI library
+-  React - Frontend library for building user interfaces
+-  React Router - Frontend library for routing in React applications
+-  CSS - Frontend style sheet language
+- MongoDB - Backend NoSQL database program
+
+## Backend Repo
+[Backend repository](https://github.com/MichaelKorost/workoutPlanner-BE)
