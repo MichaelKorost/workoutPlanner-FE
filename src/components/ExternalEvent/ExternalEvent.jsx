@@ -146,9 +146,9 @@ const ExternalEvent = memo(({ event }) => {
                 </Swiper>
               </section>
             ))}
-                <div className="exernal-event__creator">
-                  Created by: {event?.creator}
-                </div>
+            <div className="exernal-event__creator">
+              Created by: {event?.creator}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
