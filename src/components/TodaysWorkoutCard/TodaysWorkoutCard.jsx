@@ -12,12 +12,11 @@ function TodaysWorkoutCard({ workout, title }) {
     navigate("/workouts/today");
   };
 
-const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}20`
 
   return (
     <div
       className="todays-workout-small-card"
-      style={{ backgroundColor: randomColor }}
+      style={{ backgroundColor: "#ffcccc40" }}
     >
       <button className="workout-title-button" onClick={handleTItleClick}>
         <Tilt
@@ -50,7 +49,7 @@ const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}20`
                   className="todays-workout-mini-swiper__image"
                   src={exercise.image}
                 />
-                <div className="workout-details-swiper-information">
+                <div className="workout-today-swiper-information">
                   <h3 className="workout-today-mini-swiper__exercise-name">
                     {exercise.name}
                   </h3>

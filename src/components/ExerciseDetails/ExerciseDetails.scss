@@ -46,10 +46,11 @@
   padding: 3px;
   font-weight: 500;
   transform-style: preserve-3d;
+  padding: 0 20px;
 }
 
 .title-inner {
-  transform: translateZ(90px);
+  transform: translateZ(60px);
 }
 .exercise-details__difficulty {
   display: flex;
@@ -70,26 +71,39 @@
 }
 .exercise-details-img-container {
   display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+  margin: 0 auto;
+  // justify-content: space-evenly;
+  justify-content: space-between;
+  width: 80%;
   height: 280px;
   align-items: center;
   background-color: white;
   border-radius: 16px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  transform-style: preserve-3d;
+  // transform-style: preserve-3d;
 }
 
 .exercise-details__img {
   width: 400px;
   max-width: 40%;
-  height: 250px;
+  // height: 250px;
+  height: 280px;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
     rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
     rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   transform: translateZ(10px);
   cursor: pointer;
+}
+
+.exercise-details__img--first{
+border-top-left-radius: 16px;
+border-bottom-left-radius: 16px;
+}
+
+.exercise-details__img--second {
+ border-top-right-radius:16px ;
+ border-bottom-right-radius:16px ;
 }
 
 .exercise-details__img:hover {
@@ -157,8 +171,8 @@
     height: auto;
   }
   .exercise-details__img {
-    max-width: 400px;
-    width: 90%;
+    max-width: 100%;
+    width: 100%;
   }
 
   .exercise-details__back-button {
@@ -169,12 +183,25 @@
     margin: 74px auto 0;
     font-size: 18px;
   }
+
+  .exercise-details__img--first{
+    border-top-right-radius:16px ;
+    border-top-left-radius:16px ;
+    border-bottom-left-radius: 0;
+    }
+    
+    .exercise-details__img--second {
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      border-top-right-radius: 0;
+    }
+
 }
 
 @media (max-width: 420px) {
   .exercise-details__img {
     max-width: 400px;
-    width: 90%;
+    width: 100%;
     height: 200px;
   }
 
@@ -185,7 +212,7 @@
 }
 
 @media (max-width: 370px) {
-  .exercise-details__difficulty-prompt{
+  .exercise-details__difficulty-prompt {
     font-size: 14px;
   }
 

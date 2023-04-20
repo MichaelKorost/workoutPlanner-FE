@@ -37,8 +37,9 @@
 }
 
 .workout-details-title-inner {
-  transform: translateZ(90px);
+  transform: translateZ(60px);
   width: 100%;
+  padding: 0 10px;
 }
 
 .workout-details__back-button {
@@ -66,7 +67,7 @@
   font-family: "Manrope", sans-serif;
   font-weight: 800;
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .workout-details__swiper {
@@ -78,7 +79,23 @@
 .workout-details-swiper-container {
   display: flex;
   flex-direction: row !important;
-  padding: 10px 40px 30px;
+  // padding: 10px 40px 30px;
+
+}
+
+.swiper-pagination{
+  position: absolute;
+  text-align: center;
+  transition: .3s opacity;
+  transform: translate3d(0,0,0);
+  z-index: 10;
+  background: #FFF;
+  width: 80px !important;
+  left: 50% !important;
+  margin-left: -40px;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px 0px;
+  // font-size: 20px;
 }
 
 .workout-details-swiper__image {
@@ -90,11 +107,12 @@
 .workout-details-swiper-information {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   width: 50%;
-  align-items: center;
+  align-items: flex-start;
   font-family: "Manrope", sans-serif;
-  gap: 10%;
+  gap: 10px;
+  padding: 20px 0 0 20px;
 }
 
 .workout-details-swiper__exercise-name {
@@ -107,7 +125,7 @@
   display: flex;
   flex-direction: column;
   font-family: "Manrope", sans-serif;
-  gap: 10px;
+  gap: 1px;
 }
 
 .workout-details-swiper__term {
@@ -198,6 +216,7 @@
 
   .workout-details-swiper-container {
     flex-direction: column !important;
+    padding: 0 0 30px 0 ;
   }
 
   .workout-details-swiper__image {
@@ -217,6 +236,23 @@
     font-size: 16px;
     text-align: center;
   }
+
+  .swiper-pagination{
+    position: absolute;
+    text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0,0,0);
+    z-index: 10;
+    background: #FFF;
+    width: 80px !important;
+    left: 50% !important;
+    margin-left: -40px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    // margin: 5px auto;
+    // font-size: 20px;
+  }
+
 }
 
 .workout-details-container::-webkit-scrollbar {

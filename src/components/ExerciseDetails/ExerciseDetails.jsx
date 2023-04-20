@@ -16,9 +16,7 @@ const GuideStep = ({ text, number }) => {
 };
 
 function ExerciseDetails({ exercise }) {
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
-  );
+
   const [open, setOpen] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState("");
 
@@ -51,7 +49,7 @@ function ExerciseDetails({ exercise }) {
       <div className="exercise-details-page">
         <div
           className="exercise-details-container"
-          style={{ backgroundColor: randomColor }}
+          style={{ backgroundColor: "#f8a5c240" }}
         >
           <Tilt
             className="exercise-details__title"
@@ -63,7 +61,7 @@ function ExerciseDetails({ exercise }) {
             <h1 className="title-inner">{name}</h1>
           </Tilt>
           <div className="exercise-details__difficulty">
-            <h3 className="exercise-details__difficulty-prompt">difficulty:</h3>
+            <h3 className="exercise-details__difficulty-prompt">Difficulty:</h3>
             <span
               className={`exercise-details__difficulty-value ${getDifficultyColor(
                 difficulty
@@ -82,7 +80,7 @@ function ExerciseDetails({ exercise }) {
             <img
               onClick={() => handleOpenImage(demo[0])}
               alt="exercise"
-              className="exercise-details__img"
+              className="exercise-details__img exercise-details__img--first"
               src={demo[0]}
             />
 
@@ -91,7 +89,7 @@ function ExerciseDetails({ exercise }) {
             <img
               onClick={() => handleOpenImage(demo[1])}
               alt="exercise-demo"
-              className="exercise-details__img"
+              className="exercise-details__img exercise-details__img--second"
               src={demo[1]}
             />
           </Tilt>

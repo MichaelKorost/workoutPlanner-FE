@@ -40,7 +40,7 @@ function ExerciseDetailsDialog({ selectedExercise }) {
     <>
       <div
         className="exercise-details-container"
-        style={{ backgroundColor: randomColor }}
+        style={{ backgroundColor: "#f8a5c240" }}
       >
         <Tilt
           className="exercise-details__title"
@@ -52,7 +52,7 @@ function ExerciseDetailsDialog({ selectedExercise }) {
           <h1 className="title-inner">{selectedExercise?.name}</h1>
         </Tilt>
         <div className="exercise-details__difficulty">
-          <h3 className="exercise-details__difficulty-prompt">difficulty:</h3>
+          <h3 className="exercise-details__difficulty-prompt">Difficulty:</h3>
           <span
             className={`exercise-details__difficulty-value ${getDifficultyColor(
               selectedExercise?.difficulty
@@ -71,7 +71,7 @@ function ExerciseDetailsDialog({ selectedExercise }) {
           <img
             onClick={() => handleOpenImage(selectedExercise?.demo[0])}
             alt="exercise"
-            className="exercise-details__img"
+            className="exercise-details__img exercise-details__img--first"
             src={selectedExercise?.demo[0]}
           />
 
@@ -80,7 +80,7 @@ function ExerciseDetailsDialog({ selectedExercise }) {
           <img
             onClick={() => handleOpenImage(selectedExercise?.demo[1])}
             alt="exercise-demo"
-            className="exercise-details__img"
+            className="exercise-details__img exercise-details__img--second"
             src={selectedExercise?.demo[1]}
           />
         </Tilt>

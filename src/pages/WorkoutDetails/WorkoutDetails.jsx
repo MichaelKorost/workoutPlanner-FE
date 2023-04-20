@@ -109,7 +109,7 @@ function WorkoutDetails({ workout, onDelete }) {
       <div className="workout-details-page">
         <div
           className="workout-details-container"
-          style={{ backgroundColor: randomColor }}
+          style={{ backgroundColor: "#f1f2f6" }}
         >
           <Button
             onClick={handleGoBack}
