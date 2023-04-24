@@ -56,6 +56,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 80%;
+  margin: 0 auto;
 }
 .exercise-details__difficulty-prompt {
   font-family: "Manrope", sans-serif;
@@ -115,6 +117,7 @@ border-bottom-left-radius: 16px;
   flex-direction: column;
   width: fit-content;
   margin: 0 auto;
+  width: 80%;
   gap: 30px;
 }
 
@@ -175,13 +178,23 @@ border-bottom-left-radius: 16px;
     width: 100%;
   }
 
+  .guide-steps-container {
+
+    width: 100%;
+
+  }
+
   .exercise-details__back-button {
     width: 64px;
     height: 64px;
   }
   .exercise-details__title {
-    margin: 74px auto 0;
+    // margin: 74px auto 0;
     font-size: 18px;
+  }
+
+  .exercise-details__difficulty{
+    width: 100%;
   }
 
   .exercise-details__img--first{
@@ -206,7 +219,7 @@ border-bottom-left-radius: 16px;
   }
 
   .exercise-details__title {
-    margin: 74px auto 0;
+    // margin: 74px auto 0;
     font-size: 16px;
   }
 }

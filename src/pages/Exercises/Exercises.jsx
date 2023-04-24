@@ -102,9 +102,9 @@ function Exercises() {
     setSelectedExercise(exercise);
     setOpenDetails(true);
   };
-  const handleOpenExercise = (id) => {
-    window.open("/exercises/id/" + id, "_blank");
-  };
+  // const handleOpenExercise = (id) => {
+  //   window.open("/exercises/id/" + id, "_blank");
+  // };
 
   return (
     <>
@@ -127,7 +127,7 @@ function Exercises() {
 
       <div
         className="exercise-list-container"
-        style={{ backgroundColor: "#ffeaa780" }}
+        style={{ backgroundColor: "#ecf0f1" }}
       >
         <section className="exercises__list">
           {isLoading ? (
@@ -189,7 +189,7 @@ function Exercises() {
           <ExerciseDetailsDialog selectedExercise={selectedExercise} />
         </DialogContent>
 
-        <DialogActions sx={{justifyContent:"flex-start"}}>
+        {/* <DialogActions sx={{justifyContent:"flex-start"}}>
           <Tooltip title="Open in a new tab" placement="top">
             <Button
               className="workout-open-button"
@@ -205,7 +205,7 @@ function Exercises() {
               />
             </Button>
           </Tooltip>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     </>
   );

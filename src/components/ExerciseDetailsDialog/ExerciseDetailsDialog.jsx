@@ -15,9 +15,6 @@ const GuideStep = ({ text, number }) => {
 function ExerciseDetailsDialog({ selectedExercise }) {
   const [openImage, setOpenImage] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState("");
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
-  );
 
   const handleOpenImage = (link) => {
     setSelectedUrl(link);
@@ -40,7 +37,7 @@ function ExerciseDetailsDialog({ selectedExercise }) {
     <>
       <div
         className="exercise-details-container"
-        style={{ backgroundColor: "#f8a5c240" }}
+        style={{ backgroundColor: "#ecf0f1" }}
       >
         <Tilt
           className="exercise-details__title"

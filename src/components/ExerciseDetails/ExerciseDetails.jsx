@@ -49,7 +49,7 @@ function ExerciseDetails({ exercise }) {
       <div className="exercise-details-page">
         <div
           className="exercise-details-container"
-          style={{ backgroundColor: "#f8a5c240" }}
+          style={{ backgroundColor: "#ecf0f1" }}
         >
           <Tilt
             className="exercise-details__title"
