@@ -134,9 +134,11 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <DeleteIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          // pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#2f3640"}
                         }}
                       />
                     </Button>
@@ -149,9 +151,10 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <EditIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#e67e22"}
                         }}
                       />
                     </Button>
@@ -165,9 +168,11 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <OpenInNewIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          // pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#3498db"}
                         }}
                       />
                     </Button>
@@ -183,9 +188,11 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <OpenInNewIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          // pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#3498db"}
                         }}
                       />
                     </Button>
@@ -234,9 +241,10 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <DeleteIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#2f3640"}
                         }}
                       />
                     </Button>
@@ -249,9 +257,10 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <EditIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#e67e22"}
                         }}
                       />
                     </Button>
@@ -264,9 +273,10 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <OpenInNewIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#3498db"}
                         }}
                       />
                     </Button>
@@ -282,9 +292,10 @@ function WorkoutCard({ workout, onDelete }) {
                     >
                       <OpenInNewIcon
                         sx={{
-                          color: "white",
+                          color: "#718093",
                           fontSize: "34px",
-                          pointerEvents: "none",
+                          transition: "all 0.2s ease-in-out",
+                          "&:hover": {color: "#3498db"}
                         }}
                       />
                     </Button>
@@ -344,7 +355,10 @@ function WorkoutCard({ workout, onDelete }) {
                 <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
                 <Swiper
                   pagination={{ type: "fraction" }}
-                  navigation={true}
+                  navigation={false}
+                  slidesPerView={"auto"}
+                  spaceBetween={0}
+                  centeredSlides={true}
                   modules={[Pagination, Navigation]}
                   className={"workout-details__swiper"}
                 >
@@ -449,7 +463,7 @@ function WorkoutCard({ workout, onDelete }) {
             overflowX: "hidden",
             textAlign: "center",
             fontSize: "30px",
-            padding: "10 20px",
+            // padding: "10 20px",
           }}
           className="calendar-dialog__title"
         >

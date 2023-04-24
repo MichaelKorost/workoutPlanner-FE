@@ -74,13 +74,22 @@
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   border-radius: 8px;
+  width: 80%;
+  // padding: 0 0 30px 0 ;
+  padding: 0 0 30px 0 ;
 }
 
 .workout-details-swiper-container {
   display: flex;
   flex-direction: row !important;
   // padding: 10px 40px 30px;
-
+  // outline: 1px solid black ;
+  height: 250px;
+  width: 80%;
+  max-width: 250px;
+  flex-direction: column !important;
+  // padding: 0 0 30px 0 ;
+  margin: 0 10px 0 0;
 }
 
 .swiper-pagination{
@@ -94,13 +103,13 @@
   left: 50% !important;
   margin-left: -40px;
   border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px 0px;
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px 0px;
   // font-size: 20px;
 }
 
 .workout-details-swiper__image {
-  width: 50%;
-  height: 250px;
+  width: 100%;
+  height: 150px;
   object-fit: cover;
 }
 
@@ -108,17 +117,28 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 50%;
+  width: 100%;
   align-items: flex-start;
   font-family: "Manrope", sans-serif;
-  gap: 10px;
-  padding: 20px 0 0 20px;
+  gap: 5px;
+  padding: 5px 0 0 5px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  // border-radius: 16px;
+  border-bottom-left-radius:16px ;
+  border-bottom-right-radius:16px ;
 }
 
 .workout-details-swiper__exercise-name {
   font-family: "Manrope", sans-serif;
-  font-size: 20px;
-  text-align: center;
+  font-size: 15px;
+  text-align: start;
+  font-weight: 600;
+  white-space: pre-wrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
 }
 
 .workout-details-swiper__terms {
@@ -195,7 +215,7 @@
     width: 100%;
   }
   .workout-details-swiper__image {
-    height: 200px;
+    height: 150px;
   }
 
   .workout-details-container {
@@ -214,9 +234,19 @@
     font-size: 24px;
   }
 
+  .workout-details__swiper {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    border-radius: 8px;
+    width: 100%;
+    // padding: 0 0 30px 0 ;
+  
+  }
+
   .workout-details-swiper-container {
     flex-direction: column !important;
-    padding: 0 0 30px 0 ;
+    width: 80%;
+    // padding: 0 0 30px 0 ;
   }
 
   .workout-details-swiper__image {
@@ -234,7 +264,7 @@
   .workout-details-swiper__exercise-name {
     font-family: "Manrope", sans-serif;
     font-size: 16px;
-    text-align: center;
+    text-align: start;
   }
 
   .swiper-pagination{
@@ -248,7 +278,8 @@
     left: 50% !important;
     margin-left: -40px;
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+ 
+    // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     // margin: 5px auto;
     // font-size: 20px;
   }

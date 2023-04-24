@@ -21,9 +21,7 @@ import { toast } from "react-toastify";
 function UserWorkouts() {
   const [searchBar, setSearchBar] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [randomColor] = useState(
-    `#${Math.floor(Math.random() * 16777215).toString(16)}20`
-  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -76,7 +74,6 @@ function UserWorkouts() {
       />
       <div
         className="workouts-container"
-        style={{ backgroundColor: "#82ccdd40" }}
       >
         {isLoading ? (
           <WorkoutsSkeleton />

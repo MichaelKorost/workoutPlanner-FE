@@ -104,6 +104,13 @@ function WorkoutDetails({ workout, onDelete }) {
     setOpenSaveDialog(false);
   };
 
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + "</span>";
+    },
+  };
+
   return (
     <>
       <div className="workout-details-page">
@@ -142,8 +149,11 @@ function WorkoutDetails({ workout, onDelete }) {
               <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
               <Swiper
                 pagination={{ type: "fraction" }}
-                navigation={true}
-                modules={[Pagination, Navigation]}
+                slidesPerView={"auto"}
+                spaceBetween={0}
+                centeredSlides={true}
+                navigation={false}
+                modules={[Pagination]}
                 className={"workout-details__swiper"}
               >
                 {exercises.map(({ exercise, reps, sets, weight }, index) => (
@@ -182,7 +192,7 @@ function WorkoutDetails({ workout, onDelete }) {
               <>
                 <Tooltip title="Delete" placement="top">
                   <Button
-                    className="workout-delete-button"
+                    className="workout-details-delete-button"
                     sx={{ minWidth: "54px", height: "54px" }}
                     onClick={handleOpenDeleteDialog}
                   >
@@ -197,7 +207,7 @@ function WorkoutDetails({ workout, onDelete }) {
                 </Tooltip>
                 <Tooltip title="Edit" placement="top">
                   <Button
-                    className="workout-edit-button"
+                    className="workout-details-edit-button"
                     sx={{ minWidth: "54px", height: "54px" }}
                     onClick={handleOpenEditDialog}
                   >
@@ -320,7 +330,7 @@ function WorkoutDetails({ workout, onDelete }) {
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button
-            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c" }}
+            sx={{ width: "54px", height: "54", backgroundColor: "#e74c3c"  }}
             onClick={handleCloseDeleteDialog}
             onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
             onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
@@ -378,8 +388,7 @@ function WorkoutDetails({ workout, onDelete }) {
               backgroundColor: "white",
               borderRadius: "8px",
               justifyContent: "center",
-              boxShadow:
-                " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+
               maxWidth: "400px",
               width: "100%",
               height: "80px",
@@ -404,26 +413,30 @@ function WorkoutDetails({ workout, onDelete }) {
           </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
-          <Button
-            sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
-            onClick={handleCloseSaveDialog}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
-          >
-            <CloseIcon
-              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
-            />
-          </Button>
-          <Button
-            sx={{ width: "54px", height: "54px", backgroundColor: "#27ae60" }}
-            onClick={handleSaveWorkout}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = `#009432`)}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = `#27ae60`)}
-          >
-            <SaveIcon
-              sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
-            />
-          </Button>
+          <Tooltip title="close" placement="top">
+            <Button
+              sx={{ width: "54px", height: "54px", backgroundColor: "#e74c3c" }}
+              onClick={handleCloseSaveDialog}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = `#c0392b`)}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = `#e74c3c`)}
+            >
+              <CloseIcon
+                sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+              />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Save" placement="top">
+            <Button
+              sx={{ width: "54px", height: "54px", backgroundColor: "#27ae60" }}
+              onClick={handleSaveWorkout}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = `#009432`)}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = `#27ae60`)}
+            >
+              <SaveIcon
+                sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
+              />
+            </Button>
+          </Tooltip>
         </DialogActions>
       </Dialog>
     </>

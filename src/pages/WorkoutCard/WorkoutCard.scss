@@ -126,44 +126,47 @@
   align-self: flex-start;
   font-family: "Manrope", sans-serif;
   font-weight: 300;
+  margin: 0 0 0 10px;
 }
 
 .workout-card-actions {
   display: flex;
   justify-content: flex-start;
   padding: 0 10px 0;
-  gap: 10px;
+  // gap: 10px;
   width: 100%;
   margin: auto 0 0 0;
 }
 
 .workout-open-button {
   font-size: 17px !important;
-
   display: flex !important;
   justify-content: center !important ;
   align-items: center !important;
   margin: auto 0 0 !important;
-  background-color: #3498db !important;
+  // background-color: #3498db !important;
   color: white !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
 }
 .workout-open-button:hover {
-  background-color: #2980b9 !important;
+  // background-color: #2980b940 !important;
 }
 
 .workout-edit-button {
   font-size: 17px !important;
-
   display: flex !important;
   justify-content: center !important ;
   align-items: center !important;
   margin: auto 0 0 !important;
-  background-color: #e67e22 !important;
+  // background-color: #e67e22 !important;
   color: white !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
 }
 
 .workout-edit-button:hover {
-  background-color: #d35400 !important;
+  // background-color: #d35400 !important;
 }
 .workout-delete-button {
   font-size: 17px !important;
@@ -171,14 +174,63 @@
   justify-content: center !important ;
   align-items: center !important;
   margin: auto 0 0 !important;
-  background-color: #7f8c8d !important;
+  // background-color: #7f8c8d !important;
   color: white !important;
+border-radius: 50% !important;
+  padding: 0 !important;
 }
 
 .workout-delete-button:hover {
-  background-color: #535c68 !important;
+  // background-color: #535c68 !important;
 }
 
+// workout details
+
+.workout-details-open-button {
+  font-size: 17px !important;
+  display: flex !important;
+  justify-content: center !important ;
+  align-items: center !important;
+  margin: auto 0 0 !important;
+  background-color: #3498db !important;
+  color: white !important;
+  // border-radius: 50% !important;
+  // padding: 0 !important;
+}
+.workout-details-open-button:hover {
+  background-color: #2980b940 !important;
+}
+
+.workout-details-edit-button {
+  font-size: 17px !important;
+  display: flex !important;
+  justify-content: center !important ;
+  align-items: center !important;
+  margin: auto 0 0 !important;
+  background-color: #e67e22 !important;
+  color: white !important;
+  // border-radius: 50% !important;
+  // padding: 0 !important;
+}
+
+.workout-details-edit-button:hover {
+  background-color: #d35400 !important;
+}
+.workout-details-delete-button {
+  font-size: 17px !important;
+  display: flex !important;
+  justify-content: center !important ;
+  align-items: center !important;
+  margin: auto 0 0 !important;
+  background-color: #7f8c8d !important;
+  color: white !important;
+// border-radius: 50% !important;
+  // padding: 0 !important;
+}
+
+.workout-details-delete-button:hover {
+  background-color: #535c68 !important;
+}
 @media (max-width: 768px) {
 }
 
