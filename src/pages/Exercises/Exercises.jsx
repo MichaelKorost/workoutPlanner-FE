@@ -107,7 +107,7 @@ function Exercises() {
   // };
 
   return (
-    <>
+    <div className="exercises-page">
       <section className="exercises-search-and-filter">
         <header className="header">
           <ExercisesSearchBar
@@ -127,7 +127,6 @@ function Exercises() {
 
       <div
         className="exercise-list-container"
-        style={{ backgroundColor: "#ecf0f1" }}
       >
         <section className="exercises__list">
           {isLoading ? (
@@ -207,7 +206,7 @@ function Exercises() {
           </Tooltip>
         </DialogActions> */}
       </Dialog>
-    </>
+    </div>
   );
 }
 

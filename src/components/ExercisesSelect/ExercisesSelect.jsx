@@ -234,7 +234,6 @@ function ExercisesSelect({
       </section>
       <div
         className="exercise-select-list-container"
-        style={{ backgroundColor: randomColor }}
       >
         <section className="exercises__list">
           {isLoading ? (

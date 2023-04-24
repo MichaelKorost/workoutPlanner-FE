@@ -95,15 +95,15 @@ function ExercisesFilters({ onChangeFilters, appliedFilter }) {
       {isTablet && (
         <Button
           className="filter-button "
-          style={{ backgroundColor: `#fd79a840` }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = `#fd79a880`)}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = `#fd79a840`)}
+          style={{ backgroundColor: `` }}
+          onMouseEnter={(e) => (e.target.style.color = `#fd79a880`)}
+          onMouseLeave={(e) => (e.target.style.color = `black`)}
           type="button"
           onClick={toggleOpenFilter}
         >
           <TuneIcon
             sx={{
-              fontSize: "46px",
+              fontSize: "36px",
               textAlign: "center",
               pointerEvents: "none",
               color: "black",
@@ -116,7 +116,7 @@ function ExercisesFilters({ onChangeFilters, appliedFilter }) {
         className={`exercises__filters ${
           isFilterClicked ? "exercises__filters--active" : ""
         }`}
-        style={{ backgroundColor: "#fd79a840" }}
+        // style={{ backgroundColor: "#fd79a840" }}
       >
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "", color: "" }}
