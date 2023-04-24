@@ -155,7 +155,7 @@
 }
 
 .workout-actions-container {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
@@ -208,7 +208,7 @@
   }
 
   .workout-actions-container {
-    width: 100%;
+    width: 80%;
   }
 
   .workout-details-images {
@@ -233,7 +233,9 @@
   .workout-details-title-inner {
     font-size: 24px;
   }
-
+  .workout-actions-container {
+    width: 100%;
+  }
   .workout-details__swiper {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
