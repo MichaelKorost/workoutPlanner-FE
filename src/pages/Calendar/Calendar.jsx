@@ -25,6 +25,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Tooltip,
   useMediaQuery,
 } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -302,7 +303,7 @@ function Calendar() {
               overflowX: "hidden",
               textAlign: "center",
               fontSize: "40px",
-              padding: "10 20px",
+              padding: "0",
             }}
             className="calendar-dialog__title"
           >
@@ -321,16 +322,21 @@ function Calendar() {
                       {muscleGroup}
                     </h2>
                     <Swiper
-                      pagination={{ type: "fraction" }}
-                      navigation={true}
-                      modules={[Pagination, Navigation]}
+                        pagination={{
+                          dynamicBullets: true,
+                        }}
+                        slidesPerView={"auto"}
+                        spaceBetween={0}
+                        centeredSlides={true}
+                        navigation={false}
+                        modules={[Pagination]}
                       className={"workout-details__swiper"}
                     >
                       {exercises?.map(
                         ({ exercise, reps, sets, weight }, index) => (
                           <SwiperSlide
                             key={index}
-                            className="workout-details-swiper-container"
+                            className="workout-details-swiper-container workout-details-swiper-slide"
                           >
                             <img
                               alt="swipe-img"
@@ -363,6 +369,7 @@ function Calendar() {
             </div>
           </DialogContent>
           <DialogActions sx={{ justifyContent: "center" }}>
+              <Tooltip title="Remove from calendar" placement="top">
             <Button
               sx={{ width: "54px", height: "54px", backgroundColor: "#7f8c8d" }}
               onClick={handleDeleteEvent}
@@ -373,6 +380,8 @@ function Calendar() {
                 sx={{ color: "white", fontSize: "44px", pointerEvents: "none" }}
               />
             </Button>
+
+              </Tooltip>
           </DialogActions>
         </Dialog>
       </section>

@@ -79,7 +79,7 @@ function WorkoutCard({ workout, onDelete }) {
 
   return (
     <>
-      <div className="workout">
+      <div className="workout" >
         <button className="workout-title-button" onClick={handleOpenWorkout}>
           <Tilt
             className="workout__title"
@@ -334,7 +334,7 @@ function WorkoutCard({ workout, onDelete }) {
             overflowX: "hidden",
             textAlign: "center",
             fontSize: "28px",
-            padding: "10px 20px",
+            padding: "0",
             
           }}
           className="calendar-dialog__title"
@@ -354,7 +354,9 @@ function WorkoutCard({ workout, onDelete }) {
               >
                 <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
                 <Swiper
-                  pagination={{ type: "fraction" }}
+                   pagination={{
+                    dynamicBullets: true,
+                  }}
                   navigation={false}
                   slidesPerView={"auto"}
                   spaceBetween={0}
@@ -365,7 +367,7 @@ function WorkoutCard({ workout, onDelete }) {
                   {exercises?.map(({ exercise, reps, sets, weight }, index) => (
                     <SwiperSlide
                       key={index}
-                      className="workout-details-swiper-container"
+                      className="workout-details-swiper-container workout-details-swiper-slide"
                     >
                       <img
                         alt="slider"

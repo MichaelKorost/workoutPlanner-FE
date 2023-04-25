@@ -21,15 +21,17 @@
 .calendar-items-container {
   display: flex;
   flex-direction: column;
+  align-self: center;
   gap: 10px;
   width: 20%;
-  height: 735.22px;
-  margin: 64.78px 0 0 0;
+  // height: 735.22px;
+  height: 820px;
+  // margin: 64.78px 0 0 0;
   max-width: 300px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  padding: 10px 0 0 10px;
+  padding: 10px 0 10px 10px;
 }
 
 .calendar-workouts-title {
@@ -41,7 +43,7 @@
 .calendar__items {
   display: flex;
   flex-direction: column;
-  height: 700px;
+  // height: 700px;
   overflow-y: auto;
 }
 
@@ -122,7 +124,7 @@
     // margin: 64px 0 0 0;
     flex-direction: column;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: center;
     min-height: auto;
     padding: 5px;
   }

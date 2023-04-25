@@ -108,8 +108,8 @@ function Profile({ user, onSave }) {
             padding: "0 10px",
             backgroundColor: "white",
             borderRadius: "8px",
-            boxShadow:
-              " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+            // boxShadow:
+            //   " rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
             maxWidth: "500px",
             width: "100%",
             height: "80px",

@@ -104,19 +104,14 @@ function WorkoutDetails({ workout, onDelete }) {
     setOpenSaveDialog(false);
   };
 
-  const pagination = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return '<span class="' + className + '">' + (index + 1) + "</span>";
-    },
-  };
+
 
   return (
     <>
       <div className="workout-details-page">
         <div
           className="workout-details-container"
-          style={{ backgroundColor: "#f1f2f6" }}
+
         >
           <Button
             onClick={handleGoBack}
@@ -148,7 +143,9 @@ function WorkoutDetails({ workout, onDelete }) {
             <section key={index} className="workout-details-images">
               <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
               <Swiper
-                pagination={{ type: "fraction" }}
+                 pagination={{
+                  dynamicBullets: true,
+                }}
                 slidesPerView={"auto"}
                 spaceBetween={0}
                 centeredSlides={true}
@@ -159,7 +156,7 @@ function WorkoutDetails({ workout, onDelete }) {
                 {exercises.map(({ exercise, reps, sets, weight }, index) => (
                   <SwiperSlide
                     key={index}
-                    className="workout-details-swiper-container"
+                    className="workout-details-swiper-container workout-details-swiper-slide"
                   >
                     <img
                       alt="slider"

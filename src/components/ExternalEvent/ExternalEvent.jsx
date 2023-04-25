@@ -94,7 +94,7 @@ const ExternalEvent = memo(({ event }) => {
             overflowX: "hidden",
             textAlign: "center",
             fontSize: "40px",
-            padding: "10 20px",
+            padding: "0",
           }}
           className="calendar-dialog__title"
         >
@@ -110,15 +110,20 @@ const ExternalEvent = memo(({ event }) => {
               <section key={index} className="workout-details-images">
                 <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
                 <Swiper
-                  pagination={{ type: "fraction" }}
-                  navigation={true}
-                  modules={[Pagination, Navigation]}
+                   pagination={{
+                    dynamicBullets: true,
+                  }}
+                  slidesPerView={"auto"}
+                  spaceBetween={0}
+                  centeredSlides={true}
+                  navigation={false}
+                  modules={[Pagination]}
                   className={"workout-details__swiper"}
                 >
                   {exercises?.map(({ exercise, reps, sets, weight }, index) => (
                     <SwiperSlide
                       key={index}
-                      className="workout-details-swiper-container"
+                      className="workout-details-swiper-container workout-details-swiper-slide"
                     >
                       <img
                         className="workout-details-swiper__image"
