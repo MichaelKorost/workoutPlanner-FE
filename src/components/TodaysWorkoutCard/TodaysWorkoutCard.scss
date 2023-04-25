@@ -10,10 +10,17 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   margin: 0 0 30px 0;
   overflow-x: hidden;
+  background-color: #f5f6fa;
 }
 
 .workout-title-button {
   cursor: pointer;
+  transition: all 0.5s ease;
+  &:hover{
+    .todays-workout-small-card__title{
+      background-color: #dcdde1;
+    }
+  }
 }
 
 .todays-workout-small-card__title {
@@ -36,7 +43,7 @@
 .todays-workout-small-card__title-inner {
   text-overflow: ellipsis;
   overflow: hidden;
-  transform: translateZ(60px);
+  transform: translateZ(30px);
 }
 
 .todays-workout-mini-images {
@@ -44,16 +51,19 @@
 }
 
 .todays-workout-mini__swiper {
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  // background-color: white;
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   border-radius: 8px;
   width: 100%;
+  height: 140px;
 }
 .todays-workout-mini-swiper-container {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 120px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 8px;
 }
 
 .todays-workout-mini-swiper__image {
@@ -71,7 +81,16 @@
   font-family: "Manrope", sans-serif;
   padding: 0 0 0 10px;
   gap: 5px;
+  background-color: white;
 }
+
+.todays-workout-small-card__muscle-group{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  text-align: center;
+  font-size: 16px;
+}
+
 
 .workout-today-mini-swiper__exercise-name {
   font-family: "Manrope", sans-serif;
@@ -91,6 +110,33 @@
   font-size: 13px;
   width: 100%;
 }
+
+// .todays-workout-mini__swiper > .swiper-button-next{
+// color: red;
+
+// }
+// .todays-workout-mini__swiper > .swiper-button-prev{
+//   color: red;
+
+
+// }
+
+.todays-workout-mini__swiper > .swiper-pagination{
+  // position: absolute;
+  // text-align: center;
+  // transition: .3s opacity;
+  // transform: translate3d(0,0,0);
+  // z-index: 10;
+  // background: #FFF;
+  // width: 80px !important;
+  // left: 50% !important;
+  // margin-left: -40px;
+  border-radius: 20px;
+  bottom: 0;
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 5px 0px;
+  font-size: 14px;
+}
+
 
 // @media (max-width: 1440px) {
 //   .todays-workout-mini-swiper-container {

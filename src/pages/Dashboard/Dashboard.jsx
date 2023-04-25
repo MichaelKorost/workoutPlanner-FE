@@ -129,7 +129,7 @@ function Dashboard() {
         <div className="dashboard-container">
           <section className="dashboard__menu">
             <section className="dashboard-today-and-group1-container">
-              <div className="dashboard__todays-plan square">
+              <div className="dashboard__todays-plan ">
                 {todayWorkouts.length ? (
                   todayWorkouts.map((workout, index) => (
                     <TodaysWorkoutCard

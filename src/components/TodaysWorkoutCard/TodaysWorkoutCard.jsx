@@ -16,7 +16,6 @@ function TodaysWorkoutCard({ workout, title }) {
   return (
     <div
       className="todays-workout-small-card"
-      style={{ backgroundColor: "#ffcccc40" }}
     >
       <button className="workout-title-button" onClick={handleTItleClick}>
         <Tilt
@@ -32,17 +31,20 @@ function TodaysWorkoutCard({ workout, title }) {
 
       {workout.map(({ exercises, muscleGroup }, index) => (
         <section key={index} className="todays-workout-mini-images">
-          <h2 className="workout-details-muscle-group">{muscleGroup}</h2>
+          <h2 className="todays-workout-small-card__muscle-group">{muscleGroup}</h2>
           <Swiper
-            pagination={{ type: "fraction" }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
+            pagination={true}
+            navigation={false}
+            slidesPerView={1.2}
+            centeredSlides={true}
+            spaceBetween={10}
+            modules={[Pagination]}
             className="todays-workout-mini__swiper"
           >
             {exercises.map(({ exercise, reps, sets, weight }, index) => (
               <SwiperSlide
                 key={index}
-                className="todays-workout-mini-swiper-container"
+                className="todays-workout-mini-swiper-container workout-details-swiper-slide"
               >
                 <img
                   alt="slider"
