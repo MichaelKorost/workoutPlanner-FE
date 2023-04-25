@@ -70,6 +70,7 @@
   position: absolute;
   top: -5px;
   left: -20px;
+  padding: 2px 6px;
   transform: rotate(-45deg);
   background-color: white;
   font-weight: 600;
@@ -98,8 +99,10 @@
 .group1-item1 {
   width: 100%;
   height: 150px;
-  background-color: #22a6b3;
+  background-color: #22a7b3;
 }
+
+
 
 .group1-item2 {
   width: 100%;
@@ -145,15 +148,15 @@
 }
 
 .dashboard__link {
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   color: white;
   font-family: "Manrope", sans-serif;
   font-size: 20px;
   font-weight: 800;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
 .square {
@@ -161,7 +164,20 @@
   transition: all 0.1s ease;
   border-radius: 4px;
   padding: 10px;
+  position: relative;
+  overflow: hidden;
 }
+
+.square-img{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 130px;
+  object-fit: cover;
+  z-index: 0;
+opacity: 0.6;
+  }
 
 .square:hover {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 8px 8px;
@@ -273,7 +289,9 @@
 }
 
 .dashboard__button-text{
+  position: relative;
   font-size: 16px;
+  z-index: 2;
 }
 
 @media (max-width: 1200px) {

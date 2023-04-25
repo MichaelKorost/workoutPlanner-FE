@@ -27,6 +27,8 @@ import stabilityBall from "../../assets/undraw_stability_ball.svg";
 import yoga from "../../assets/undraw_yoga.svg";
 import Tilt from "react-parallax-tilt";
 import TodaysWorkoutCardSkeleton from "../../components/TodaysWorkoutCardSkeleton/TodaysWorkoutCardSkeleton";
+import img1 from "../../assets/create.svg"
+
 
 function Dashboard() {
   const [todayWorkouts, setTodayWorkouts] = useState([]);
@@ -159,6 +161,7 @@ function Dashboard() {
                     <div>
                       <AddCircleIcon sx={{height: "54px", width:"54px"}} />
                       <h2 className="dashboard__button-text" >Create workout plan</h2></div>
+                      <img className="square-img" src={img1} alt="yoga" />
                   </Link>
                   <Link
                     to={"/exercises"}
@@ -211,6 +214,7 @@ function Dashboard() {
                 <div>
                 <FolderSharedIcon sx={{height: "54px", width:"54px"}} />
                   <h2 className="dashboard__button-text">My workout plans</h2> 
+                  
                   </div>
               </Link>
             </section>
