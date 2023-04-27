@@ -27,7 +27,12 @@ import stabilityBall from "../../assets/undraw_stability_ball.svg";
 import yoga from "../../assets/undraw_yoga.svg";
 import Tilt from "react-parallax-tilt";
 import TodaysWorkoutCardSkeleton from "../../components/TodaysWorkoutCardSkeleton/TodaysWorkoutCardSkeleton";
-import img1 from "../../assets/create.svg"
+import createImg from "../../assets/create.svg"
+import calendarImg from "../../assets/calendar.svg"
+import exercisesImg from "../../assets/exercises.svg"
+import myWorkoutPlansImg from "../../assets/my_workout_plans.svg"
+import profileImg from "../../assets/profile.svg"
+import workoutplansImg from "../../assets/workout_plans.svg"
 
 
 function Dashboard() {
@@ -159,17 +164,18 @@ function Dashboard() {
                     className="dashboard__link group1-item1 square"
                   >
                     <div>
-                      <AddCircleIcon sx={{height: "54px", width:"54px"}} />
+                      <AddCircleIcon sx={{height: "60px", width:"60px", position:"relative", zIndex:"2"}} />
                       <h2 className="dashboard__button-text" >Create workout plan</h2></div>
-                      <img className="square-img" src={img1} alt="yoga" />
+                      <img className="square-img" src={createImg} alt="yoga" />
                   </Link>
                   <Link
                     to={"/exercises"}
                     className="dashboard__link group1-item2 square"
                   >
                     <div>
-                    <SportsGymnasticsIcon sx={{height: "54px", width:"54px"}} />
+                    <SportsGymnasticsIcon sx={{height: "60px", width:"60px"}} />
                      <h2 className="dashboard__button-text">Exercises</h2> 
+                     <img className="square-img" src={exercisesImg} alt="yoga" />
                       </div>
                   </Link>
                 </div>
@@ -178,8 +184,9 @@ function Dashboard() {
                   className="dashboard__link group1-item3 square"
                 >
                   <div> 
-                    <SearchIcon sx={{height: "54px", width:"54px"}} />
+                    <SearchIcon sx={{height: "60px", width:"60px"}} />
                     <h2 className="dashboard__button-text">workout plans</h2>
+                    <img className="rectangle-long-img" src={workoutplansImg} alt="yoga" />
                     </div>
                 </Link>
               </section>
@@ -192,8 +199,9 @@ function Dashboard() {
                   className="dashboard__link group2-item1 square"
                 >
                   <div>
-                    <CalendarMonthIcon sx={{height: "54px", width:"54px"}} />
+                    <CalendarMonthIcon sx={{height: "60px", width:"60px", color:"white", zIndex:"5", position:"relative"}} />
                     <h2 className="dashboard__button-text">Calendar</h2>
+                    <img className="square-img" src={calendarImg} alt="yoga" />
                     </div>
                 </Link>
                 <Link
@@ -202,8 +210,9 @@ function Dashboard() {
                   onClick={handleClickOpen}
                 >
                   <div>
-                  < PersonIcon sx={{height: "54px", width:"54px"}} />
+                  < PersonIcon sx={{height: "60px", width:"60px"}} />
                   <h2 className="dashboard__button-text">Profile</h2>
+                  <img className="square-img" src={profileImg} alt="yoga" />
                     </div>
                 </Link>
               </div>
@@ -212,9 +221,9 @@ function Dashboard() {
                 className="dashboard__link group2-item3 square"
               >
                 <div>
-                <FolderSharedIcon sx={{height: "54px", width:"54px"}} />
+                <FolderSharedIcon sx={{height: "60px", width:"60px"}} />
                   <h2 className="dashboard__button-text">My workout plans</h2> 
-                  
+                  <img className="square-img" src={myWorkoutPlansImg} alt="yoga" />
                   </div>
               </Link>
             </section>
