@@ -43,13 +43,14 @@
   font-family: "Manrope", sans-serif;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  padding: 3px;
+  padding: 3px 15px;
   transform-style: preserve-3d;
   position: sticky;
   top: 0;
   z-index: 4;
   max-width: 290px;
   color: #1976d2;
+  border-radius: 3px;
   transition: all 0.4s ease;
 }
 

@@ -31,9 +31,14 @@
   background-color: white;
   width: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  padding: 3px;
+  padding: 3px 15px;
+  color: #1976d2;
+  border-radius: 3px;
   font-weight: 500;
   transform-style: preserve-3d;
+  &:hover{
+    text-decoration: underline;
+  }
 }
 .workout-title-button {
   width: auto;

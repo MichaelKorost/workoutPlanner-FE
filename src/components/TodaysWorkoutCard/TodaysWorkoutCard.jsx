@@ -33,7 +33,9 @@ function TodaysWorkoutCard({ workout, title }) {
         <section key={index} className="todays-workout-mini-images">
           <h2 className="todays-workout-small-card__muscle-group">{muscleGroup}</h2>
           <Swiper
-            pagination={true}
+            pagination={{
+              dynamicBullets: true,
+            }}
             navigation={false}
             slidesPerView={1.2}
             centeredSlides={true}
