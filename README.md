@@ -25,7 +25,7 @@ https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-
 
 ![Dashboard](https://i.imgur.com/KejYRtM.png "Dashboard")
 ![Exercises](https://i.imgur.com/noOKfCp.png "Exercises")
-![exercise details](https://i.imgur.com/36MAlUJ.png "Exercise details")
+![exercise details](https://i.imgur.com/e9Px71k.png "Exercise details")
 ![Workouts](https://i.imgur.com/6G7GIOC.png "Workouts")
 ![Workout details](https://i.imgur.com/J9WKAJU.png "Workout details")
 ![Save existing workout](https://i.imgur.com/16D7inp.png "Save existing workout")
