@@ -11,7 +11,7 @@ Workout Planner is a web application for creating or saving existing workouts, a
 https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-bb91-85595b7804b8.mp4
 
 ## Gallery
-![Dashboard](https://i.imgur.com/6jx8obZ.png "Dashboard")
+<!-- ![Dashboard](https://i.imgur.com/6jx8obZ.png "Dashboard")
 ![Exercises](https://i.imgur.com/X0ovz4H.png "Exercises")
 ![Workouts](https://i.imgur.com/xyN6BGU.png "Workouts")
 ![Workout details](https://i.imgur.com/J9WKAJU.png "Workout details")
@@ -21,7 +21,7 @@ https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-
 ![Create workout select exercise details](https://i.imgur.com/36MAlUJ.png "Create workout select exercise details")
 ![Calendar](https://i.imgur.com/dpJ1mzr.png "Calendar")
 ![Calendar workout](https://i.imgur.com/pCGejMb.png "Calendar workout")
-![Profile](https://i.imgur.com/1uHi3ph.png "Profile")
+![Profile](https://i.imgur.com/1uHi3ph.png "Profile") -->
 
 ## Installation
 
