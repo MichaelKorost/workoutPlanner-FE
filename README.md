@@ -2,7 +2,7 @@
 
 ### Description
 
-Workout Planner is a web application for creating or saving existing workouts, and conveniently schedule them on a calendar.
+Workout Planner is a Website that allows users to create, edit, browse and save other’s workouts, as well as conveniently schedule them on a calendar.
 
 ## Website demo
 - [Link to website on Vercel](https://workout-planner-fe.vercel.app/)
