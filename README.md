@@ -8,7 +8,8 @@ Workout Planner is a web application for creating or saving existing workouts, a
 - [Link to website on Vercel](https://workout-planner-fe.vercel.app/)
 
 ## Video
-https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-bb91-85595b7804b8.mp4
+<!-- https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-bb91-85595b7804b8.mp4 -->
+https://github.com/MichaelKorost/workoutPlanner-FE/assets/61334477/ff77bb28-0e37-4801-9a51-b075b922a51b
 
 ## Gallery
 <!-- ![Dashboard](https://i.imgur.com/6jx8obZ.png "Dashboard")
