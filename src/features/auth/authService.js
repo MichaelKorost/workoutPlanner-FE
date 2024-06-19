@@ -60,6 +60,7 @@ const login = async (userData) => {
     localStorage.setItem("user", JSON.stringify(response.data));
     return response.data;
   } catch (error) {
+    localStorage.removeItem("user");
     throw new Error("Email or password are incorrect");
   }
 };

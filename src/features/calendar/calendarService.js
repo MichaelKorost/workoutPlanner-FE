@@ -10,8 +10,16 @@ const getUserCalendarEvents = async (token) => {
     },
   };
 
-  const response = await axios.get(API_URL, config);
-  return response.data;
+  try {
+    const response = await axios.get(API_URL, config);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("user");
+    }
+    localStorage.removeItem("user");
+    throw error;
+  }
 };
 
 // update user calendar events
