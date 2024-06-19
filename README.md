@@ -2,27 +2,38 @@
 
 ### Description
 
-Workout Planner is a web application for creating or saving existing workouts, and conveniently schedule them on a calendar.
+Workout Planner is a Website that allows users to create, edit, browse and save other’s workouts, as well as conveniently schedule them on a calendar.
 
 ## Website demo
 - [Link to website on Vercel](https://workout-planner-fe.vercel.app/)
 
 ## Video
-https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-bb91-85595b7804b8.mp4
+<!-- https://user-images.githubusercontent.com/61334477/232229026-e10c34f7-9c91-444f-bb91-85595b7804b8.mp4 -->
+https://github.com/MichaelKorost/workoutPlanner-FE/assets/61334477/ff77bb28-0e37-4801-9a51-b075b922a51b
 
 ## Gallery
-![Dashboard](https://i.imgur.com/6jx8obZ.png "Dashboard")
+<!-- ![Dashboard](https://i.imgur.com/6jx8obZ.png "Dashboard")
 ![Exercises](https://i.imgur.com/X0ovz4H.png "Exercises")
 ![Workouts](https://i.imgur.com/xyN6BGU.png "Workouts")
-![Workout details](https://i.imgur.com/J9WKAJU.png "Workout details")
+![Workout details](https://i.imgur.com/xldZgT8.png "Workout details")
 ![Save existing workout](https://i.imgur.com/jzGPFN6.png "Save existing workout")
 ![Create workout](https://i.imgur.com/1FRSKjn.png "Create workout")
 ![Create workout select exercise](https://i.imgur.com/cQ2s5rY.png "Create workout select exercise")
-![Create workout select exercise details](https://i.imgur.com/36MAlUJ.png "Create workout select exercise details")
 ![Calendar](https://i.imgur.com/dpJ1mzr.png "Calendar")
 ![Calendar workout](https://i.imgur.com/pCGejMb.png "Calendar workout")
-![Profile](https://i.imgur.com/1uHi3ph.png "Profile")
+![Profile](https://i.imgur.com/1uHi3ph.png "Profile") -->
 
+![Dashboard](https://i.imgur.com/KejYRtM.png "Dashboard")
+![Exercises](https://i.imgur.com/noOKfCp.png "Exercises")
+![exercise details](https://i.imgur.com/e9Px71k.png "Exercise details")
+![Workouts](https://i.imgur.com/6G7GIOC.png "Workouts")
+![Workout details](https://i.imgur.com/xldZgT8.png "Workout details")
+![Save existing workout](https://i.imgur.com/16D7inp.png "Save existing workout")
+![Create workout](https://i.imgur.com/1FRSKjn.png "Create workout")
+![Create workout select exercise](https://i.imgur.com/2gLk6KI.png "Create workout select exercise")
+![Calendar](https://i.imgur.com/dpJ1mzr.png "Calendar")
+![Calendar workout](https://i.imgur.com/1kCQR7p.png "Calendar workout")
+![Profile](https://i.imgur.com/nMwZcui.png "Profile")
 ## Installation
 
 clone repository
